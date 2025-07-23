@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luminomorphism Manifest</title>
+  <link rel="stylesheet" href="luminomorph.css">
+  <link rel="stylesheet" href="luminomorph.button.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: white;
+      padding: 60px 20px;
+      line-height: 1.7;
+      backdrop-filter: blur(4px);
+    }
+
+    .manifest-container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      background: linear-gradient(90deg, #ffffff, #a1ecff);
+      -webkit-background-clip: text;
+      background-clip: text; /* 👈 Și aici */
+      -webkit-text-fill-color: transparent;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      margin-top: 40px;
+      background: linear-gradient(90deg, #ffffff, #91e6ff);
+      -webkit-background-clip: text;
+      background-clip: text; /* 👈 Și aici */
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      opacity: 0.9;
+    }
+
+    .footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.6;
+    }
+
+      /* 🟢 Noise overlay pentru a reduce pixelarea/blandingul vizual */
+    body::after {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQI12NgYGBgAAAABAABJzQnCgAAAABJRU5ErkJggg==");
+      background-repeat: repeat;
+      opacity: 0.03;
+      z-index: 0;
+      mix-blend-mode: soft-light;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="manifest-container">
+    <h1>Luminomorphism</h1>
+    <p><em>Designing with light, blur, motion and layered perception.</em></p>
+
+    <h2>What is Luminomorphism?</h2>
+    <p>
+      Luminomorphism is a digital design language that emphasizes the presence of light,
+      translucency, depth and interactive feedback. It was born as a response to the
+      rigidity of flat design and the chaos of brutalism — offering instead a luminous,
+      fluid, almost dreamlike user experience.
+    </p>
+
+    <h2>Philosophy</h2>
+    <p>
+      At its core, luminomorphism is about atmosphere. It creates UIs that glow, float,
+      and breathe. Interaction is subtle and sensory: sound, ripple, tilt and movement.
+      The user doesn’t just see — they feel.
+    </p>
+
+    <h2>Principles</h2>
+    <ul>
+      <li><strong>Layered Light:</strong> Depth through gradients, blur and translucency</li>
+      <li><strong>Ambient Feedback:</strong> Hover and click effects simulate touch and motion</li>
+      <li><strong>Perceptual Depth:</strong> Tilt, reflection and subtle parallax</li>
+      <li><strong>Emotion through Design:</strong> Aesthetic meets experience</li>
+    </ul>
+
+    <h2>Applications</h2>
+    <p>
+      Luminomorphism fits naturally in futuristic interfaces, creative portfolios,
+      experimental music players, AR/VR dashboards and immersive storytelling websites.
+    </p>
+
+    <div>
+      <a href="index.html"><button class="luminomorph-button">Back</button></a>
+    </div>
+
+    <div class="footer">
+      &copy; 2025 Victor Tutu — Luminomorphism v0.1 Manifest
+    </div>
+  </div>
+  <script src="luminomorph.js"></script>
+  <script src="luminomorph.button.js"></script>
+  <script>
+    Luminomorph.init({ tilt: true, sound: false });
+  </script>
+  <script>
+    const cards = document.querySelectorAll('.card');
+    const sound = document.getElementById('hoverSound');
+
+    document.addEventListener('mousemove', (e) => {
+      const x = e.clientX / window.innerWidth - 0.5;
+      const y = e.clientY / window.innerHeight - 0.5;
+      const rotateX = y * 30;
+      const rotateY = x * -30;
+      cards.forEach(card => {
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+    });
+
+    cards.forEach(card => {
+      card.addEventListener('mouseenter', () => {
+        sound.currentTime = 0;
+        sound.play();
+      });
+    });
+  </script>
+</body>
+</html>

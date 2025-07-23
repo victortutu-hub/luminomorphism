@@ -1,0 +1,36 @@
+{
+  "name": "luminomorphism",
+  "version": "0.1.0",
+  "description": "A UI design system built around light, blur, ambient motion and perceptual feedback.",
+  "main": "dist/luminomorph.js",
+  "style": "dist/luminomorph.css",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "echo 'Use this as a front-end library via import or CDN.'"
+  },
+  "keywords": [
+    "ui-design",
+    "luminomorphism",
+    "glassmorphism",
+    "blur",
+    "tilt",
+    "ripple",
+    "glow",
+    "css",
+    "webcomponents",
+    "interface",
+    "design-system"
+  ],
+  "author": "Victor Mihai",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/victortutu/luminomorphism.git"
+  },
+  "homepage": "https://victortutu.github.io/luminomorphism/",
+  "bugs": {
+    "url": "https://github.com/victortutu/luminomorphism/issues"
+  }
+}
