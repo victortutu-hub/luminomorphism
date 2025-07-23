@@ -6,6 +6,7 @@
   "style": "dist/luminomorph.css",
   "files": [
     "dist"
+    "components"
   ],
   "scripts": {
     "start": "echo 'Use this as a front-end library via import or CDN.'"
