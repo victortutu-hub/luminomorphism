@@ -41,7 +41,7 @@ Creates orbiting light dots around a central label.
 - `color` — orbit color (e.g. `#00ffff`)
 - `radius` — orbit radius in px (e.g. `40`)
 
-🔗 🔗 [Live Demo on GitHub Pages](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html)
+🔗 [Live Demo on GitHub Pages](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html)
 
 ---
 
