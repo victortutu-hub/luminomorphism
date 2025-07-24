@@ -77,6 +77,20 @@ Include the main script:
 <script src="luminomorph.button.js"></script>
 ```
 
+## `<l-particle-net>` — Interactive Luminomorphic Network
+
+A unique animated component that renders a dynamic web of glowing nodes. Each node floats gently and connects to others via soft neon lines, creating a living molecular net.
+
+- ⚡ Fully interactive: reacts to cursor position
+- 🌌 Particle glow, radial connections, dynamic trails
+- 🎛️ Configurable: number of nodes, speed, and color
+- 🧠 Perfect for hero sections, backgrounds, data-like motion
+
+### Usage
+
+```html
+<l-particle-net nodes="40" speed="0.5" color="#00ffff"></l-particle-net>
+
 ---
 
 ## 🌐 Responsiveness & HD Support
