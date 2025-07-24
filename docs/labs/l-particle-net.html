@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>l-particle-net — Luminomorphism Demo</title>
+    <style>
+        body {
+            margin: 0;
+            background: radial-gradient(ellipse at center, #08141f 0%, #000a10 100%);
+            font-family: Segoe UI, sans-serif;
+            color: #ccf;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        l-particle-net {
+            width: 80vw;
+            height: 70vh;
+            display: block;
+            border-radius: 20px;
+            box-shadow: 0 0 60px #00ffff22 inset;
+            overflow: hidden;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        input[type=range] {
+            width: 140px;
+        }
+    </style>
+</head>
+
+<body>
+    <l-particle-net id="net" nodes="40" speed="0.4" color="#00ffff"></l-particle-net>
+
+    <div class="controls">
+        <div class="control-group">
+            <label for="nodes">Nodes: <span id="nodes-count">40</span></label>
+            <input type="range" id="nodes" min="10" max="2000" value="40" />
+        </div>
+        <div class="control-group">
+            <label for="speed">Speed: <span id="speed-value">0.4</span></label>
+            <input type="range" id="speed" min="0.1" max="2" value="0.4" step="0.1" />
+        </div>
+        <div class="control-group">
+            <label for="color">Color</label>
+            <input type="color" id="color" value="#00ffff" />
+        </div>
+    </div>
+
+    <script src="../../dist/l-particle-net.js"></script>
+    <script>
+        const net = document.getElementById('net');
+
+        const nodesSlider = document.getElementById('nodes');
+        const speedSlider = document.getElementById('speed');
+        const colorPicker = document.getElementById('color');
+        const nodesCount = document.getElementById('nodes-count');
+        const speedValue = document.getElementById('speed-value');
+
+        nodesSlider.addEventListener('input', () => {
+            nodesCount.textContent = nodesSlider.value;
+            net.setAttribute('nodes', nodesSlider.value);
+            net.reset();
+        });
+
+        speedSlider.addEventListener('input', () => {
+            speedValue.textContent = speedSlider.value;
+            net.setAttribute('speed', speedSlider.value);
+            net.reset();
+        });
+
+        colorPicker.addEventListener('input', () => {
+            net.setAttribute('color', colorPicker.value);
+            net.config.glowColor = colorPicker.value;
+        });
+    </script>
+</body>
+
+</html>
