@@ -1,137 +1,122 @@
 # 🌟 Luminomorphism
 
-**Luminomorphism** is a UI design system focused on visual interaction with light, blur, movement, and presence.
+**Luminomorphism** is a next-generation UI design system that elevates interface elements into living, light-reactive components.  
+It blends principles of fluid design, sensory feedback, and futuristic motion to transform digital surfaces into luminous experiences.
 
-> Refined. Fluid. Luminous. Interactive.
-
----
-
-## 🔮 Key Features
-
-- 3D interactive cards with tilt effects (mouse + gyroscope)
-- Animated reflections and orbital light elements
-- Glowing particle trails and ripple-style illumination
-- Modular Web Components with no dependencies
-- Fully responsive layout: mobile, tablet, and HD screens
+> ✨ It's not a visual style — it's a reactive presence.
 
 ---
 
-## 📁 File Structure
+## 🚀 What Makes It Unique?
+
+- ✅ 100% original Web Components — built from scratch
+- 💡 Inspired by light behavior: dispersion, glow, ripple, reflection
+- 🎯 Designed for creative interfaces, UI art, and immersive products
+- ⚙️ No frameworks, no dependencies — pure JavaScript + CSS
+- 📱 Fully responsive and mobile-ready
+
+---
+
+## 🧩 Available Components
+
+### 🎯 Interactive UI Effects
+
+| Component             | Description                                            | Demo Link |
+|----------------------|--------------------------------------------------------|-----------|
+| **`<l-orbital>`**     | Orbits glowing dots around a center                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
+| **`<l-orbital-nav>`** | Navigation system using animated orbital buttons       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
+| **`<l-particle-net>`**| Living particle network with light-linked nodes        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
+| **`<l-prism-layer>`** | Refractive prism shimmer layer reacting to interaction | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
+| **`<l-glow-trail>`**  | Follows cursor with soft particles and radiant trail   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html) |
+| **`<l-ripple-hover>`**| Ripple light burst on hover event                     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html) |
+| **`<l-echo-press>`**  | Radial luminous echo expanding from click point        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html) |
+
+---
+
+### 🧠 Input-Aware Enhancers
+
+| Component             | Description                                     | Demo Link |
+|----------------------|-------------------------------------------------|-----------|
+| **`<l-glint-focus>`** | Emits a scanning glint of light on focus event | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+
+---
+
+### 🧊 Structural + Background Effects
+
+| Component               | Description                                           | Demo Link |
+|------------------------|-------------------------------------------------------|-----------|
+| **`<l-depth-frame>`**    | Simulates 3D depth using layered shadows             | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-depth-frame.html) |
+| **`<l-flare-sheen>`**    | Reflective light sheen passes over content           | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-flare-sheen.html) |
+| **`<l-generative-bg>`**  | Procedural glowing animated background               | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-generative-bg.html) |
+| **`<l-hologram>`**       | Simulates holographic flicker and scan               | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-hologram.html) |
+| **`<l-light-ray>`**      | Animates light rays across a surface                 | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-light-ray.html) |
+| **`<l-mosaic-grid>`**    | Animated mosaic matrix with shifting light patterns  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-mosaic-grid.html) |
+| **`<l-pulse-bubble>`**   | Floating orb that pulses and glows like plasma       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-pulse-bubble.html) |
+| **`<l-glass-shape>`**    | (pending) Luminous abstract shapes for ambient decor | ⚠️ Not linked |
+
+---
+
+### 🖼️ Creative Layout Experiments
+
+| Component / Page             | Description                                      | Demo Link |
+|-----------------------------|--------------------------------------------------|-----------|
+| `l-gallery.html`            | Luminomorphic image gallery                      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery.html) |
+| `l-gallery-molecule.html`   | Molecular layout-style gallery                   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery-molecule.html) |
+
+---
+
+## 🧠 Philosophy
+
+> Luminomorphism is an interface response, not a decoration.  
+> It’s about how light would behave if it could respond to humans.
+
+---
+
+## ⚙️ Getting Started
+
+Use directly in HTML:
+
+```html
+<script src="dist/l-orbital.js"></script>
+
+<l-orbital count="12" color="#00ffff" radius="40"></l-orbital>
+```
+
+---
+
+## 📦 Installation (soon)
+
+```bash
+npm install luminomorphism
+```
+
+---
+
+## 📁 Folder Overview
 
 ```
 luminomorphism/
-├── dist/                     # Core components (JS & CSS)
-│   └── l-particle-net.js     # 🔥 Particle network component
-│
-├── docs/
-│   └── labs/                 # Interactive demos for each component
-│       └── l-particle-net.html
-│
-├── luminomorph.css           # Core visual styles
-├── luminomorph.button.css    # Button glow styles
-├── luminomorph-hdpatch.css   # HD screen enhancements
-├── luminomorph-responsive.css # Mobile/tablet/TV scaling
+├── dist/        → All Web Components
+├── docs/labs/   → GitHub Pages Demo Files
+├── README.md    → English Documentation
+├── README.RO.md → Romanian Documentation
 ```
 
 ---
 
-## 🧩 Custom Components
+## 👨‍💻 Author
 
-### 🔘 `<l-orbital>`
-
-Creates orbiting light dots around a central label.
-
-**Attributes:**
-- `count` – number of orbiters
-- `color` – glow color
-- `radius` – orbit radius in px
-
-🔗 [Live Demo on GitHub Pages](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html)
-
----
-
-### 💫 `<l-particle-net>` — Interactive Luminomorphic Network
-
-A one-of-a-kind glowing particle net with smooth animated connections. Nodes float, glow, and interact with the user's cursor in real time.
-
-**Attributes:**
-- `nodes` — number of particles (default: 32)
-- `speed` — movement speed (default: 0.4)
-- `color` — particle glow color (default: `#00ffff`)
-
-🔗 [Live Demo on GitHub Pages](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html)
-
----
-
-### 🌌 `<l-glass-shape>`
-
-Floating luminous shapes that create atmospheric background depth.
-
-**Attributes:**
-- `glow` — color of the shape
-- `speed` — `slow`, `medium`, `fast`
-
----
-
-## ⚙️ Initialization
-
-Include the main script:
-
-```html
-<script src="luminomorph.js"></script>
-<script>
-  Luminomorph.init({ tilt: true, sound: false });
-</script>
-```
-
----
-
-## 🧪 Example: Button with Glow
-
-```html
-<button class="luminomorph-button">Click Me</button>
-<script src="luminomorph.button.js"></script>
-```
-
----
-
-## 🌐 Responsive Support
-
-This library includes:
-- Smart scaling via `luminomorph-responsive.css`
-- Blur/text clarity patches for HD and low-DPI displays
-
----
-
-## 🚀 Local Demo
-
-1. Clone or download this repo
-2. Run `start_server.bat` or open `index.html` directly
-3. Explore `docs/labs/` for interactive previews
-
----
-
-## 💡 Philosophy
-
-**Luminomorphism** is not just a look — it’s a living interface style.  
-Every element responds to light, motion, and presence.
-
-> It’s an experience. Not a decoration.
-
----
-
-## 🌍 Translations
-
-🇷🇴 [Romanian version](./README.RO.md)
-
----
-
-## 🧠 Author
-
-Made with light by [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)
+Created by [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)  
+Original concept. 100% handcrafted. MIT Licensed.
 
 ---
 
 ## 📄 License
 
-MIT — Free to use, adapt, and build upon.
+MIT — Open, free, and modifiable.
+
+---
+
+## 🌐 Translations
+
+🇷🇴 [View in Romanian / Vezi versiunea română](./README.RO.md)
