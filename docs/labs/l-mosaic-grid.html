@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luminomorphism Labs – Mosaic Grid</title>
+  <link rel="stylesheet" href="../luminomorph.css" />
+  <style>
+    body {
+      background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 60px 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      margin-bottom: 0.5rem;
+    }
+    .controls {
+      max-width: 320px;
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+    .controls label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+    .controls input[type="number"],
+    .controls input[type="color"] {
+      width: 100%;
+      margin-bottom: 16px;
+      padding: 4px;
+      border-radius: 4px;
+      border: none;
+    }
+    .grid-wrapper {
+      width: 100%;
+      max-width: 600px;
+    }
+    l-mosaic-grid {
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Luminomorphism Labs – Mosaic Grid Interactiv</h1>
+  <p>Această pagină demonstrează elementul <code>&lt;l-mosaic-grid&gt;</code>. Plasează cursorul peste celule pentru a vedea efectul de undă propagată.</p>
+  <div class="controls">
+    <label for="rows-input">Număr rânduri:</label>
+    <input type="number" id="rows-input" min="2" max="8" value="4" />
+    <label for="cols-input">Număr coloane:</label>
+    <input type="number" id="cols-input" min="2" max="8" value="4" />
+    <label for="palette-input">Paletă (culori separate prin virgulă):</label>
+    <input type="text" id="palette-input" value="#00ffff,#ff00ff,#00ff80" />
+    <button id="apply-btn" style="width:100%;padding:6px;border:none;border-radius:6px;background:#00ffff;color:#001111;font-weight:bold;cursor:pointer;">Aplică</button>
+  </div>
+  <div class="grid-wrapper">
+    <l-mosaic-grid id="mosaic" rows="4" cols="4" palette="#00ffff,#ff00ff,#00ff80"></l-mosaic-grid>
+  </div>
+
+  <script src="../../dist/l-mosaic-grid.js"></script>
+  <script>
+    const rowsInput = document.getElementById('rows-input');
+    const colsInput = document.getElementById('cols-input');
+    const paletteInput = document.getElementById('palette-input');
+    const applyBtn = document.getElementById('apply-btn');
+    const mosaic = document.getElementById('mosaic');
+
+    applyBtn.addEventListener('click', () => {
+      const r = parseInt(rowsInput.value);
+      const c = parseInt(colsInput.value);
+      const palette = paletteInput.value;
+      if (r > 1 && c > 1) {
+        mosaic.setAttribute('rows', r);
+        mosaic.setAttribute('cols', c);
+      }
+      if (palette) {
+        mosaic.setAttribute('palette', palette);
+      }
+    });
+  </script>
+</body>
+
+</html>

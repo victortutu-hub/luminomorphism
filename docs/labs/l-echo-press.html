@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>l-echo-press — Demo</title>
+  <link rel="stylesheet" href="../luminomorph.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #0a0f1c;
+      font-family: 'Segoe UI', sans-serif;
+      color: #eef;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    l-echo-press {
+      display: inline-block;
+    }
+
+    button {
+      padding: 0.8rem 1.6rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #101622;
+      color: #eef;
+      box-shadow: 0 0 12px #00ffff44;
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <h1>&lt;l-echo-press&gt; Demo</h1>
+
+  <l-echo-press>
+    <button>Click Me</button>
+  </l-echo-press>
+
+  <l-echo-press>
+    <button>Another Button</button>
+  </l-echo-press>
+
+  <script src="../../dist/l-echo-press.js"></script>
+</body>
+</html>

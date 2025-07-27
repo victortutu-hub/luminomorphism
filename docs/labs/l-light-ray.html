@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminomorphism Labs – l-light-ray</title>
+    <link rel="stylesheet" href="../luminomorph.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, #0c1824, #0f1d2b);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        .controls {
+            max-width: 320px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .controls input,
+        .controls select {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .preview {
+            position: relative;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .l-card {
+            width: 260px;
+            height: 260px;
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .label {
+            position: relative;
+            z-index: 2;
+            font-size: 1.3rem;
+        }
+
+        l-light-ray {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <label for="ray-count">Number of Rays: <span id="count-value">12</span></label>
+        <input type="range" id="ray-count" min="4" max="64" value="12" />
+
+        <label for="ray-color">Ray Color:</label>
+        <input type="color" id="ray-color" value="#ffeeaa" />
+
+        <label for="ray-spread">Spread Angle: <span id="spread-value">60</span>&deg;</label>
+        <input type="range" id="ray-spread" min="20" max="360" value="60" />
+
+        <label for="ray-speed">Rotation Speed:</label>
+        <select id="ray-speed">
+            <option value="slow" selected>Slow</option>
+            <option value="medium">Medium</option>
+            <option value="fast">Fast</option>
+        </select>
+    </div>
+
+    <div class="preview">
+        <div class="l-card">
+            <span class="label">l-light-ray</span>
+            <l-light-ray></l-light-ray>
+        </div>
+    </div>
+
+    <script src="../../dist/l-light-ray.js"></script>
+    <script>
+        const countSlider = document.getElementById('ray-count');
+        const colorPicker = document.getElementById('ray-color');
+        const spreadSlider = document.getElementById('ray-spread');
+        const speedSelect = document.getElementById('ray-speed');
+
+        const countValue = document.getElementById('count-value');
+        const spreadValue = document.getElementById('spread-value');
+        const component = document.querySelector('l-light-ray');
+
+        function updateRay() {
+            const count = parseInt(countSlider.value);
+            const color = colorPicker.value;
+            const spread = parseInt(spreadSlider.value);
+            const speed = speedSelect.value;
+
+            countValue.textContent = count;
+            spreadValue.textContent = spread;
+
+            component.setAttribute('count', count);
+            component.setAttribute('color', color);
+            component.setAttribute('spread', spread);
+            component.setAttribute('speed', speed);
+        }
+
+        countSlider.addEventListener('input', updateRay);
+        colorPicker.addEventListener('input', updateRay);
+        spreadSlider.addEventListener('input', updateRay);
+        speedSelect.addEventListener('change', updateRay);
+
+        updateRay();
+    </script>
+</body>
+
+</html>
