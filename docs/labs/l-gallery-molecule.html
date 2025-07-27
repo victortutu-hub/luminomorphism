@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luminomorphic Molecular Gallery</title>
+  <link rel="stylesheet" href="../luminomorph.css">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', sans-serif;
+      background: radial-gradient(circle, #0a1a2a, #08141f 80%);
+    }
+
+    .molecular-structure {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    #molecule-bg {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+
+    .node {
+      transform-origin: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, z-index 0.4s;
+      z-index: 2;
+
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #e8f9ff;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .node:hover {
+      z-index: 10;
+      transform: scale(1.2);
+      box-shadow: 0 0 50px rgba(0,255,255,0.6), inset 0 0 20px rgba(0,255,255,0.1);
+
+      transform: scale(1.1);
+      box-shadow: 0 0 40px rgba(0,255,255,0.3);
+    }
+
+    .floating {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .effect-pulse {
+      animation: pulse 1s infinite ease-in-out;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(255,255,255,0.1); }
+      50% { box-shadow: 0 0 40px rgba(0,255,255,0.6); }
+    }
+
+    .effect-ripple::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      animation: ripple 0.8s ease-out;
+    }
+    @keyframes ripple {
+      0% { transform: scale(1); opacity: 0.6; }
+      100% { transform: scale(5); opacity: 0; }
+    }
+
+    .effect-glow {
+      box-shadow: 0 0 30px rgba(0,255,255,0.5), inset 0 0 20px rgba(255,255,255,0.1);
+    }
+
+    .reset-button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      padding: 10px 20px;
+      font-weight: bold;
+      color: white;
+      background: rgba(255,255,255,0.08);
+      border: none;
+      border-radius: 10px;
+      backdrop-filter: blur(6px);
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .node {
+        width: 90px;
+        height: 90px;
+        font-size: 0.7rem;
+      }
+
+      .node {
+      transform-origin: center;
+      transition: transform 0.4s ease, box-shadow 0.4s ease, z-index 0.4s;
+      z-index: 2;
+
+        width: 100px;
+        height: 100px;
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <section class="molecular-structure" id="molecular-structure">
+    <canvas id="molecule-bg"></canvas>
+
+    
+<div class="node floating" data-effect="glow">l-orbital</div>
+<div class="node floating" data-effect="pulse">l-pulse-bubble</div>
+<div class="node floating" data-effect="glow">l-glow-trail</div>
+<div class="node floating" data-effect="glow">l-light-ray</div>
+<div class="node floating" data-effect="ripple">l-ripple-hover</div>
+<div class="node floating" data-effect="pulse">l-depth-frame</div>
+<div class="node floating" data-effect="glow">l-flare-sheen</div>
+<div class="node floating" data-effect="glow">l-particle-net</div>
+<div class="node floating" data-effect="glow">l-prism-layer</div>
+<div class="node floating" data-effect="ripple">l-glint-focus</div>
+<div class="node floating" data-effect="ripple">l-echo-press</div>
+<div class="node floating" data-effect="pulse">l-mosaic-grid</div>
+<div class="node floating" data-effect="glow">l-hologram</div>
+<div class="node floating" data-effect="pulse">l-generative-bg</div>
+<div class="node floating" data-effect="pulse">l-gallery</div>
+<div class="node floating" data-effect="pulse">l-orbital-nav</div>
+<div class="node floating" data-effect="glow">l-glass-shape</div>
+<div class="node floating" data-effect="ripple">l-button</div>
+<div class="node floating" data-effect="ripple">l-field</div>
+<div class="node floating" data-effect="ripple">l-tab-ripple</div>
+
+    <button class="reset-button" onclick="resetPositions()">Reset Positions</button>
+
+  </section>
+
+  <script>
+    const canvas = document.getElementById('molecule-bg');
+    const ctx = canvas.getContext('2d');
+    const nodes = document.querySelectorAll('.node');
+    const container = document.getElementById('molecular-structure');
+
+    function resizeCanvas() {
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      drawLines();
+    }
+
+    function drawLines() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.strokeStyle = 'rgba(0, 255, 255, 0.08)';
+      ctx.lineWidth = 1;
+
+      const maxDistance = Math.min(canvas.width, canvas.height) / 2.5;
+
+      const positions = Array.from(nodes).map(node => {
+        return {
+          x: node.offsetLeft + node.offsetWidth / 2,
+          y: node.offsetTop + node.offsetHeight / 2
+        };
+      });
+
+      for (let i = 0; i < positions.length; i++) {
+        for (let j = i + 1; j < positions.length; j++) {
+          const dx = positions[i].x - positions[j].x;
+          const dy = positions[i].y - positions[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < maxDistance) {
+            ctx.beginPath();
+            ctx.moveTo(positions[i].x, positions[i].y);
+            ctx.lineTo(positions[j].x, positions[j].y);
+            ctx.stroke();
+          }
+        }
+      }
+    }
+
+    function resetPositions() {
+      
+  const containerWidth = container.offsetWidth;
+  const radius = containerWidth < 600 ? 120 : containerWidth < 960 ? 200 : 280;
+
+      const centerX = container.offsetWidth / 2;
+      const centerY = container.offsetHeight / 2;
+      const angleStep = (2 * Math.PI) / nodes.length;
+
+      nodes.forEach((node, i) => {
+        const angle = i * angleStep;
+        const x = centerX + radius * Math.cos(angle) - node.offsetWidth / 2;
+        const y = centerY + radius * Math.sin(angle) - node.offsetHeight / 2;
+        node.style.left = `${x}px`;
+        node.style.top = `${y}px`;
+      });
+
+      drawLines();
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      resetPositions();
+    });
+    window.addEventListener('load', () => {
+      resizeCanvas();
+      setTimeout(() => {
+        resetPositions();
+      }, 100);
+    });
+    setInterval(drawLines, 300);
+
+    nodes.forEach(node => {
+      node.addEventListener('mouseenter', () => {
+        const effect = node.dataset.effect;
+        node.classList.add(`effect-${effect}`);
+      });
+      node.addEventListener('mouseleave', () => {
+        const effect = node.dataset.effect;
+        node.classList.remove(`effect-${effect}`);
+      });
+    });
+  </script>
+</body>
+
+</html>
