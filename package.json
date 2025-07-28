@@ -1,6 +1,6 @@
 {
   "name": "luminomorphism",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "A UI design system built around light, blur, ambient motion and perceptual feedback.",
   "main": "dist/luminomorph.js",
   "style": "dist/luminomorph.css",
