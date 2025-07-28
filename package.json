@@ -7,11 +7,11 @@
   "files": [
     "dist"
   ],
-  "scripts": {
+   "scripts": {
     "start": "echo 'Use this as a front-end library via import or CDN.'",
     "build": "npm run minify:js && npm run minify:css",
-    "minify:js": "esbuild dist/*.js --minify --outdir=dist --out-extension:.js=.min.js --allow-overwrite",
-    "minify:css": "for %f in (dist\\*.css) do csso %f --output dist\\%~nf.min.css"
+    "minify:js": "esbuild dist/!(*.min).js --minify --outdir=dist --out-extension:.js=.min.js --allow-overwrite",
+    "minify:css": "node -e \"require('fs').readdirSync('dist').filter(f => f.endsWith('.css') && !f.endsWith('.min.css')).forEach(f => require('child_process').execSync(`npx csso dist/${f} --output dist/${f.replace('.css', '.min.css')}`))\""
   },
   "keywords": [
     "ui-design",
