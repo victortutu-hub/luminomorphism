@@ -34,5 +34,9 @@
   "homepage": "https://victortutu.github.io/luminomorphism/",
   "bugs": {
     "url": "https://github.com/victortutu/luminomorphism/issues"
+  },
+  "devDependencies": {
+    "csso-cli": "^4.0.2",
+    "esbuild": "^0.25.8"
   }
 }
