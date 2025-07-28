@@ -1,5 +1,10 @@
 # 🌟 Luminomorphism
 
+[![npm version](https://img.shields.io/npm/v/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+[![License](https://img.shields.io/npm/l/luminomorphism.svg)](https://github.com/victortutu-hub/luminomorphism/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/npm/dw/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+
+
 **Luminomorphism** este un sistem de design UI de generație nouă, care transformă elementele de interfață în componente vii, reactive la lumină.  
 Combină principii de design fluid, feedback senzorial și mișcare futuristă pentru a transforma suprafețele digitale în experiențe luminoase.
 
