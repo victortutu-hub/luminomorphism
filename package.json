@@ -11,7 +11,7 @@
     "start": "echo 'Use this as a front-end library via import or CDN.'",
     "build": "npm run minify:js && npm run minify:css",
     "minify:js": "esbuild dist/*.js --minify --outdir=dist --out-extension:.js=.min.js",
-    "minify:css": "csso dist/luminomorph.css --output dist/luminomorph.min.css"
+    "minify:css": "for %f in (dist\\*.css) do csso %f --output dist\\%~nf.min.css"
   },
   "keywords": [
     "ui-design",
