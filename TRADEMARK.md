@@ -16,7 +16,7 @@ While the source code is released under the MIT License, the name **"Luminomorph
 - Use "Luminomorphism" in product names, logos, domains or libraries without permission
 - Imply affiliation with or endorsement by the original creator without consent
 
-For licensing, partnerships or clarification, contact: **mihaivictordaniel#gmail.com**
+For licensing, partnerships or clarification, contact: **mihaivictordaniel@gmail.com**
 
 ---
 
