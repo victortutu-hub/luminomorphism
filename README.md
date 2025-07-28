@@ -1,5 +1,10 @@
 # 🌟 Luminomorphism
 
+[![npm version](https://img.shields.io/npm/v/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+[![License](https://img.shields.io/npm/l/luminomorphism.svg)](https://github.com/victortutu-hub/luminomorphism/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/npm/dw/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+
+
 **Luminomorphism** is a next-generation UI design system that elevates interface elements into living, light-reactive components.  
 It blends principles of fluid design, sensory feedback, and futuristic motion to transform digital surfaces into luminous experiences.
 
