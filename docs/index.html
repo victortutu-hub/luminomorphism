@@ -2,265 +2,336 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Luminomorphism — Refined Glow</title>
-  <link rel="stylesheet" href="luminomorph.css">
-  <link rel="stylesheet" href="luminomorph.button.css">
-  <link rel="stylesheet" href="luminomorph-hdpatch.css">
-  <link rel="stylesheet" href="luminomorph-responsive.css">
-  <style>
-    body {
-      background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
-      color: #e8f9ff;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
-      overflow-x: hidden;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminomorphism — Refined Glow</title>
+    <link rel="stylesheet" href="luminomorph.css">
+    <link rel="stylesheet" href="luminomorph.button.css">
+    <link rel="stylesheet" href="luminomorph-hdpatch.css">
+    <link rel="stylesheet" href="luminomorph-responsive.css">
+    <style>
+        body {
+            background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
+            color: #e8f9ff;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
 
-    nav {
-      width: 100%;
-      padding: 15px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-    }
+        nav {
+            width: 100%;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            flex-wrap: wrap;
+        }
 
-    nav .nav-links {
-      display: flex;
-      gap: 40px;
-    }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
 
-    nav a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      position: relative;
-      padding: 8px 12px;
-    }
+        .nav-links.show {
+            display: flex !important;
+            flex-direction: column;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .dropdown {
-      position: relative;
-      display: inline-block;
-    }
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            position: relative;
+            padding: 8px 12px;
+        }
 
-    .dropdown-content {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(12px);
-      border-radius: 12px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      z-index: 999;
-      min-width: 180px;
-    }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
 
-    .dropdown-content a {
-      color: white;
-      padding: 10px 18px;
-      text-decoration: none;
-      display: block;
-      font-weight: 500;
-      transition: background 0.3s;
-    }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
+            z-index: 999;
+            min-width: 180px;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            max-height: 60vh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            scroll-behavior: smooth;
+        }
 
-    .dropdown-content a:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
+        .dropdown-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    .dropdown:hover .dropdown-content {
-      display: block;
-    }
+        .dropdown-content a {
+            color: white;
+            padding: 10px 18px;
+            text-decoration: none;
+            display: block;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
 
+        .dropdown-content a:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
 
-    .controls {
-      display: flex;
-      gap: 10px;
-    }
+        .dropdown-content.fade-out {
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+        }
 
-    .mode-switch {
-      padding: 6px 14px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.08);
-      border: none;
-      color: white;
-      cursor: pointer;
-      font-weight: bold;
-      backdrop-filter: blur(6px);
-    }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            width: 100%;
+            justify-content: center;
+        }
 
-    header.hero {
-      text-align: center;
-      padding: 160px 20px 60px;
-      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
-    }
+        .mode-switch {
+            padding: 6px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            backdrop-filter: blur(6px);
+        }
 
-    .hero h1 {
-      font-size: 3rem;
-      background: linear-gradient(90deg, #ffffff, #c1f5ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            position: relative;
+            z-index: 20;
+        }
 
-    .hero p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-top: 10px;
-    }
+        header.hero {
+            text-align: center;
+            padding: 160px 20px 60px;
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+        }
 
-    .grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 40px;
-      justify-content: center;
-      padding: 80px 30px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        .hero h1 {
+            font-size: 3rem;
+            background: linear-gradient(90deg, #ffffff, #c1f5ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-    .l-card:hover {
-      --card-transform: rotateX(2deg) rotateY(-2deg) scale(1.04);
-      transform: scale(1.04) rotateX(2deg) rotateY(-2deg);
-      box-shadow: 0 35px 60px rgba(0, 0, 0, 0.55), inset 0 0 160px rgba(255, 255, 255, 0.02);
-    }
+        .hero p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
 
+        .grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            justify-content: center;
+            padding: 80px 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    .l-card::before {
-      content: "";
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-      pointer-events: none;
-      opacity: 0;
-      z-index: 0;
-    }
+        .l-card:hover {
+            --card-transform: rotateX(2deg) rotateY(-2deg) scale(1.04);
+            transform: scale(1.04) rotateX(2deg) rotateY(-2deg);
+            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.55), inset 0 0 160px rgba(255, 255, 255, 0.02);
+        }
 
-    .glow-mode .l-card:hover::before {
-      animation: l-shimmer 4s infinite linear;
-      opacity: 1;
-    }
+        .l-card::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
+            pointer-events: none;
+            opacity: 0;
+            z-index: 0;
+        }
 
-    @keyframes l-shimmer {
-      0% {
-        transform: translateX(-100%) translateY(-100%) rotate(25deg);
-      }
+        .glow-mode .l-card:hover::before {
+            animation: l-shimmer 4s infinite linear;
+            opacity: 1;
+        }
 
-      50% {
-        transform: translateX(100%) translateY(100%) rotate(25deg);
-      }
+        @keyframes l-shimmer {
+            0% {
+                transform: translateX(-100%) translateY(-100%) rotate(25deg);
+            }
 
-      100% {
-        transform: translateX(-100%) translateY(-100%) rotate(25deg);
-      }
-    }
+            50% {
+                transform: translateX(100%) translateY(100%) rotate(25deg);
+            }
 
-    l-glass-shape {
-      position: absolute;
-    }
+            100% {
+                transform: translateX(-100%) translateY(-100%) rotate(25deg);
+            }
+        }
 
-    @media (max-width: 480px) {
-      l-glass-shape {
-        display: none;
-      }
-    }
-  </style>
+        l-glass-shape {
+            position: absolute;
+        }
+
+        @media (max-width: 480px) {
+            l-glass-shape {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+    </style>
 </head>
 
 <body>
-
-  <nav>
-    <div class="nav-links">
-      <a href="#">Home</a>
-      <a href="about.html">About</a>
-      <a href="labs/l-gallery-molecule.html">Galerie</a>
-      <a href="manifest.html">Manifest</a>
-      <div class="dropdown">
-        <a href="#">Labs ▼</a>
-        <div class="dropdown-content">
-          <a href="labs/l-orbital.html">l-orbital</a>
-          <a href="labs/l-pulse-bubble.html">l-pulse-bubble</a>
-          <a href="labs/l-glow-trail.html">l-glow-trail</a>
-          <a href="labs/l-light-ray.html">l-light-ray</a>
-          <a href="labs/l-ripple-hover.html">l-ripple-hover</a>
-          <a href="labs/l-depth-frame.html">l-depth-frame</a>
-          <a href="labs/l-flare-sheen.html">l-flare-sheen</a>
-          <a href="labs/l-generative-bg.html">l-generative-bg</a>
-          <a href="labs/l-hologram.html">l-hologram</a>
-          <a href="labs/l-mosaic-grid.html">l-mosaic-grid</a>
-          <a href="labs/l-orbital-nav.html">l-orbital-nav</a>
-          <a href="labs/l-particle-net.html">l-particle-net</a>
-          <a href="labs/l-prism-layer.html">l-prism-layer</a>
-          <a href="labs/l-glint-focus.html">l-glint-focus</a>
-          <a href="labs/l-echo-press.html">l-echo-press</a>
+    <nav>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="about.html">About</a>
+            <a href="labs/l-gallery-molecule.html">Galerie</a>
+            <a href="manifest.html">Manifest</a>
+            <div class="dropdown">
+                <a href="#" onclick="event.preventDefault(); toggleDropdown()">Labs ▼</a>
+                <div class="dropdown-content">
+                    <a href="labs/l-orbital.html">l-orbital</a>
+                    <a href="labs/l-pulse-bubble.html">l-pulse-bubble</a>
+                    <a href="labs/l-glow-trail.html">l-glow-trail</a>
+                    <a href="labs/l-light-ray.html">l-light-ray</a>
+                    <a href="labs/l-ripple-hover.html">l-ripple-hover</a>
+                    <a href="labs/l-depth-frame.html">l-depth-frame</a>
+                    <a href="labs/l-flare-sheen.html">l-flare-sheen</a>
+                    <a href="labs/l-generative-bg.html">l-generative-bg</a>
+                    <a href="labs/l-hologram.html">l-hologram</a>
+                    <a href="labs/l-mosaic-grid.html">l-mosaic-grid</a>
+                    <a href="labs/l-orbital-nav.html">l-orbital-nav</a>
+                    <a href="labs/l-particle-net.html">l-particle-net</a>
+                    <a href="labs/l-prism-layer.html">l-prism-layer</a>
+                    <a href="labs/l-glint-focus.html">l-glint-focus</a>
+                    <a href="labs/l-echo-press.html">l-echo-press</a>
+                </div>
+            </div>
         </div>
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="controls">
+            <button class="mode-switch" onclick="toggleCardGlow()">Card Glow: OFF</button>
+            <button class="mode-switch" onclick="toggleBackgroundGlow()">Background Glow: ON</button>
         </div>
-      </div>
-    </div>
-    <div class="controls">
-      <button class="mode-switch" onclick="toggleCardGlow()">Card Glow: OFF</button>
-      <button class="mode-switch" onclick="toggleBackgroundGlow()">Background Glow: ON</button>
-    </div>
-  </nav>
+    </nav>
 
+    <header class="hero">
+        <l-glass-shape class="glow-shape" glow="#00ffff" speed="slow"
+            style="top: 40%; left: 25%; width: 180px; height: 180px;"></l-glass-shape>
+        <l-glass-shape class="glow-shape" glow="#ff00ff" speed="slow"
+            style="top: 50%; left: 50%; width: 240px; height: 240px;"></l-glass-shape>
+        <l-glass-shape class="glow-shape" glow="#ffff00" speed="slow"
+            style="top: 60%; left: 75%; width: 160px; height: 160px;"></l-glass-shape>
+        <h1>Welcome to Luminomorphism</h1>
+        <p>Refined. Fluid. Luminous. Now clearer than ever.</p>
+    </header>
 
-  <header class="hero">
-    <l-glass-shape class="glow-shape" glow="#00ffff" speed="slow"
-      style="top: 40%; left: 25%; width: 180px; height: 180px;"></l-glass-shape>
-    <l-glass-shape class="glow-shape" glow="#ff00ff" speed="slow"
-      style="top: 50%; left: 50%; width: 240px; height: 240px;"></l-glass-shape>
-    <l-glass-shape class="glow-shape" glow="#ffff00" speed="slow"
-      style="top: 60%; left: 75%; width: 160px; height: 160px;"></l-glass-shape>
-    <h1>Welcome to Luminomorphism</h1>
-    <p>Refined. Fluid. Luminous. Now clearer than ever.</p>
-  </header>
+    <section class="grid">
+        <div class="l-card">Card 1</div>
+        <div class="l-card">Card 2</div>
+        <div class="l-card">Card 3</div>
+        <div class="l-card">Card 4</div>
+    </section>
 
-  <section class="grid">
-    <div class="l-card">Card 1</div>
-    <div class="l-card">Card 2</div>
-    <div class="l-card">Card 3</div>
-    <div class="l-card">Card 4</div>
-  </section>
+    <script src="luminomorph.js"></script>
+    <script src="luminomorph.button.js"></script>
+    <script src="l-glass-shape.js"></script>
+    <script>
+        Luminomorph.init({ tilt: true, sound: false });
 
+        let cardGlow = false;
+        let backgroundGlow = true;
 
-  <script src="luminomorph.js"></script>
-  <script src="luminomorph.button.js"></script>
-  <script src="l-glass-shape.js"></script>
-  <!-- 🔽 componente -->
-  
-  <script>
-    Luminomorph.init({ tilt: true, sound: false });
+        function toggleCardGlow() {
+            cardGlow = !cardGlow;
+            document.body.classList.toggle('glow-mode', cardGlow);
+            document.querySelectorAll('.mode-switch')[0].innerText = 'Card Glow: ' + (cardGlow ? 'ON' : 'OFF');
+        }
 
-    let cardGlow = false;
-    let backgroundGlow = true;
+        function toggleBackgroundGlow() {
+            backgroundGlow = !backgroundGlow;
+            const shapes = document.querySelectorAll('.glow-shape');
+            shapes.forEach(el => {
+                el.style.display = backgroundGlow ? 'block' : 'none';
+            });
+            document.querySelectorAll('.mode-switch')[1].innerText = 'Background Glow: ' + (backgroundGlow ? 'ON' : 'OFF');
+        }
 
-    function toggleCardGlow() {
-      cardGlow = !cardGlow;
-      document.body.classList.toggle('glow-mode', cardGlow);
-      document.querySelectorAll('.mode-switch')[0].innerText = 'Card Glow: ' + (cardGlow ? 'ON' : 'OFF');
-    }
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const isOpen = navLinks.classList.contains('show');
+            navLinks.classList.toggle('show');
 
-    function toggleBackgroundGlow() {
-      backgroundGlow = !backgroundGlow;
-      const shapes = document.querySelectorAll('.glow-shape');
-      shapes.forEach(el => {
-        el.style.display = backgroundGlow ? 'block' : 'none';
-      });
-      document.querySelectorAll('.mode-switch')[1].innerText = 'Background Glow: ' + (backgroundGlow ? 'ON' : 'OFF');
-    }
-  </script>
+            if (!isOpen) {
+                document.addEventListener('click', closeMenuOnClickOutside);
+            }
+        }
+
+        function closeMenuOnClickOutside(event) {
+            const nav = document.querySelector('nav');
+            if (!nav.contains(event.target)) {
+                document.querySelector('.nav-links').classList.remove('show');
+                document.removeEventListener('click', closeMenuOnClickOutside);
+            }
+        }
+
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown-content');
+            dropdown.classList.toggle("show");
+
+            // Adaugă închidere automată după selectare
+            const links = dropdown.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    dropdown.classList.remove('show');
+                });
+            });
+        }
+    </script>
 </body>
 
 </html>
