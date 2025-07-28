@@ -16,7 +16,7 @@ pnpm-debug.log*
 node_modules/
 
 # Build output
-dist/*.min.*
+#dist/*.min.*
 dist/*.map
 *.log
 
