@@ -1,12 +1,7 @@
-# 🌟 Luminomorphism
+# 🌟 Luminomorphism — Documentație în limba română
 
-[![npm version](https://img.shields.io/npm/v/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
-[![License](https://img.shields.io/npm/l/luminomorphism.svg)](https://github.com/victortutu-hub/luminomorphism/blob/main/LICENSE)
-[![Downloads](https://img.shields.io/npm/dw/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
-
-
-**Luminomorphism** este un sistem de design UI de generație nouă, care transformă elementele de interfață în componente vii, reactive la lumină.  
-Combină principii de design fluid, feedback senzorial și mișcare futuristă pentru a transforma suprafețele digitale în experiențe luminoase.
+**Luminomorphism** este un sistem de design UI de nouă generație, care transformă elementele de interfață în componente reactive la lumină și mișcare.  
+Combină principii de design fluid, feedback senzorial și mișcare futuristă pentru a crea o experiență digitală luminoasă și interactivă.
 
 > ✨ Nu este doar un stil vizual — este o prezență reactivă.
 
@@ -14,82 +9,81 @@ Combină principii de design fluid, feedback senzorial și mișcare futuristă p
 
 ## 🚀 Ce îl face unic?
 
-- ✅ Componente Web 100% originale — dezvoltate de la zero
-- 💡 Inspirat din comportamentul luminii: dispersie, glow, ripple, reflexie
-- 🎯 Creat pentru interfețe artistice, UI experimentale și aplicații futuriste
-- ⚙️ Fără frameworkuri, fără dependențe — doar JavaScript și CSS pur
-- 📱 100% responsive, funcțional pe mobil și tabletă
+- ✅ Web Components 100% originale — scrise de la zero
+- 💡 Inspirat de comportamentul luminii: dispersie, strălucire, reflexie, puls
+- 🎯 Creat pentru interfețe creative, artă digitală și UI imersiv
+- ⚙️ Fără framework-uri, fără dependențe — doar JavaScript + CSS
+- 📱 Complet responsive și optimizat pentru mobil
 
 ---
 
-## 🧩 Componente disponibile
+## 🧩 Componente Disponibile
 
-### 🎯 Efecte interactive
+### 🎯 Efecte UI Interactive
 
-| Componentă              | Descriere                                                 | Link Demo |
-|-------------------------|-----------------------------------------------------------|-----------|
-| **`<l-orbital>`**       | Orbitează puncte luminoase în jurul unui centru          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
-| **`<l-orbital-nav>`**   | Sistem de navigare cu butoane orbitale animate           | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
-| **`<l-particle-net>`**  | Rețea interactivă de particule conectate prin lumină     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
-| **`<l-prism-layer>`**   | Strat cu dispersie spectrală reactivă                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
-| **`<l-glow-trail>`**    | Urmă de particule luminoase care urmărește cursorul      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html) |
-| **`<l-ripple-hover>`**  | Efect ripple luminos la hover                            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html) |
-| **`<l-echo-press>`**    | Ecou radial luminos la click                             | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html) |
-
----
-
-### 🧠 Efecte pe bază de focus
-
-| Componentă               | Descriere                                        | Link Demo |
-|--------------------------|--------------------------------------------------|-----------|
-| **`<l-glint-focus>`**     | Fascicul luminos animat la focus                | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+| Componentă                | Descriere                                             | Demo |
+|--------------------------|--------------------------------------------------------|------|
+| **`<l-orbital>`**        | Orbitează puncte luminoase în jurul unui centru        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
+| **`<l-orbital-nav>`**    | Sistem de navigație cu butoane orbitale animate        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
+| **`<l-particle-net>`**   | Rețea de particule cu noduri conectate prin lumină     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
+| **`<l-prism-layer>`**    | Efect prismă refractivă ce reacționează la interacțiune| [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
+| **`<l-glow-trail>`**     | Urmă radiantă ce urmărește cursorul                   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html) |
+| **`<l-ripple-hover>`**   | Explozie circulară de lumină la hover                 | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html) |
+| **`<l-echo-press>`**     | Ecou radial luminos pornind de la click                | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html) |
+| **`<l-magnetic-cluster>`** | Sfere cu fizică Verlet, comportament Boids și atracție magnetică | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html) |
 
 ---
 
-### 🧊 Efecte vizuale și de fundal
+### 🧠 Efecte bazate pe interacțiune
 
-| Componentă               | Descriere                                              | Link Demo |
-|--------------------------|--------------------------------------------------------|-----------|
-| **`<l-depth-frame>`**     | Simulează adâncime 3D cu umbre stratificate            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-depth-frame.html) |
-| **`<l-flare-sheen>`**     | Reflexie luminoasă care traversează suprafața         | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-flare-sheen.html) |
-| **`<l-generative-bg>`**   | Fundal procedural animat cu glow                      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-generative-bg.html) |
-| **`<l-hologram>`**        | Efect holografic tip scan și flicker                  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-hologram.html) |
-| **`<l-light-ray>`**       | Anima raze de lumină care traversează un element      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-light-ray.html) |
-| **`<l-mosaic-grid>`**     | Grilă animată cu modele de lumină                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-mosaic-grid.html) |
-| **`<l-pulse-bubble>`**    | Orb plutitor care pulsează și emite glow             | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-pulse-bubble.html) |
-| **`<l-glass-shape>`**     | (în pregătire) Forme abstracte luminoase decorative   | ⚠️ Nelistat |
+| Componentă               | Descriere                                       | Demo |
+|--------------------------|--------------------------------------------------|------|
+| **`<l-glint-focus>`**    | Emite o reflexie mișcătoare la focus input       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
 
 ---
 
-### 🖼️ Layout-uri experimentale
+### 🧊 Efecte de fundal și structură
 
-| Pagină / Componentă        | Descriere                                     | Link Demo |
-|----------------------------|-----------------------------------------------|-----------|
-| `l-gallery.html`           | Galerie de imagini cu efect luminomorfic     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery.html) |
-| `l-gallery-molecule.html`  | Galerie inspirată de rețele moleculare       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery-molecule.html) |
-
----
-
-## 🧠 Filosofie
-
-> Luminomorphism nu este un decor. Este un comportament de interfață inspirat de lumină.  
-> Reacționează. Pulsează. Trăiește.
+| Componentă                | Descriere                                         | Demo |
+|---------------------------|---------------------------------------------------|------|
+| **`<l-depth-frame>`**     | Simulează profunzimea 3D prin umbre stratificate | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-depth-frame.html) |
+| **`<l-flare-sheen>`**     | Reflexie luminoasă trece peste conținut          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-flare-sheen.html) |
+| **`<l-generative-bg>`**   | Fundal procedural animat și strălucitor          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-generative-bg.html) |
+| **`<l-hologram>`**        | Simulează efecte de hologram și scanare          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-hologram.html) |
+| **`<l-light-ray>`**       | Animă raze de lumină pe o suprafață              | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-light-ray.html) |
+| **`<l-mosaic-grid>`**     | Matrice animată cu modele luminoase dinamice     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-mosaic-grid.html) |
+| **`<l-pulse-bubble>`**    | Bulă luminoasă ce pulsează                       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-pulse-bubble.html) |
 
 ---
 
-## ⚙️ Utilizare
+### 🖼️ Experimente Vizuale
 
-Folosește direct în HTML:
+| Pagini Speciale                | Descriere                                 | Demo |
+|-------------------------------|-------------------------------------------|------|
+| `l-gallery.html`              | Galerie luminomorfică clasică             | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery.html) |
+| `l-gallery-molecule.html`     | Galerie tip „moleculă” interactivă        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery-molecule.html) |
+
+---
+
+## ✨ Exemplu pentru `<l-magnetic-cluster>`
 
 ```html
-<script src="dist/l-orbital.js"></script>
+<script src="dist/l-magnetic-cluster.min.js"></script>
 
-<l-orbital count="12" color="#00ffff" radius="40"></l-orbital>
+<l-magnetic-cluster
+  count="12"
+  size="40"
+  speed="1.5"
+  opacity="0.6"
+  verlet="true"
+  boids="true"
+  magnetic="true">
+</l-magnetic-cluster>
 ```
 
 ---
 
-## 📦 Instalare (în curând)
+## 📦 Instalare
 
 ```bash
 npm install luminomorphism
@@ -97,14 +91,14 @@ npm install luminomorphism
 
 ---
 
-## 📁 Structura proiectului
+## 📁 Structură Foldere
 
 ```
 luminomorphism/
-├── dist/        → Componente Web exportate
-├── docs/labs/   → Pagini demo pentru GitHub Pages
+├── dist/        → Componente minificate
+├── docs/labs/   → Fișiere pentru demo-uri GitHub Pages
 ├── README.md    → Documentație în engleză
-├── README.RO.md → Documentație în română
+├── README.RO.md → Această documentație în română
 ```
 
 ---
@@ -112,16 +106,10 @@ luminomorphism/
 ## 👨‍💻 Autor
 
 Creat de [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)  
-100% original. Scris de mână. Licență MIT.
+100% original, scris manual, licențiat MIT.
 
 ---
 
 ## 📄 Licență
 
-MIT — liber pentru utilizare și extindere.
-
----
-
-## 🌐 Alte limbi
-
-🇬🇧 [Versiunea în engleză / English version](./README.md)
+MIT — liber pentru utilizare și modificare.
