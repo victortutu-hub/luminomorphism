@@ -1,5 +1,11 @@
 # 🌟 Luminomorphism — Documentație în limba română
 
+[![npm version](https://img.shields.io/npm/v/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+[![License](https://img.shields.io/npm/l/luminomorphism.svg)](https://github.com/victortutu-hub/luminomorphism/blob/main/LICENSE)
+[![Downloads](https://img.shields.io/npm/dw/luminomorphism.svg)](https://www.npmjs.com/package/luminomorphism)
+[![GitHub stars](https://img.shields.io/github/stars/victortutu-hub/luminomorphism?style=social)](https://github.com/victortutu-hub/luminomorphism/stargazers)
+[![Bundle size](https://img.shields.io/bundlephobia/minzip/luminomorphism)](https://bundlephobia.com/result?p=luminomorphism)
+
 **Luminomorphism** este un sistem de design UI de nouă generație, care transformă elementele de interfață în componente reactive la lumină și mișcare.  
 Combină principii de design fluid, feedback senzorial și mișcare futuristă pentru a crea o experiență digitală luminoasă și interactivă.
 
