@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 
@@ -124,3 +125,131 @@
 </body>
 
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luminomorphism Labs – l-pulse-bubble</title>
+  <link rel="stylesheet" href="../luminomorph.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 60px 20px;
+      background: linear-gradient(300deg, #08141f, #0e1d2b);
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+    }
+
+    .controls {
+      max-width: 320px;
+      margin: 0 auto 40px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .controls label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .controls input,
+    .controls select {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .preview {
+      position: relative;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .l-card {
+      width: 260px;
+      height: 260px;
+      position: relative;
+      z-index: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    .label {
+      position: relative;
+      z-index: 1;
+      font-size: 1.3rem;
+    }
+
+    l-pulse-bubble {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="controls">
+    <label for="bubble-count">Number of Bubbles: <span id="count-value">8</span></label>
+    <input type="range" id="bubble-count" min="1" max="30" value="8" />
+
+    <label for="bubble-color">Bubble Color:</label>
+    <input type="color" id="bubble-color" value="#00ffff" />
+
+    <label for="bubble-speed">Pulse Speed:</label>
+    <select id="bubble-speed">
+      <option value="slow">Slow</option>
+      <option value="medium" selected>Medium</option>
+      <option value="fast">Fast</option>
+    </select>
+  </div>
+
+  <div class="preview">
+    <div class="l-card">
+      <span class="label">l-pulse-bubble</span>
+      <l-pulse-bubble></l-pulse-bubble>
+    </div>
+  </div>
+
+  <script src="../l-pulse-bubble.js"></script>
+  <script>
+    const countSlider = document.getElementById('bubble-count');
+    const colorPicker = document.getElementById('bubble-color');
+    const speedSelect = document.getElementById('bubble-speed');
+    const countValue = document.getElementById('count-value');
+    const container = document.querySelector('l-pulse-bubble');
+
+    function renderBubble() {
+      const count = parseInt(countSlider.value);
+      const color = colorPicker.value;
+      const speed = speedSelect.value;
+
+      countValue.textContent = count;
+
+      container.setAttribute('count', count);
+      container.setAttribute('color', color);
+      container.setAttribute('speed', speed);
+    }
+
+    countSlider.addEventListener('input', renderBubble);
+    colorPicker.addEventListener('input', renderBubble);
+    speedSelect.addEventListener('change', renderBubble);
+
+    renderBubble();
+  </script>
+</body>
+
+</html>
+>>>>>>> c92d80a (Update README and docs)
