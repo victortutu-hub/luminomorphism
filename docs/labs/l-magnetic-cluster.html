@@ -1,682 +1,122 @@
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Magnetic Cluster - Aplicații Practice</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>l-magnetic-cluster — Luminomorphism (Live Controls)</title>
+  <script src="../l-magnetic-cluster.js"></script>
+  <style>
+    html,
+    body {
+      margin: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #08141f 0%, #0e1d2b 100%);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
 
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: #0a0e1a;
-            color: #ffffff;
-            overflow-x: hidden;
-        }
+    .label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1rem;
+      color: #cfffff;
+      background: rgba(0, 255, 255, 0.05);
+      padding: 6px 12px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+    }
 
-        /* 1. HERO SECTION CU BACKGROUND INTERACTIV */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
-        }
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 10;
+      background: rgba(0, 255, 255, 0.05);
+      padding: 10px 14px;
+      border-radius: 12px;
+      backdrop-filter: blur(10px);
+    }
 
-        .hero-cluster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+    .controls label {
+      color: #cfffff;
+      font-size: 0.85rem;
+    }
 
-        .hero-content {
-            text-align: center;
-            z-index: 2;
-            position: relative;
-            max-width: 800px;
-            padding: 0 20px;
-        }
+    .controls input {
+      width: 160px;
+    }
 
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero p {
-            font-size: 1.3rem;
-            margin-bottom: 30px;
-            opacity: 0.9;
-        }
-
-        .cta-button {
-            display: inline-block;
-            padding: 15px 40px;
-            background: rgba(0, 212, 255, 0.1);
-            border: 2px solid #00d4ff;
-            border-radius: 50px;
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .cta-button:hover {
-            background: rgba(0, 212, 255, 0.2);
-            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* 2. SECȚIUNE SERVICII CU PARTICULE TEMATICE */
-        .services {
-            padding: 100px 20px;
-            background: #0f1520;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .services h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 60px;
-            color: #00d4ff;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-            border: 1px solid rgba(0, 212, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(0, 212, 255, 0.3);
-        }
-
-        .service-cluster {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 150px;
-            height: 150px;
-            opacity: 0.6;
-        }
-
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: #00d4ff;
-            z-index: 2;
-            position: relative;
-        }
-
-        .service-card p {
-            opacity: 0.8;
-            line-height: 1.6;
-            z-index: 2;
-            position: relative;
-        }
-
-        /* 3. CONTACT SECTION CU NETWORK EFFECT */
-        .contact {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
-            position: relative;
-        }
-
-        .contact-cluster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.3;
-        }
-
-        .contact-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #00d4ff;
-        }
-
-        .contact-form {
-            max-width: 600px;
-            margin: 40px auto;
-            display: grid;
-            gap: 20px;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            margin-bottom: 8px;
-            color: #00d4ff;
-            font-weight: 500;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 10px;
-            color: #ffffff;
-            font-size: 16px;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #00d4ff;
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-        .submit-btn {
-            padding: 15px 40px;
-            background: linear-gradient(45deg, #00d4ff, #0099ff);
-            border: none;
-            border-radius: 50px;
-            color: #ffffff;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
-        }
-
-        /* 4. PORTOFOLIU CU EFECTE DINAMICE */
-        .portfolio {
-            padding: 100px 20px;
-            background: #0a0e1a;
-        }
-
-        .portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .portfolio-item {
-            position: relative;
-            height: 250px;
-            border-radius: 15px;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .portfolio-item:hover {
-            transform: scale(1.05);
-        }
-
-        .portfolio-cluster {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .portfolio-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            padding: 20px;
-            z-index: 2;
-        }
-
-        .portfolio-overlay h4 {
-            color: #00d4ff;
-            margin-bottom: 5px;
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.1rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .service-cluster {
-                width: 100px;
-                height: 100px;
-            }
-        }
-    </style>
+    l-magnetic-cluster {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
 </head>
 
 <body>
-    <!-- 1. HERO SECTION - Background interactiv -->
-    <section class="hero">
-        <l-magnetic-cluster class="hero-cluster" count="25" size="20" speed="0.5" opacity="0.3" verlet="true"
-            boids="true" magnetic="true">
-        </l-magnetic-cluster>
+  <div class="label">l-magnetic-cluster</div>
 
-        <div class="hero-content">
-            <h1>Inovație Tehnologică</h1>
-            <p>Creăm soluții digitale care transformă viziunea ta în realitate prin tehnologii de vârf și design
-                inteligent.</p>
-            <a href="#contact" class="cta-button">Începe Proiectul</a>
-        </div>
-    </section>
+  <div class="controls">
+    <label>Count: <input id="count" type="range" min="2" max="30" value="8" /></label>
+    <label>Size: <input id="size" type="range" min="10" max="100" value="60" /></label>
+    <label>Speed: <input id="speed" type="range" min="0.1" max="5" step="0.1" value="1.5" /></label>
+    <label>Opacity: <input id="opacity" type="range" min="0.1" max="1" step="0.1" value="0.6" /></label>
+    <label>
+      <input type="checkbox" id="toggle-verlet" checked />
+      Verlet Physics
+    </label>
+    <label>
+      <input type="checkbox" id="toggle-boids" checked />
+      Boids Behavior
+    </label>
+    <label>
+      <input type="checkbox" id="toggle-magnetic" checked />
+      Magnetic Cursor
+    </label>
 
-    <!-- 2. SERVICII - Particule tematice pentru fiecare serviciu -->
-    <section class="services">
-        <div class="container">
-            <h2>Serviciile Noastre</h2>
-            <div class="services-grid">
+  </div>
 
-                <div class="service-card">
-                    <l-magnetic-cluster class="service-cluster" count="8" size="20" speed="1.2" opacity="0.4"
-                        verlet="true" boids="false" magnetic="true">
-                    </l-magnetic-cluster>
-                    <h3>Dezvoltare Web</h3>
-                    <p>Aplicații web moderne, responsive și optimizate pentru performanță maximă. Folosim cele mai noi
-                        tehnologii pentru rezultate excepționale.</p>
-                </div>
+  <l-magnetic-cluster id="cluster" count="8" size="60" speed="1.5" opacity="0.6"></l-magnetic-cluster>
 
-                <div class="service-card">
-                    <l-magnetic-cluster class="service-cluster" count="12" size="15" speed="0.6" opacity="0.5"
-                        verlet="false" boids="true" magnetic="true">
-                    </l-magnetic-cluster>
-                    <h3>Design UI/UX</h3>
-                    <p>Interfețe intuitive și experiențe de utilizator memorabile. Combinăm creativitatea cu cercetarea
-                        pentru design-uri ce convertesc.</p>
-                </div>
+  <script>
+    const cluster = document.getElementById('cluster');
+    const controls = ['count', 'size', 'speed', 'opacity'];
 
-                <div class="service-card">
-                    <l-magnetic-cluster class="service-cluster" count="15" size="25" speed="1.5" opacity="0.3"
-                        verlet="true" boids="true" magnetic="true">
-                    </l-magnetic-cluster>
-                    <h3>Consultanță IT</h3>
-                    <p>Strategii tehnologice personalizate pentru afacerea ta. Te ghidăm în alegerea celor mai potrivite
-                        soluții digitale.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 3. PORTOFOLIU - Efecte dinamice pe proiecte -->
-    <section class="portfolio">
-        <div class="container">
-            <h2 style="text-align: center; margin-bottom: 60px; color: #00d4ff;">Portofoliul Nostru</h2>
-            <div class="portfolio-grid">
-
-                <div class="portfolio-item">
-                    <l-magnetic-cluster class="portfolio-cluster" count="10" size="35" speed="0.5" opacity="0.2"
-                        verlet="true" boids="false" magnetic="true">
-                    </l-magnetic-cluster>
-                    <div class="portfolio-overlay">
-                        <h4>Platformă E-commerce</h4>
-                        <p>Sistem complet de vânzări online</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-item">
-                    <l-magnetic-cluster class="portfolio-cluster" count="6" size="40" speed="1.0" opacity="0.25"
-                        verlet="false" boids="true" magnetic="true">
-                    </l-magnetic-cluster>
-                    <div class="portfolio-overlay">
-                        <h4>Aplicație Mobilă</h4>
-                        <p>App nativ iOS și Android</p>
-                    </div>
-                </div>
-
-                <div class="portfolio-item">
-                    <l-magnetic-cluster class="portfolio-cluster" count="8" size="30" speed="0.8" opacity="0.3"
-                        verlet="true" boids="true" magnetic="false">
-                    </l-magnetic-cluster>
-                    <div class="portfolio-overlay">
-                        <h4>Dashboard Analytics</h4>
-                        <p>Vizualizare date în timp real</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4. CONTACT - Network effect pentru conexiune -->
-    <section class="contact" id="contact">
-        <l-magnetic-cluster class="contact-cluster" count="25" size="20" speed="0.4" opacity="0.15" verlet="true"
-            boids="true" magnetic="true">
-        </l-magnetic-cluster>
-
-        <div class="contact-content">
-            <h2>Să Discutăm Proiectul Tău</h2>
-            <p>Transformă ideile în realitate. Contactează-ne pentru o consultație gratuită.</p>
-
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="name">Nume</label>
-                    <l-glint-focus>
-                        <input type="text" id="name" name="name" required />
-                    </l-glint-focus>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <l-glint-focus>
-                        <input type="email" id="email" name="email" required />
-                    </l-glint-focus>
-                </div>
-                <div class="form-group">
-                    <label for="project">Descrierea Proiectului</label>
-                    <l-glint-focus>
-                        <textarea id="project" name="project" rows="4" required></textarea>
-                    </l-glint-focus>
-                </div>
-                <button type="submit" class="submit-btn">Trimite Mesajul</button>
-            </form>
-        </div>
-    </section>
-
-    <script>
-        // Componenta l-magnetic-cluster
-        (function () {
-            class LMagneticCluster extends HTMLElement {
-                constructor() {
-                    super();
-                    this.attachShadow({ mode: "open" });
-                    this.nodes = [];
-                    this.mouse = { x: 0, y: 0 };
-                }
-
-                connectedCallback() {
-                    setTimeout(() => this.init(), 50);
-                }
-
-                reinit() {
-                    this.shadowRoot.innerHTML = "";
-                    this.nodes = [];
-                    requestAnimationFrame(() => this.init());
-                }
-
-                init() {
-                    const count = parseInt(this.getAttribute("count")) || 8;
-                    const size = parseFloat(this.getAttribute("size")) || 50;
-                    const opacity = parseFloat(this.getAttribute("opacity")) || 0.5;
-
-                    const width = this.offsetWidth > 0 ? this.offsetWidth : 800;
-                    const height = this.offsetHeight > 0 ? this.offsetHeight : 600;
-
-                    const useVerlet = this.getAttribute("verlet") !== "false";
-                    const useBoids = this.getAttribute("boids") !== "false";
-                    const useMagnetic = this.getAttribute("magnetic") !== "false";
-
-                    const glowMap = {
-                        0: '0 0 10px rgba(255,255,255,0.05)',
-                        1: '0 0 40px rgba(0,255,255,0.6)',
-                        2: '0 0 20px rgba(0,128,255,0.4)',
-                        3: '0 0 28px rgba(0,194,255,0.45)',
-                        4: '0 0 14px rgba(200,150,255,0.3)',
-                        5: '0 0 32px rgba(0,224,209,0.5)',
-                        6: '0 0 32px rgba(139,92,246,0.5)',
-                        7: '0 0 40px rgba(170,255,255,0.6)'
-                    };
-
-                    const style = document.createElement("style");
-                    style.textContent = `
-                        :host {
-                            position: relative;
-                            display: block;
-                            width: 100%;
-                            height: 100%;
-                            min-width: 400px;
-                            min-height: 300px;
-                            overflow: hidden;
-                        }
-                        .node {
-                            position: absolute;
-                            width: ${size}px;
-                            height: ${size}px;
-                            border-radius: 50%;
-                            background: rgba(0, 255, 255, ${opacity});
-                            backdrop-filter: blur(4px);
-                            pointer-events: none;
-                            transition: box-shadow 0.3s ease, background 0.3s ease;
-                        }
-                    `;
-                    this.shadowRoot.appendChild(style);
-
-                    const container = document.createElement("div");
-                    container.style.position = "absolute";
-                    container.style.width = "100%";
-                    container.style.height = "100%";
-                    this.shadowRoot.appendChild(container);
-
-                    for (let i = 0; i < count; i++) {
-                        const node = document.createElement("div");
-                        node.classList.add("node");
-
-                        node.x = Math.random() * width;
-                        node.y = Math.random() * height;
-                        node.xPrev = node.x;
-                        node.yPrev = node.y;
-                        node.ax = 0;
-                        node.ay = 0;
-
-                        container.appendChild(node);
-                        this.nodes.push(node);
-                    }
-
-                    this.shadowRoot.addEventListener("pointermove", e => {
-                        const rect = this.getBoundingClientRect();
-                        this.mouse.x = e.clientX - rect.left;
-                        this.mouse.y = e.clientY - rect.top;
-                    });
-
-                    const animate = () => {
-                        const speed = parseFloat(this.getAttribute("speed")) || 1;
-                        const sepDist = 60;
-                        const cohDist = 100;
-                        const sepForce = 0.08;
-                        const cohForce = 0.0015;
-                        const magneticNear = 2.0;
-                        const magneticFar = 0.8;
-
-                        const key = (useVerlet ? 1 : 0) << 2 | (useBoids ? 1 : 0) << 1 | (useMagnetic ? 1 : 0);
-                        const glow = glowMap[key];
-
-                        for (let i = 0; i < this.nodes.length; i++) {
-                            const node = this.nodes[i];
-
-                            let ax = 0;
-                            let ay = 0;
-                            node.style.boxShadow = glow;
-
-                            if (useMagnetic && (useVerlet || useBoids)) {
-                                const dx = this.mouse.x - node.x;
-                                const dy = this.mouse.y - node.y;
-                                const dist = Math.sqrt(dx * dx + dy * dy);
-                                const force = dist < 150 ? -magneticNear : magneticFar;
-                                ax += force * dx / (dist || 1) * 0.01 * speed;
-                                ay += force * dy / (dist || 1) * 0.01 * speed;
-                            }
-
-                            if (useBoids) {
-                                let sepX = 0, sepY = 0, cohX = 0, cohY = 0;
-                                let countCoh = 0, countSep = 0;
-
-                                for (let j = 0; j < this.nodes.length; j++) {
-                                    if (i === j) continue;
-                                    const other = this.nodes[j];
-                                    const dx2 = node.x - other.x;
-                                    const dy2 = node.y - other.y;
-                                    const d2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
-
-                                    if (d2 < sepDist && d2 > 0) {
-                                        sepX += dx2 / d2;
-                                        sepY += dy2 / d2;
-                                        countSep++;
-                                    }
-
-                                    if (d2 < cohDist) {
-                                        cohX += other.x;
-                                        cohY += other.y;
-                                        countCoh++;
-                                    }
-                                }
-
-                                if (countSep > 0) {
-                                    sepX /= countSep;
-                                    sepY /= countSep;
-                                    ax += sepX * sepForce;
-                                    ay += sepY * sepForce;
-                                }
-
-                                if (countCoh > 0) {
-                                    cohX /= countCoh;
-                                    cohY /= countCoh;
-                                    ax += (cohX - node.x) * cohForce;
-                                    ay += (cohY - node.y) * cohForce;
-                                }
-                            }
-
-                            ax += (Math.random() - 0.5) * 0.1;
-                            ay += (Math.random() - 0.5) * 0.1;
-
-                            node.ax = ax;
-                            node.ay = ay;
-                        }
-
-                        for (let node of this.nodes) {
-                            if (useVerlet) {
-                                const xTemp = node.x;
-                                const yTemp = node.y;
-
-                                node.x += (node.x - node.xPrev) * 0.95 + node.ax;
-                                node.y += (node.y - node.yPrev) * 0.95 + node.ay;
-
-                                node.xPrev = xTemp;
-                                node.yPrev = yTemp;
-                            } else {
-                                node.x += node.ax;
-                                node.y += node.ay;
-                            }
-
-                            if (node.x < 0) { node.x = 0; node.xPrev = node.x + 1; }
-                            if (node.x > width) { node.x = width; node.xPrev = node.x - 1; }
-                            if (node.y < 0) { node.y = 0; node.yPrev = node.y + 1; }
-                            if (node.y > height) { node.y = height; node.yPrev = node.y - 1; }
-
-                            node.style.transform = `translate(${node.x}px, ${node.y}px)`;
-                        }
-
-                        requestAnimationFrame(animate);
-                    };
-
-                    animate();
-                }
-            }
-
-            window.customElements.define("l-magnetic-cluster", LMagneticCluster);
-        })();
-
-        // Smooth scroll pentru CTA
-        document.querySelector('.cta-button').addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector('#contact').scrollIntoView({
-                behavior: 'smooth'
-            });
+    // Actualizare atribute numerice (slidere)
+    controls.forEach(id => {
+      document.getElementById(id).addEventListener('input', () => {
+        controls.forEach(ctrl => {
+          cluster.setAttribute(ctrl, document.getElementById(ctrl).value);
         });
+        cluster.reinit();
+      });
+    });
 
-        // Form submission
-        document.querySelector('.contact-form').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Mesaj trimis! Vă vom contacta în curând.');
-        });
+    // Switch Verlet ON/OFF
+    document.getElementById('toggle-verlet').addEventListener('change', e => {
+      cluster.setAttribute('verlet', e.target.checked ? 'true' : 'false');
+      cluster.reinit();
+    });
 
+    // Switch Boids ON/OFF
+    document.getElementById('toggle-boids').addEventListener('change', e => {
+      cluster.setAttribute('boids', e.target.checked ? 'true' : 'false');
+      cluster.reinit();
+    });
+    // Switch Magnetic Cursor ON/OFF
+    document.getElementById('toggle-magnetic').addEventListener('change', e => {
+      cluster.setAttribute('magnetic', e.target.checked ? 'true' : 'false');
+      cluster.reinit();
+    });
+  </script>
 
-        //Efectul de Glint-Focus
-        // conținutul din l-glint-focus.js
-        class LGlintFocus extends HTMLElement {
-            constructor() {
-                super();
-                this.attachShadow({ mode: "open" });
-                const wrapper = document.createElement("div");
-                wrapper.classList.add("glint-wrapper");
-                wrapper.innerHTML = `<slot></slot><span class="glint-line"></span>`;
-                const style = document.createElement("style");
-                style.textContent = `
-        .glint-wrapper {
-          position: relative;
-          display: inline-block;
-        }
-        .glint-line {
-          content: '';
-          position: absolute;
-          top: 0;
-          left: -100%;
-          width: 100%;
-          height: 2px;
-          background: linear-gradient(to right, transparent, #00ffffaa, transparent);
-          pointer-events: none;
-          transform: translateY(-4px);
-          opacity: 0;
-        }
-        :host(:focus-within) .glint-line {
-          animation: glint-sweep 1.2s ease-out forwards;
-          opacity: 1;
-        }
-        @keyframes glint-sweep {
-          0% { left: -100%; opacity: 0; }
-          30% { opacity: 1; }
-          100% { left: 100%; opacity: 0; }
-        }
-      `;
-                this.shadowRoot.append(style, wrapper);
-            }
-        }
-        customElements.define("l-glint-focus", LGlintFocus);
-    </script>
 </body>
 
 </html>
