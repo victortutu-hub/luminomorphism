@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luminomorphism Labs – l-hologram</title>
+  <link rel="stylesheet" href="../luminomorph.css" />
+  <style>
+    body {
+      background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 60px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .controls {
+      max-width: 320px;
+      margin-bottom: 40px;
+      padding: 20px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+    }
+    .controls label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .controls input[type="range"],
+    .controls input[type="color"] {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .demo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      max-width: 360px;
+      height: 360px;
+      margin: 0 auto;
+    }
+    l-hologram {
+      width: 100%;
+      height: 100%;
+    }
+    /* Style image for demo */
+    img.demo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Luminomorphism Labs – Hologram Interactiv</h1>
+  <p>Această pagină demonstrează elementul <code>&lt;l-hologram&gt;</code>, care face conținutul să pară
+    că levitează și îi adaugă o strălucire colorată. Mută cursorul peste imagine pentru a vedea efectul.</p>
+  <div class="controls">
+    <label for="depth-range">Adâncime (rotire maximă): <span id="depth-value">10</span>°</label>
+    <input type="range" id="depth-range" min="5" max="60" value="10" />
+    <label for="glow-color">Culoare strălucire:</label>
+    <input type="color" id="glow-color" value="#00ffff" />
+  </div>
+  <div class="demo">
+    <l-hologram id="demo-holo" glow="#00ffff" depth="10">
+      <img src="https://picsum.photos/400/400?random=12" alt="Demo image" class="demo-img">
+    </l-hologram>
+  </div>
+
+  <script src="../l-hologram.js"></script>
+  <script>
+    const depthRange = document.getElementById('depth-range');
+    const glowColor = document.getElementById('glow-color');
+    const depthValue = document.getElementById('depth-value');
+    const holo = document.getElementById('demo-holo');
+    function updateHolo() {
+      const d = depthRange.value;
+      const c = glowColor.value;
+      depthValue.textContent = d;
+      holo.setAttribute('depth', d);
+      holo.setAttribute('glow', c);
+    }
+    depthRange.addEventListener('input', updateHolo);
+    glowColor.addEventListener('input', updateHolo);
+  </script>
+</body>
+
+</html>

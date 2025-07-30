@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luminomorphism Labs – l-flare-sheen</title>
+    <link rel="stylesheet" href="../luminomorph.css" />
+    <script defer src="../l-flare-sheen.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 60px 20px;
+            background: radial-gradient(circle at center, #0c1824, #0f1d2b);
+            font-family: 'Segoe UI', sans-serif;
+            color: white;
+        }
+
+        .controls {
+            max-width: 320px;
+            margin: 0 auto 40px;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .controls label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .controls input[type="range"],
+        .controls input[type="color"] {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .preview {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 300px;
+        }
+
+        .l-card {
+            width: 260px;
+            height: 260px;
+            font-weight: bold;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                0 0 6px rgba(255, 255, 255, 0.07),
+                inset 0 0 120px rgba(255, 255, 255, 0.015);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <label for="flare-color">Flare Color:</label>
+        <input type="color" id="flare-color" value="#ffffff" />
+
+        <label for="flare-duration">Duration (s): <span id="dur-val">3</span>s</label>
+        <input type="range" id="flare-duration" min="1" max="10" value="3" />
+    </div>
+
+    <div class="preview">
+        <l-flare-sheen id="flare" duration="3s" color="rgba(255,255,255,0.2)">
+            <div class="l-card">l-flare-sheen</div>
+        </l-flare-sheen>
+    </div>
+
+    <!-- <script src="../../dist/l-flare-sheen.js"></script>  -->
+    <script>
+        const colorInput = document.getElementById('flare-color');
+        const durationInput = document.getElementById('flare-duration');
+        const durVal = document.getElementById('dur-val');
+        const flare = document.getElementById('flare');
+
+        function updateSheen() {
+            const color = colorInput.value + '33'; // semi-transparent
+            const duration = durationInput.value + 's';
+            flare.setAttribute('color', color);
+            flare.setAttribute('duration', duration);
+            durVal.textContent = durationInput.value;
+        }
+
+        colorInput.addEventListener('input', updateSheen);
+        durationInput.addEventListener('input', updateSheen);
+        updateSheen();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>l-glint-focus — Demo</title>
+  <link rel="stylesheet" href="../luminomorph.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #0a0f1c;
+      font-family: 'Segoe UI', sans-serif;
+      color: #eef;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    l-glint-focus {
+      display: inline-block;
+      margin-bottom: 2rem;
+    }
+
+    input, textarea {
+      width: 300px;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 6px;
+      outline: none;
+      font-size: 1rem;
+      background: #101622;
+      color: #eef;
+      box-shadow: 0 0 10px #00ffff22;
+    }
+
+    textarea {
+      height: 100px;
+      resize: vertical;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>&lt;l-glint-focus&gt; Demo</h1>
+
+  <l-glint-focus>
+    <input type="text" placeholder="Focus me to see glint" />
+  </l-glint-focus>
+
+  <l-glint-focus>
+    <textarea placeholder="Focus this textarea too..."></textarea>
+  </l-glint-focus>
+
+  <script src="../l-glint-focus.js"></script>
+</body>
+</html>

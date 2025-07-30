@@ -1,0 +1,36 @@
+
+/* 🌟 Luminomorph HD Patch — for large, low-DPI screens (e.g., 24" 1080p) */
+
+/* Detect screens with low pixel density or very large width */
+@media (max-resolution: 1.5dppx), (min-width: 1600px) {
+  .l-card {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+      0 30px 60px rgba(0, 0, 0, 0.5),
+      0 0 8px rgba(255, 255, 255, 0.08),
+      inset 0 0 200px rgba(255, 255, 255, 0.03);
+    font-size: 1.25rem;
+    --card-transform: rotateX(0deg) rotateY(0deg) scale(1.05);
+  }
+
+  .l-card::before {
+    opacity: 0.12;
+    background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
+  }
+
+  body {
+    font-size: 1.05rem;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  .hero h1 {
+    font-size: 3.4rem;
+  }
+
+  .hero p {
+    font-size: 1.4rem;
+  }
+}

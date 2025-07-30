@@ -1,0 +1,18 @@
+# 🔥 Exclude demo site (hosted via GitHub Pages or local preview)
+docs/
+
+# 🔥 Exclude documentație suplimentară
+README.ro.md
+TRADEMARK.md
+
+# 🔥 Alte excluderi recomandate
+node_modules/
+npm-debug.log
+.vscode/
+.DS_Store
+.env
+*.zip
+*.bak
+src/
+*.psd
+*.fig

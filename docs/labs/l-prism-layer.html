@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>l-prism-layer — Demo</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: #0a0f1c;
+      font-family: 'Segoe UI', sans-serif;
+      color: #eef;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+    }
+
+    .controls {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .control-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.9rem;
+    }
+
+    select, input[type="range"] {
+      padding: 0.3rem;
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    l-prism-layer {
+      width: 400px;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 40px #00ffff22;
+      background: #101622;
+    }
+
+    .card-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    h2 {
+      margin: 0 0 0.5rem 0;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>&lt;l-prism-layer&gt; Demo</h1>
+
+  <div class="controls">
+    <div class="control-group">
+      <label for="intensity">Intensity</label>
+      <select id="intensity">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+    </div>
+    <div class="control-group">
+      <label for="interaction">Interaction</label>
+      <select id="interaction">
+        <option value="hover">Hover</option>
+        <option value="cursor">Cursor</option>
+        <option value="always">Always</option>
+      </select>
+    </div>
+  </div>
+
+  <l-prism-layer id="prism" intensity="medium" interaction="hover">
+    <div class="card-content">
+      <h2>Prismatic Layer</h2>
+      <p>This content is wrapped in a dynamic prism. Adjust settings above and move your cursor around.</p>
+    </div>
+  </l-prism-layer>
+
+  <script src="../l-prism-layer.js"></script>
+  <script>
+    const prism = document.getElementById("prism");
+    const intensity = document.getElementById("intensity");
+    const interaction = document.getElementById("interaction");
+
+    intensity.addEventListener("change", () => {
+      prism.setAttribute("intensity", intensity.value);
+    });
+
+    interaction.addEventListener("change", () => {
+      prism.setAttribute("interaction", interaction.value);
+    });
+  </script>
+</body>
+</html>

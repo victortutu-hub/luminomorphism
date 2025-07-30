@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luminomorphism Labs – l-generative-bg</title>
+  <link rel="stylesheet" href="../luminomorph.css" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      color: white;
+      background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 60px 20px;
+      box-sizing: border-box;
+    }
+    .demo-container {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 400px;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+      margin-bottom: 40px;
+    }
+
+    /* Ensure the generative background fills its container */
+    .demo-container l-generative-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .demo-container h2 {
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 2rem;
+      font-size: 2rem;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Luminomorphism Labs – Generative Background</h1>
+  <p>Acest demo prezintă noul element <code>&lt;l-generative-bg&gt;</code>, care generează un fundal animat și luminos.</p>
+  <div class="demo-container">
+    <l-generative-bg palette="#ff00ff,#00ff80,#00bfff" particlecount="50" speed="6"></l-generative-bg>
+    <h2>Fundal generativ luminos</h2>
+  </div>
+  <p>Mută cursorul peste fundal pentru a observa cum particulele sunt atrase de mișcare.</p>
+
+  <script src="../l-generative-bg.js"></script>
+</body>
+
+</html>

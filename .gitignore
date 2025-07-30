@@ -1,0 +1,34 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor folders
+.vscode/
+.idea/
+
+# Dependency directories
+node_modules/
+
+# Build output
+#dist/*.min.*
+dist/*.map
+*.log
+
+# Temp files
+*.tmp
+*.swp
+*.bak
+*.sublime-workspace
+*.sublime-project
+
+# System files
+*.orig
+*.lock
+*.env
+.env.*
