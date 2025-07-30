@@ -1,37 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Luminomorphism — Refined Glow</title>
-    <link rel="stylesheet" href="luminomorph.css">
-    <link rel="stylesheet" href="luminomorph.button.css">
-    <link rel="stylesheet" href="luminomorph-hdpatch.css">
-    <link rel="stylesheet" href="luminomorph-responsive.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magnetic Cluster - Aplicații Practice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://luminomorphism.com/favicon.ico" type="image/x-icon">
+    <meta name="description" content="Explorați aplicații practice ale clusterelor magnetice">
     <style>
-        body {
-            background: linear-gradient(300deg, #08141f 0%, #0e1d2b 100%);
-            color: #e8f9ff;
-            font-family: 'Segoe UI', sans-serif;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
             overflow-x: hidden;
         }
 
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             padding: 15px 30px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 10;
-            flex-wrap: wrap;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.05);
         }
 
         .nav-links {
@@ -39,300 +46,550 @@
             gap: 40px;
         }
 
-        .nav-links.show {
-            display: flex !important;
-            flex-direction: column;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        nav a {
-            color: white;
+        .nav-links a {
+            color: #00d4ff;
             text-decoration: none;
-            font-weight: bold;
-            position: relative;
-            padding: 8px 12px;
+            font-weight: 600;
         }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
+        .burger {
             display: none;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(12px);
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.2);
-            z-index: 999;
-            min-width: 180px;
-            opacity: 0;
-            transform: translateY(-10px);
-            transition: opacity 0.3s ease, transform 0.3s ease;
-            max-height: 60vh;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            scroll-behavior: smooth;
-        }
-
-        .dropdown-content.show {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .dropdown-content a {
+            font-size: 2rem;
             color: white;
-            padding: 10px 18px;
-            text-decoration: none;
-            display: block;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-
-        .dropdown-content a:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .dropdown-content.fade-out {
-            opacity: 0;
-            transform: translateY(-10px);
-            pointer-events: none;
-        }
-
-        .controls {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-            width: 100%;
-            justify-content: center;
-        }
-
-        .mode-switch {
-            padding: 6px 14px;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border: none;
-            color: white;
-            cursor: pointer;
-            font-weight: bold;
-            backdrop-filter: blur(6px);
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
             background: none;
             border: none;
-            color: white;
             cursor: pointer;
-            position: relative;
-            z-index: 20;
         }
 
-        header.hero {
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 70px;
+                right: 20px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.95);
+                padding: 20px;
+                border-radius: 12px;
+                box-shadow: -5px 5px 20px rgba(0, 255, 255, 0.1);
+            }
+
+            .nav-links.show {
+                display: flex;
+            }
+
+            .burger {
+                display: block;
+            }
+        }
+
+        /* 1. HERO SECTION CU BACKGROUND INTERACTIV */
+        .hero {
+            height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 100%);
+        }
+
+        .hero-cluster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
             text-align: center;
-            padding: 160px 20px 60px;
-            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.1), transparent);
+            z-index: 2;
+            position: relative;
+            max-width: 800px;
+            padding: 0 20px;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            background: linear-gradient(90deg, #ffffff, #c1f5ff);
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
             -webkit-background-clip: text;
             background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .hero p {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-top: 10px;
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
         }
 
-        .grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            justify-content: center;
-            padding: 80px 30px;
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 2px solid #00d4ff;
+            border-radius: 50px;
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(0, 212, 255, 0.2);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* 2. SECȚIUNE SERVICII CU PARTICULE TEMATICE */
+        .services {
+            padding: 100px 20px;
+            background: #0f1520;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .l-card:hover {
-            --card-transform: rotateX(2deg) rotateY(-2deg) scale(1.04);
-            transform: scale(1.04) rotateX(2deg) rotateY(-2deg);
-            box-shadow: 0 35px 60px rgba(0, 0, 0, 0.55), inset 0 0 160px rgba(255, 255, 255, 0.02);
+        .services h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00d4ff;
         }
 
-        .l-card::before {
-            content: "";
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .service-cluster {
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, transparent 60%);
-            pointer-events: none;
-            opacity: 0;
-            z-index: 0;
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 150px;
+            opacity: 0.6;
         }
 
-        .glow-mode .l-card:hover::before {
-            animation: l-shimmer 4s infinite linear;
-            opacity: 1;
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #00d4ff;
+            z-index: 2;
+            position: relative;
         }
 
-        @keyframes l-shimmer {
-            0% {
-                transform: translateX(-100%) translateY(-100%) rotate(25deg);
-            }
-
-            50% {
-                transform: translateX(100%) translateY(100%) rotate(25deg);
-            }
-
-            100% {
-                transform: translateX(-100%) translateY(-100%) rotate(25deg);
-            }
+        .service-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            z-index: 2;
+            position: relative;
         }
 
-        l-glass-shape {
+        .components {
+            padding: 100px 20px;
+            background: #0f1520;
+        }
+
+        .components h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #00d4ff;
+        }
+
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .component-card {
+            display: block;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: 600;
+            color: #00d4ff;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .component-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* 3. CONTACT SECTION CU NETWORK EFFECT */
+        .contact {
+            padding: 100px 20px;
+            background: linear-gradient(135deg, #1a2332 0%, #0f1419 100%);
+            position: relative;
+        }
+
+        .contact-cluster {
             position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
         }
 
-        @media (max-width: 480px) {
-            l-glass-shape {
-                display: none;
-            }
+        .contact-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
         }
 
+        .contact h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00d4ff;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 40px auto;
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 8px;
+            color: #00d4ff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .submit-btn {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00d4ff, #0099ff);
+            border: none;
+            border-radius: 50px;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        /* 4. PORTOFOLIU CU EFECTE DINAMICE */
+        .portfolio {
+            padding: 100px 20px;
+            background: #0a0e1a;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            height: 250px;
+            border-radius: 15px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-item:hover {
+            transform: scale(1.05);
+        }
+
+        .portfolio-cluster {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 20px;
+            z-index: 2;
+        }
+
+        .portfolio-overlay h4 {
+            color: #00d4ff;
+            margin-bottom: 5px;
+        }
+
+        /* RESPONSIVE */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+            .hero h1 {
+                font-size: 2.5rem;
             }
 
-            .menu-toggle {
-                display: block;
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-cluster {
+                width: 100px;
+                height: 100px;
             }
         }
     </style>
 </head>
 
 <body>
-    <nav>
-        <div class="nav-links">
-            <a href="#">Home</a>
-            <a href="about.html">About</a>
-            <a href="labs/l-gallery-molecule.html">Galerie</a>
-            <a href="manifest.html">Manifest</a>
-            <div class="dropdown">
-                <a href="#" onclick="event.preventDefault(); toggleDropdown()">Labs ▼</a>
-                <div class="dropdown-content">
-                    <a href="labs/l-orbital.html">l-orbital</a>
-                    <a href="labs/l-pulse-bubble.html">l-pulse-bubble</a>
-                    <a href="labs/l-glow-trail.html">l-glow-trail</a>
-                    <a href="labs/l-light-ray.html">l-light-ray</a>
-                    <a href="labs/l-ripple-hover.html">l-ripple-hover</a>
-                    <a href="labs/l-depth-frame.html">l-depth-frame</a>
-                    <a href="labs/l-flare-sheen.html">l-flare-sheen</a>
-                    <a href="labs/l-generative-bg.html">l-generative-bg</a>
-                    <a href="labs/l-hologram.html">l-hologram</a>
-                    <a href="labs/l-mosaic-grid.html">l-mosaic-grid</a>
-                    <a href="labs/l-orbital-nav.html">l-orbital-nav</a>
-                    <a href="labs/l-particle-net.html">l-particle-net</a>
-                    <a href="labs/l-prism-layer.html">l-prism-layer</a>
-                    <a href="labs/l-glint-focus.html">l-glint-focus</a>
-                    <a href="labs/l-echo-press.html">l-echo-press</a>
-                    <a href="labs/l-magnetic-cluster.html">l-magnetic-cluster</a>
+
+    <nav
+        style="position:fixed;top:0;left:0;width:100%;padding:15px 30px;display:flex;justify-content:center;gap:40px;z-index:100;background:rgba(255,255,255,0.02);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,255,255,0.05);">
+        <nav>
+            <div style="color:#00d4ff;font-weight:800;font-size:1.2rem;">Luminomorphism</div>
+            <button class="burger" onclick="toggleBurger()">☰</button>
+            <div class="nav-links" id="navLinks">
+                <a href="#" onclick="closeMenu()">Home</a>
+                <a href="#services" onclick="closeMenu()">Features</a>
+                <a href="#portfolio" onclick="closeMenu()">Examples</a>
+                <a href="#components" onclick="closeMenu()">Components</a>
+                <a href="#contact" onclick="closeMenu()">Contact</a>
+            </div>
+        </nav>
+
+    </nav>
+
+    <!-- 1. HERO SECTION - Background interactiv -->
+    <section class="hero">
+        <l-magnetic-cluster class="hero-cluster" count="30" size="25" speed="0.5" opacity="0.3" verlet="true"
+            boids="true" magnetic="true">
+        </l-magnetic-cluster>
+
+        <div class="hero-content">
+            <h1>Luminomorphism</h1>
+            <p>Creăm soluții digitale care transformă viziunea ta în realitate prin tehnologii de vârf și design
+                inteligent.</p>
+            <a href="#services" class="cta-button">Discover What It Can Do</a>
+        </div>
+    </section>
+
+    <!-- 2. SERVICII - Particule tematice pentru fiecare serviciu -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>What Is Luminomorphism?</h2>
+            <div class="services-grid">
+
+                <div class="service-card">
+                    <l-magnetic-cluster class="service-cluster" count="8" size="20" speed="1.2" opacity="0.4"
+                        verlet="true" boids="false" magnetic="true">
+                    </l-magnetic-cluster>
+                    <h3>Reactive Web Components</h3>
+                    <p>Aplicații web moderne, responsive și optimizate pentru performanță maximă. Folosim cele mai noi
+                        tehnologii pentru rezultate excepționale.</p>
+                </div>
+
+                <div class="service-card">
+                    <l-magnetic-cluster class="service-cluster" count="12" size="15" speed="0.6" opacity="0.5"
+                        verlet="false" boids="true" magnetic="true">
+                    </l-magnetic-cluster>
+                    <h3>Luminomorphic Design</h3>
+                    <p>Interfețe intuitive și experiențe de utilizator memorabile. Combinăm creativitatea cu cercetarea
+                        pentru design-uri ce convertesc.</p>
+                </div>
+
+                <div class="service-card">
+                    <l-magnetic-cluster class="service-cluster" count="15" size="25" speed="1.5" opacity="0.3"
+                        verlet="true" boids="true" magnetic="true">
+                    </l-magnetic-cluster>
+                    <h3>Easy Integration</h3>
+                    <p>Strategii tehnologice personalizate pentru afacerea ta. Te ghidăm în alegerea celor mai potrivite
+                        soluții digitale.</p>
                 </div>
             </div>
         </div>
-        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
-        <div class="controls">
-            <button class="mode-switch" onclick="toggleCardGlow()">Card Glow: OFF</button>
-            <button class="mode-switch" onclick="toggleBackgroundGlow()">Background Glow: ON</button>
-        </div>
-    </nav>
-
-    <header class="hero">
-        <l-glass-shape class="glow-shape" glow="#00ffff" speed="slow"
-            style="top: 40%; left: 25%; width: 180px; height: 180px;"></l-glass-shape>
-        <l-glass-shape class="glow-shape" glow="#ff00ff" speed="slow"
-            style="top: 50%; left: 50%; width: 240px; height: 240px;"></l-glass-shape>
-        <l-glass-shape class="glow-shape" glow="#ffff00" speed="slow"
-            style="top: 60%; left: 75%; width: 160px; height: 160px;"></l-glass-shape>
-        <h1>Welcome to Luminomorphism</h1>
-        <p>Refined. Fluid. Luminous. Now clearer than ever.</p>
-    </header>
-
-    <section class="grid">
-        <div class="l-card">Card 1</div>
-        <div class="l-card">Card 2</div>
-        <div class="l-card">Card 3</div>
-        <div class="l-card">Card 4</div>
     </section>
 
-    <script src="luminomorph.js"></script>
-    <script src="luminomorph.button.js"></script>
-    <script src="l-glass-shape.js"></script>
+    <!-- 3. PORTOFOLIU - Efecte dinamice pe proiecte -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 60px; color: #00d4ff;">Visual Examples</h2>
+            <div class="portfolio-grid">
+
+                <div class="portfolio-item">
+                    <l-magnetic-cluster class="portfolio-cluster" count="10" size="35" speed="0.5" opacity="0.2"
+                        verlet="true" boids="false" magnetic="true">
+                    </l-magnetic-cluster>
+                    <div class="portfolio-overlay">
+                        <h4>Interface with Magnetic Background</h4>
+                        <p>Combined components: <code>l-magnetic-cluster</code> + <code>l-glow-trail</code> in a fluid
+                            layout</p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <l-magnetic-cluster class="portfolio-cluster" count="6" size="40" speed="5.0" opacity="0.25"
+                        verlet="false" boids="true" magnetic="true">
+                    </l-magnetic-cluster>
+                    <div class="portfolio-overlay">
+                        <h4>100% Offline Application</h4>
+                        <p>No server, no build tools — just HTML + JS powered by luminomorphism from <code>dist/</code>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="portfolio-item">
+                    <l-magnetic-cluster class="portfolio-cluster" count="8" size="30" speed="0.8" opacity="0.3"
+                        verlet="true" boids="true" magnetic="false">
+                    </l-magnetic-cluster>
+                    <div class="portfolio-overlay">
+                        <h4>Interactive Gallery</h4>
+                        <p>Synchronized components for visual browsing and tactile interaction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. COMPONENTE LUMINOMORPHICE -->
+    <section id="components" class="components">
+        <div class="container">
+            <h2>Component Catalog</h2>
+            <p style="text-align:center; max-width:800px; margin:0 auto 40px; opacity:0.8;">Each component is an
+                original web element designed to explore the boundaries of light, motion, and in-browser interaction.
+                All use custom HTML tags and require no external libraries.</p>
+            <div class="components-grid">
+                <a class="component-card" href="labs/l-orbital.html">l-orbital</a>
+                <a class="component-card" href="labs/l-pulse-bubble.html">l-pulse-bubble</a>
+                <a class="component-card" href="labs/l-glow-trail.html">l-glow-trail</a>
+                <a class="component-card" href="labs/l-light-ray.html">l-light-ray</a>
+                <a class="component-card" href="labs/l-ripple-hover.html">l-ripple-hover</a>
+                <a class="component-card" href="labs/l-depth-frame.html">l-depth-frame</a>
+                <a class="component-card" href="labs/l-flare-sheen.html">l-flare-sheen</a>
+                <a class="component-card" href="labs/l-generative-bg.html">l-generative-bg</a>
+                <a class="component-card" href="labs/l-hologram.html">l-hologram</a>
+                <a class="component-card" href="labs/l-mosaic-grid.html">l-mosaic-grid</a>
+                <a class="component-card" href="labs/l-orbital-nav.html">l-orbital-nav</a>
+                <a class="component-card" href="labs/l-particle-net.html">l-particle-net</a>
+                <a class="component-card" href="labs/l-prism-layer.html">l-prism-layer</a>
+                <a class="component-card" href="labs/l-glint-focus.html">l-glint-focus</a>
+                <a class="component-card" href="labs/l-echo-press.html">l-echo-press</a>
+                <a class="component-card" href="labs/l-magnetic-cluster.html">l-magnetic-cluster</a>
+                <a class="component-card" href="labs/l-gallery.html">l-gallery</a>
+                <a class="component-card" href="labs/l-tab-ripple.html">l-tab-ripple</a>
+                <a class="component-card" href="labs/l-field.html">l-field</a>
+                <a class="component-card" href="labs/l-button.html">l-button</a>
+                <a class="component-card" href="labs/l-gallery-molecule.html">l-gallery-molecule</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. CONTACT - Network effect pentru conexiune -->
+    <section class="contact" id="contact">
+        <l-magnetic-cluster class="contact-cluster" count="25" size="20" speed="0.4" opacity="0.15" verlet="true"
+            boids="true" magnetic="true">
+        </l-magnetic-cluster>
+
+        <div class="contact-content">
+            <h2>Collaborate or Integrate</h2>
+            <p>Have ideas for new components? Want to integrate luminomorphism into your project or contribute to its
+                development? Reach out.</p>
+
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Nume</label>
+                    <l-glint-focus>
+                        <input type="text" id="name" name="name" required />
+                    </l-glint-focus>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <l-glint-focus>
+                        <input type="email" id="email" name="email" required />
+                    </l-glint-focus>
+                </div>
+                <div class="form-group">
+                    <label for="project">Descrierea Proiectului</label>
+                    <l-glint-focus>
+                        <textarea id="project" name="project" rows="4" required></textarea>
+                    </l-glint-focus>
+                </div>
+                <l-echo-press><button type="submit" class="submit-btn cta-button">Trimite
+                        Mesajul</button></l-echo-press>
+            </form>
+        </div>
+    </section>
     <script>
-        Luminomorph.init({ tilt: true, sound: false });
-
-        let cardGlow = false;
-        let backgroundGlow = true;
-
-        function toggleCardGlow() {
-            cardGlow = !cardGlow;
-            document.body.classList.toggle('glow-mode', cardGlow);
-            document.querySelectorAll('.mode-switch')[0].innerText = 'Card Glow: ' + (cardGlow ? 'ON' : 'OFF');
+        function toggleBurger() {
+            document.getElementById('navLinks').classList.toggle('show');
         }
-
-        function toggleBackgroundGlow() {
-            backgroundGlow = !backgroundGlow;
-            const shapes = document.querySelectorAll('.glow-shape');
-            shapes.forEach(el => {
-                el.style.display = backgroundGlow ? 'block' : 'none';
-            });
-            document.querySelectorAll('.mode-switch')[1].innerText = 'Background Glow: ' + (backgroundGlow ? 'ON' : 'OFF');
+        function closeMenu() {
+            document.getElementById('navLinks').classList.remove('show');
         }
-
-        function toggleMenu() {
-            const navLinks = document.querySelector('.nav-links');
-            const isOpen = navLinks.classList.contains('show');
-            navLinks.classList.toggle('show');
-
-            if (!isOpen) {
-                document.addEventListener('click', closeMenuOnClickOutside);
-            }
-        }
-
-        function closeMenuOnClickOutside(event) {
+        document.addEventListener('click', function (event) {
             const nav = document.querySelector('nav');
+            const links = document.getElementById('navLinks');
             if (!nav.contains(event.target)) {
-                document.querySelector('.nav-links').classList.remove('show');
-                document.removeEventListener('click', closeMenuOnClickOutside);
+                links.classList.remove('show');
             }
-        }
-
-        function toggleDropdown() {
-            const dropdown = document.querySelector('.dropdown-content');
-            dropdown.classList.toggle("show");
-
-            // Adaugă închidere automată după selectare
-            const links = dropdown.querySelectorAll('a');
-            links.forEach(link => {
-                link.addEventListener('click', () => {
-                    dropdown.classList.remove('show');
-                });
-            });
-        }
+        });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/luminomorphism@1.1.5/dist/l-glint-focus.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luminomorphism@1.1.5/dist/l-magnetic-cluster.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luminomorphism@1.1.5/dist/l-ripple-hover.min.js"></script>
+
 </body>
 
 </html>
