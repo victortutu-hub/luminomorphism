@@ -37,11 +37,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/victortutu/luminomorphism.git"
+    "url": "git+https://github.com/victortutu-hub/luminomorphism.git"
   },
-  "homepage": "https://victortutu.github.io/luminomorphism/",
+  "homepage": "https://victortutu-hub.github.io/luminomorphism/",
   "bugs": {
-    "url": "https://github.com/victortutu/luminomorphism/issues"
+    "url": "https://github.com/victortutu-hub/luminomorphism/issues"
   },
   "devDependencies": {
     "csso-cli": "^4.0.2",
