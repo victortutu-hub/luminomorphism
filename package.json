@@ -8,10 +8,12 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run minify:js && npm run minify:css",
-    "minify:js": "esbuild src/*.js --minify --outdir=dist --out-extension:.js=.min.js",
-    "minify:css": "node -e \"require('fs').readdirSync('src').filter(f => f.endsWith('.css')).forEach(f => require('child_process').execSync(`npx csso src/${f} --output dist/${f.replace('.css', '.min.css')}`))\""
-  },
+  "build": "npm run minify:js && npm run minify:css",
+  "minify:js": "esbuild src/*.js --minify --outdir=dist --out-extension:.js=.min.js",
+  "minify:css": "node -e \"require('fs').readdirSync('src').filter(f => f.endsWith('.css')).forEach(f => require('child_process').execSync(`npx csso src/${f} --output dist/${f.replace('.css', '.min.css')}`))\"",
+  "release": "npm version patch && git push origin main --tags && npm publish --access public"
+},
+
   "keywords": [
     "ui-design",
     "luminomorphism",
