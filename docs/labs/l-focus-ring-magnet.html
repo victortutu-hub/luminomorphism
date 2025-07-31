@@ -1,258 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Demo – l-focus-ring-magnet</title>
   <style>
     body {
       background: linear-gradient(to bottom, #0a0e1a, #111b29);
       color: white;
       font-family: 'Segoe UI', sans-serif;
-      padding: 40px 20px;
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    .header {
+      padding: 80px 20px;
       text-align: center;
-      margin-bottom: 40px;
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #00ffff;
-      margin-bottom: 10px;
-      text-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-    }
-
-    .subtitle {
-      color: #888;
-      font-size: 1.1rem;
-      margin-bottom: 30px;
-    }
-
-    .controls {
-      background: rgba(255, 255, 255, 0.03);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 20px;
       margin-bottom: 40px;
-      max-width: 800px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .control-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .control-group {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .control-group label {
-      color: #00ffff;
-      font-size: 0.9rem;
-      font-weight: 500;
-    }
-
-    .control-group input,
-    .control-group select {
-      padding: 8px 12px;
-      border-radius: 6px;
-      border: 1px solid rgba(0, 255, 255, 0.3);
-      background: rgba(0, 0, 0, 0.3);
-      color: white;
-      font-size: 14px;
-      width: 80px;
-      text-align: center;
-    }
-
-    .control-group input[type="color"] {
-      width: 50px;
-      height: 35px;
-      padding: 2px;
-      cursor: pointer;
-    }
-
-    .checkbox-group {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .checkbox-group input[type="checkbox"] {
-      width: auto;
-      transform: scale(1.2);
-      accent-color: #00ffff;
     }
 
     .demo-area {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 30px;
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 40px;
-      background: rgba(255, 255, 255, 0.02);
-      border-radius: 16px;
-      backdrop-filter: blur(5px);
     }
 
-    button,
-    input[type="text"],
-    input[type="email"],
-    textarea,
-    select {
+    button, input {
       padding: 15px 25px;
       font-size: 16px;
       border-radius: 8px;
-      border: 1px solid rgba(0, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.05);
+      border: none;
+      background: rgba(255,255,255,0.05);
       color: #00ffff;
       backdrop-filter: blur(8px);
-      transition: all 0.2s ease;
-      cursor: pointer;
     }
 
-    button:hover,
-    input:hover,
-    textarea:hover,
-    select:hover {
-      background: rgba(0, 255, 255, 0.1);
-      border-color: rgba(0, 255, 255, 0.4);
-      transform: translateY(-2px);
-    }
-
-    input[type="text"],
-    input[type="email"],
-    textarea {
-      width: 100%;
-      box-sizing: border-box;
-      cursor: text;
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 80px;
-    }
-
-    .button-group {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .button-group button {
-      flex: 1;
-      min-width: 80px;
-    }
-
-    .instructions {
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9rem;
-      margin-top: 30px;
-      line-height: 1.5;
-    }
-
-    .highlight {
-      color: #00ffff;
-      font-weight: 500;
-    }
-
-    @media (max-width: 768px) {
-      .control-row {
-        flex-direction: column;
-        gap: 15px;
-      }
-
-      .demo-area {
-        grid-template-columns: 1fr;
-        padding: 20px;
-      }
-
-      h1 {
-        font-size: 2rem;
-      }
+    input {
+      width: 200px;
     }
   </style>
 </head>
-
 <body>
 
-  <div class="header">
-    <h1>&lt;l-focus-ring-magnet&gt;</h1>
-    <p class="subtitle">Interactive focus ring that magnetically attracts to nearby elements</p>
-  </div>
-
-  <div class="controls">
-    <div class="control-row">
-      <div class="control-group">
-        <label>Radius</label>
-        <input type="number" id="radius" value="40" min="10" max="100" step="5">
-      </div>
-      <div class="control-group">
-        <label>Color</label>
-        <input type="color" id="color" value="#00ffff">
-      </div>
-      <div class="control-group">
-        <label>Range</label>
-        <input type="number" id="range" value="100" min="30" max="200" step="10">
-      </div>
-      <div class="checkbox-group">
-        <input type="checkbox" id="pulse" checked>
-        <label for="pulse">Pulse on Focus</label>
-      </div>
-    </div>
-  </div>
+  <h1>&lt;l-focus-ring-magnet&gt; Demo</h1>
 
   <div class="demo-area">
-    <button>Primary Action</button>
-    <button>Secondary</button>
-    <input type="text" placeholder="Enter your name..." />
-    <input type="email" placeholder="your@email.com" />
-
-    <div class="button-group">
-      <button>Save</button>
-      <button>Cancel</button>
-    </div>
-
-    <select>
-      <option>Choose option...</option>
-      <option>Option 1</option>
-      <option>Option 2</option>
-      <option>Option 3</option>
-    </select>
-
-    <textarea placeholder="Leave a comment..."></textarea>
-
-    <button style="background: linear-gradient(45deg, #ff6b6b, #4ecdc4); border: none;">Gradient Button</button>
-
-    <div class="button-group">
-      <button>Upload</button>
-      <button>Download</button>
-      <button>Share</button>
-    </div>
+    <button>Click Me</button>
+    <button>Another Button</button>
+    <input type="text" placeholder="Type something..." />
+    <button>Submit</button>
   </div>
 
-  <div class="instructions">
-    <p><span class="highlight">Move your mouse</span> near any interactive element to see the magnetic focus ring in
-      action!</p>
-    <p>Try <span class="highlight">tabbing through elements</span> with your keyboard to see the pulse effect.</p>
-    <p>Adjust the settings above to customize the behavior.</p>
-  </div>
-
-  <l-focus-ring-magnet id="magnet" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+  <l-focus-ring-magnet radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
   <script src="../l-focus-ring-magnet.js"></script>
+</body>
+</html>
