@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,21 +13,19 @@
       padding: 80px 20px;
       text-align: center;
     }
-
     h1 {
       font-size: 2rem;
       color: #00ffff;
       margin-bottom: 40px;
     }
-
     .demo-area {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 30px;
+      margin-bottom: 40px;
     }
-
-    button, input {
+    button, input[type='text'] {
       padding: 15px 25px;
       font-size: 16px;
       border-radius: 8px;
@@ -35,9 +34,8 @@
       color: #00ffff;
       backdrop-filter: blur(8px);
     }
-
-    input {
-      width: 200px;
+    input[type='color'], input[type='range'], label {
+      margin: 10px;
     }
   </style>
 </head>
@@ -52,7 +50,40 @@
     <button>Submit</button>
   </div>
 
-  <l-focus-ring-magnet radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+  <div>
+    <label>Color: <input id="colorPicker" type="color" value="#00ffff" /></label>
+    <label>Radius: <input id="radiusRange" type="range" min="10" max="100" value="40" /></label>
+    <label><input type="checkbox" id="pulseToggle" checked /> Pulse on focus</label>
+  </div>
+
+  <l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+
+  <script>
+    const ring = document.getElementById('focusRing');
+    const colorInput = document.getElementById('colorPicker');
+    const radiusInput = document.getElementById('radiusRange');
+    const pulseToggle = document.getElementById('pulseToggle');
+
+    colorInput.addEventListener('input', () => {
+      ring.setAttribute('color', colorInput.value);
+      ring.render();
+    });
+
+    radiusInput.addEventListener('input', () => {
+      ring.setAttribute('radius', radiusInput.value);
+      ring.render();
+    });
+
+    pulseToggle.addEventListener('change', () => {
+      if (pulseToggle.checked) {
+        ring.setAttribute('pulse-on-focus', '');
+      } else {
+        ring.removeAttribute('pulse-on-focus');
+      }
+      ring.pulseOnFocus = pulseToggle.checked;
+    });
+  </script>
+
   <script src="../l-focus-ring-magnet.js"></script>
 </body>
 </html>
