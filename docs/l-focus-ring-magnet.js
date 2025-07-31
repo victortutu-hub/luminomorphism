@@ -1,4 +1,5 @@
 // Componentă luminomorfică: l-focus-ring-magnet
+// Se atașează automat pe elemente interactive apropiate (buton, input, etc.)
 class LFocusRingMagnet extends HTMLElement {
   constructor() {
     super();
