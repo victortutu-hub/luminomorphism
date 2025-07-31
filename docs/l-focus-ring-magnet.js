@@ -1,32 +1,32 @@
 // Componentă luminomorfică: l-focus-ring-magnet
 // Se atașează automat pe elemente interactive apropiate (buton, input, etc.)
 class LFocusRingMagnet extends HTMLElement {
-    constructor() {
-        super();
-        this.attachShadow({ mode: 'open' });
-        this.radius = parseInt(this.getAttribute('radius')) || 30;
-        this.color = this.getAttribute('color') || '#00ffff';
-        this.range = parseInt(this.getAttribute('magnet-range')) || 80;
-        this.pulseOnFocus = this.hasAttribute('pulse-on-focus');
-        this.currentTarget = null;
-        setTimeout(() => this.render(), 0);
-    }
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open' });
+    this.radius = parseInt(this.getAttribute('radius')) || 30;
+    this.color = this.getAttribute('color') || '#00ffff';
+    this.range = parseInt(this.getAttribute('magnet-range')) || 80;
+    this.pulseOnFocus = this.hasAttribute('pulse-on-focus');
+    this.currentTarget = null;
+  }
 
-    connectedCallback() {
-        document.addEventListener('mousemove', this.track.bind(this));
-        document.addEventListener('focusin', this.focus.bind(this));
-        document.addEventListener('focusout', this.unfocus.bind(this));
-    }
+  connectedCallback() {
+    this.render();
+    document.addEventListener('mousemove', this.track.bind(this));
+    document.addEventListener('focusin', this.focus.bind(this));
+    document.addEventListener('focusout', this.unfocus.bind(this));
+  }
 
-    disconnectedCallback() {
-        document.removeEventListener('mousemove', this.track);
-        document.removeEventListener('focusin', this.focus);
-        document.removeEventListener('focusout', this.unfocus);
-    }
+  disconnectedCallback() {
+    document.removeEventListener('mousemove', this.track);
+    document.removeEventListener('focusin', this.focus);
+    document.removeEventListener('focusout', this.unfocus);
+  }
 
-    render() {
-        const style = document.createElement('style');
-        style.textContent = `
+  render() {
+    const style = document.createElement('style');
+    style.textContent = `
       .ring {
         position: fixed;
         pointer-events: none;
@@ -51,52 +51,57 @@ class LFocusRingMagnet extends HTMLElement {
       }
     `;
 
-        const ring = document.createElement('div');
-        ring.className = 'ring';
-        while (this.shadow.firstChild) this.shadow.removeChild(this.shadow.firstChild);
-        this.shadow.appendChild(style);
-        this.shadow.appendChild(ring);
-        this.ring = ring;
+    const ring = document.createElement('div');
+    ring.className = 'ring';
+    if (this.shadowRoot) {
+      while (this.shadowRoot.firstChild) this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+    }
+    this.shadowRoot.appendChild(style);
+    this.shadowRoot.appendChild(ring);
+    this.ring = ring;
+  }
+
+  track(e) {
+    const targets = [...document.querySelectorAll('button, input, textarea, [tabindex]')];
+    const near = targets.find(el => {
+      const rect = el.getBoundingClientRect();
+      const dx = e.clientX - (rect.left + rect.width / 2);
+      const dy = e.clientY - (rect.top + rect.height / 2);
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      return dist < this.range;
+    });
+
+    if (near && near !== this.currentTarget) {
+      const rect = near.getBoundingClientRect();
+      if (!this.ring) return;
+      this.ring.style.left = `${rect.left + rect.width / 2}px`;
+      this.ring.style.top = `${rect.top + rect.height / 2}px`;
+      this.ring.style.opacity = '1';
+      this.ring.classList.remove('pulse');
+      this.currentTarget = near;
     }
 
-    track(e) {
-        const targets = [...document.querySelectorAll('button, input, textarea, [tabindex]')];
-        const near = targets.find(el => {
-            const rect = el.getBoundingClientRect();
-            const dx = e.clientX - (rect.left + rect.width / 2);
-            const dy = e.clientY - (rect.top + rect.height / 2);
-            const dist = Math.sqrt(dx * dx + dy * dy);
-            return dist < this.range;
-        });
-
-        if (near && near !== this.currentTarget) {
-            const rect = near.getBoundingClientRect();
-            this.ring.style.left = `${rect.left + rect.width / 2}px`;
-            this.ring.style.top = `${rect.top + rect.height / 2}px`;
-            this.ring.style.opacity = '1';
-            this.ring.classList.remove('pulse');
-            this.currentTarget = near;
-        }
-
-        if (!near) {
-            this.ring.style.opacity = '0';
-            this.currentTarget = null;
-        }
+    if (!near) {
+      if (!this.ring) return;
+      this.ring.style.opacity = '0';
+      this.currentTarget = null;
     }
+  }
 
-    focus(e) {
-        if (!this.pulseOnFocus) return;
-        const rect = e.target.getBoundingClientRect();
-        this.ring.style.left = `${rect.left + rect.width / 2}px`;
-        this.ring.style.top = `${rect.top + rect.height / 2}px`;
-        this.ring.style.opacity = '1';
-        this.ring.classList.add('pulse');
-    }
+  focus(e) {
+    if (!this.pulseOnFocus || !this.ring) return;
+    const rect = e.target.getBoundingClientRect();
+    this.ring.style.left = `${rect.left + rect.width / 2}px`;
+    this.ring.style.top = `${rect.top + rect.height / 2}px`;
+    this.ring.style.opacity = '1';
+    this.ring.classList.add('pulse');
+  }
 
-    unfocus() {
-        this.ring.classList.remove('pulse');
-        this.ring.style.opacity = '0';
-    }
+  unfocus() {
+    if (!this.ring) return;
+    this.ring.classList.remove('pulse');
+    this.ring.style.opacity = '0';
+  }
 }
 
 customElements.define('l-focus-ring-magnet', LFocusRingMagnet);

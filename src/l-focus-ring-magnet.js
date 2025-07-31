@@ -9,10 +9,10 @@ class LFocusRingMagnet extends HTMLElement {
         this.range = parseInt(this.getAttribute('magnet-range')) || 80;
         this.pulseOnFocus = this.hasAttribute('pulse-on-focus');
         this.currentTarget = null;
-        setTimeout(() => this.render(), 0);
     }
 
     connectedCallback() {
+        this.render();
         document.addEventListener('mousemove', this.track.bind(this));
         document.addEventListener('focusin', this.focus.bind(this));
         document.addEventListener('focusout', this.unfocus.bind(this));
@@ -53,9 +53,11 @@ class LFocusRingMagnet extends HTMLElement {
 
         const ring = document.createElement('div');
         ring.className = 'ring';
-        while (this.shadow.firstChild) this.shadow.removeChild(this.shadow.firstChild);
-        this.shadow.appendChild(style);
-        this.shadow.appendChild(ring);
+        if (this.shadowRoot) {
+            while (this.shadowRoot.firstChild) this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+        }
+        this.shadowRoot.appendChild(style);
+        this.shadowRoot.appendChild(ring);
         this.ring = ring;
     }
 
@@ -71,6 +73,7 @@ class LFocusRingMagnet extends HTMLElement {
 
         if (near && near !== this.currentTarget) {
             const rect = near.getBoundingClientRect();
+            if (!this.ring) return;
             this.ring.style.left = `${rect.left + rect.width / 2}px`;
             this.ring.style.top = `${rect.top + rect.height / 2}px`;
             this.ring.style.opacity = '1';
@@ -79,13 +82,14 @@ class LFocusRingMagnet extends HTMLElement {
         }
 
         if (!near) {
+            if (!this.ring) return;
             this.ring.style.opacity = '0';
             this.currentTarget = null;
         }
     }
 
     focus(e) {
-        if (!this.pulseOnFocus) return;
+        if (!this.pulseOnFocus || !this.ring) return;
         const rect = e.target.getBoundingClientRect();
         this.ring.style.left = `${rect.left + rect.width / 2}px`;
         this.ring.style.top = `${rect.top + rect.height / 2}px`;
@@ -94,6 +98,7 @@ class LFocusRingMagnet extends HTMLElement {
     }
 
     unfocus() {
+        if (!this.ring) return;
         this.ring.classList.remove('pulse');
         this.ring.style.opacity = '0';
     }
