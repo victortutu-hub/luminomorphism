@@ -30,6 +30,7 @@ Combină principii de design fluid, feedback senzorial și mișcare futuristă p
 | Componentă                | Descriere                                             | Demo |
 |--------------------------|--------------------------------------------------------|------|
 | **`<l-orbital>`**        | Orbitează puncte luminoase în jurul unui centru        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
+| **`<l-orbital-quantum>`** | Orbite cuantice cu entropie și sincron optic         | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html) |
 | **`<l-orbital-nav>`**    | Sistem de navigație cu butoane orbitale animate        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
 | **`<l-particle-net>`**   | Rețea de particule cu noduri conectate prin lumină     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
 | **`<l-prism-layer>`**    | Efect prismă refractivă ce reacționează la interacțiune| [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
@@ -119,3 +120,33 @@ Creat de [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)
 ## 📄 Licență
 
 MIT — liber pentru utilizare și modificare.
+
+
+### `<l-orbital-quantum>` – Simulare orbitală cuantică cu entropie și entanglement optic
+O componentă luminomorfică inovatoare care combină animația orbitală cu comportamente inspirate din fizica cuantică. Orbitele pulsează, se rotesc, dispar și reapar în poziții aleatorii, controlate de un parametru de entropie configurabil.
+
+**✨ Caracteristici esențiale:**
+- Rotație continuă cu orbite care pulsează independent
+- Salturi cuantice: orbitele dispar și reapar neașteptat
+- Entanglement optic: o altă orbită reacționează sincron
+- Control al haosului cu `quantum-entropy`
+- Declarativ, fără framework-uri, 100% compatibil cu HTML
+
+**🔧 Atribute:**
+
+| Atribut             | Descriere                                                  | Exemplu         |
+|---------------------|------------------------------------------------------------|-----------------|
+| `count`             | Numărul de orbite                                           | `12`            |
+| `color`             | Culoarea punctelor luminoase                                | `#00ffff`       |
+| `radius`            | Distanța față de centru (în px)                             | `60`            |
+| `mode="quantum"`    | Activează modul cuantic                                     |                 |
+| `quantum-delay`     | Timpul între salturi (milisecunde)                          | `3000`          |
+| `quantum-entropy`   | Gradul de aleatoriu (0.5 = subtil, 3 = extrem de haotic)    | `1.5`           |
+
+**🔍 Utilizare:**
+- Atractori vizuali pentru interfețe creative
+- Animații de fundal în produse tehnologice
+- Metafore pentru inteligență, rețele sau comportament emergent
+- Ritmuri vizuale non-interactive, dar expresive
+
+[Demo Live](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)

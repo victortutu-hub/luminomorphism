@@ -30,6 +30,7 @@ It blends principles of fluid design, sensory feedback, and futuristic motion to
 | Component                   | Description                                            | Demo Link |
 |----------------------------|--------------------------------------------------------|-----------|
 | **`<l-orbital>`**          | Orbits glowing dots around a center                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
+| **`<l-orbital-quantum>`** | Quantum orbiting dots with entropy & optical sync | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html) |
 | **`<l-orbital-nav>`**      | Navigation system using animated orbital buttons       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
 | **`<l-particle-net>`**     | Living particle network with light-linked nodes        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
 | **`<l-prism-layer>`**      | Refractive prism shimmer layer reacting to interaction | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
@@ -184,3 +185,33 @@ MIT — Open, free, and modifiable.
 ## 🌐 Translations
 
 🇷🇴 [View in Romanian / Vezi versiunea română](./README.RO.md)
+
+
+### `<l-orbital-quantum>` – Quantum Orbital Simulation with Entropy + Optical Entanglement
+A groundbreaking luminomorphic component that combines visual orbital animation with quantum-inspired behavior. Orbits rotate, pulse, disappear, and reappear at randomized positions influenced by configurable entropy levels.
+
+**✨ Key features:**
+- Continuous rotation with independently pulsing orbs
+- Quantum jumps: orbs vanish and reappear at unpredictable angles
+- Optical entanglement: another orb reacts with a glow in sync
+- Controlled randomness with `quantum-entropy`
+- Fully declarative and framework-free
+
+**🔧 Attributes:**
+
+| Attribute         | Description                                                  | Example           |
+|------------------|--------------------------------------------------------------|-------------------|
+| `count`          | Number of orbs                                               | `12`              |
+| `color`          | Color of glowing orbs                                        | `#00ffff`         |
+| `radius`         | Distance from center (in px)                                 | `60`              |
+| `mode="quantum"` | Enables quantum leap mode                                    |                   |
+| `quantum-delay`  | Time between jumps (ms)                                      | `3000`            |
+| `quantum-entropy`| Multiplier of jump randomness (0.5 = smooth, 3 = chaotic)    | `1.5`             |
+
+**🔍 Use Cases:**
+- Dynamic visual attractors for creative UIs
+- Background animation in tech-themed products
+- Artistic metaphors for intelligence or unpredictability
+- Non-interactive yet expressive visual rhythms
+
+[Live Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)
