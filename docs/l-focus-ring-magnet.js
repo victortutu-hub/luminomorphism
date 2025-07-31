@@ -25,6 +25,7 @@ class LFocusRingMagnet extends HTMLElement {
   }
 
   render() {
+    if (!this.shadowRoot) return;
     const style = document.createElement('style');
     style.textContent = `
       .ring {
@@ -53,11 +54,9 @@ class LFocusRingMagnet extends HTMLElement {
 
     const ring = document.createElement('div');
     ring.className = 'ring';
-    if (this.shadow) {
-      while (this.shadow.firstChild) this.shadow.removeChild(this.shadow.firstChild);
-    }
-    this.shadow.appendChild(style);
-    this.shadow.appendChild(ring);
+    while (this.shadowRoot.firstChild) this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+    this.shadowRoot.appendChild(style);
+    this.shadowRoot.appendChild(ring);
     this.ring = ring;
   }
 
@@ -89,9 +88,8 @@ class LFocusRingMagnet extends HTMLElement {
   }
 
   focus(e) {
-    if (!this.pulseOnFocus) return;
+    if (!this.pulseOnFocus || !this.ring) return;
     const rect = e.target.getBoundingClientRect();
-    if (!this.ring) return;
     this.ring.style.left = `${rect.left + rect.width / 2}px`;
     this.ring.style.top = `${rect.top + rect.height / 2}px`;
     this.ring.style.opacity = '1';
