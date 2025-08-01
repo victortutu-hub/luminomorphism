@@ -1,9 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Demo – l-focus-ring-magnet</title>
   <style>
     body {
@@ -13,11 +13,13 @@
       padding: 80px 20px;
       text-align: center;
     }
+
     h1 {
       font-size: 2rem;
       color: #00ffff;
       margin-bottom: 40px;
     }
+
     .demo-area {
       display: flex;
       flex-wrap: wrap;
@@ -25,20 +27,26 @@
       gap: 30px;
       margin-bottom: 40px;
     }
-    button, input[type='text'] {
+
+    button,
+    input[type='text'] {
       padding: 15px 25px;
       font-size: 16px;
       border-radius: 8px;
       border: none;
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       color: #00ffff;
       backdrop-filter: blur(8px);
     }
-    input[type='color'], input[type='range'], label {
+
+    input[type='color'],
+    input[type='range'],
+    label {
       margin: 10px;
     }
   </style>
 </head>
+
 <body>
 
   <h1>&lt;l-focus-ring-magnet&gt; Demo</h1>
@@ -53,15 +61,18 @@
   <div>
     <label>Color: <input id="colorPicker" type="color" value="#00ffff" /></label>
     <label>Radius: <input id="radiusRange" type="range" min="10" max="100" value="40" /></label>
+    <label>Magnet Range: <input id="magnetRange" type="range" min="0" max="200" value="100" /></label>
     <label><input type="checkbox" id="pulseToggle" checked /> Pulse on focus</label>
   </div>
 
-  <l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+  <l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100"
+    pulse-on-focus></l-focus-ring-magnet>
 
   <script>
     const ring = document.getElementById('focusRing');
     const colorInput = document.getElementById('colorPicker');
     const radiusInput = document.getElementById('radiusRange');
+    const magnetRangeInput = document.getElementById('magnetRange');
     const pulseToggle = document.getElementById('pulseToggle');
 
     colorInput.addEventListener('input', () => {
@@ -73,6 +84,11 @@
       ring.setAttribute('radius', radiusInput.value);
       ring.render();
     });
+
+    magnetRange.addEventListener('input', () => {
+      ring.setAttribute('magnet-range', magnetRange.value);
+    });
+
 
     pulseToggle.addEventListener('change', () => {
       if (pulseToggle.checked) {
@@ -86,4 +102,5 @@
 
   <script src="../l-focus-ring-magnet.js"></script>
 </body>
+
 </html>

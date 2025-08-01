@@ -45,7 +45,9 @@ It blends principles of fluid design, sensory feedback, and futuristic motion to
 
 | Component             | Description                                     | Demo Link |
 |----------------------|-------------------------------------------------|-----------|
-| **`<l-glint-focus>`** | Emits a scanning glint of light on focus event | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+| **`<l-glint-focus>`** | Emits a scanning glint of light on focus event
+| **`<l-focus-ring-magnet>`** | Magnetic light ring that follows the cursor and pulses on focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
+ | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
 
 ---
 
@@ -215,3 +217,37 @@ A groundbreaking luminomorphic component that combines visual orbital animation 
 - Non-interactive yet expressive visual rhythms
 
 [Live Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)
+
+---
+
+### ✨ `<l-focus-ring-magnet>` – Magnetic Focus Ring
+
+A luminomorphic component that displays a glowing magnetic ring which follows the cursor and attaches to nearby interactive elements (`button`, `input`, `textarea`, etc.).  
+It can pulse when elements are focused and responds to the following attributes:
+
+| Attribute         | Description                                                        |
+|------------------|--------------------------------------------------------------------|
+| `radius`         | Controls visual size of the ring (default: `30`)                  |
+| `color`          | Sets the glow color (default: `#00ffff`)                          |
+| `magnet-range`   | Distance in pixels for magnetic attraction (default: `80`)        |
+| `pulse-on-focus` | If present, makes the ring pulse on focused elements              |
+
+🧪 You can control it live using native inputs:
+
+```html
+<l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+
+<input type="color" id="colorPicker" />
+<input type="range" id="radiusRange" min="10" max="100" />
+<input type="range" id="magnetRange" min="0" max="200" />
+<input type="checkbox" id="pulseToggle" checked />
+
+<script>
+  const ring = document.getElementById('focusRing');
+  document.getElementById('colorPicker').oninput = e => ring.setAttribute('color', e.target.value);
+  document.getElementById('radiusRange').oninput = e => ring.setAttribute('radius', e.target.value);
+  document.getElementById('magnetRange').oninput = e => ring.setAttribute('magnet-range', e.target.value);
+  document.getElementById('pulseToggle').onchange = e =>
+    e.target.checked ? ring.setAttribute('pulse-on-focus', '') : ring.removeAttribute('pulse-on-focus');
+</script>
+```

@@ -1,6 +1,9 @@
-// Componentă luminomorfică: l-focus-ring-magnet
-// Se atașează automat pe elemente interactive apropiate (buton, input, etc.)
+// Componentă luminomorfică: l-focus-ring-magnet completă cu control
 class LFocusRingMagnet extends HTMLElement {
+  static get observedAttributes() {
+    return ['radius', 'color', 'magnet-range', 'pulse-on-focus'];
+  }
+
   constructor() {
     super();
     this.attachShadow({ mode: 'open' });
@@ -9,6 +12,7 @@ class LFocusRingMagnet extends HTMLElement {
     this.range = parseInt(this.getAttribute('magnet-range')) || 80;
     this.pulseOnFocus = this.hasAttribute('pulse-on-focus');
     this.currentTarget = null;
+    this.ring = null;
   }
 
   connectedCallback() {
@@ -25,7 +29,6 @@ class LFocusRingMagnet extends HTMLElement {
   }
 
   render() {
-    if (!this.shadowRoot) return;
     const style = document.createElement('style');
     style.textContent = `
       .ring {
@@ -54,7 +57,11 @@ class LFocusRingMagnet extends HTMLElement {
 
     const ring = document.createElement('div');
     ring.className = 'ring';
-    while (this.shadowRoot.firstChild) this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+
+    while (this.shadowRoot.firstChild) {
+      this.shadowRoot.removeChild(this.shadowRoot.firstChild);
+    }
+
     this.shadowRoot.appendChild(style);
     this.shadowRoot.appendChild(ring);
     this.ring = ring;
@@ -72,7 +79,6 @@ class LFocusRingMagnet extends HTMLElement {
 
     if (near && near !== this.currentTarget) {
       const rect = near.getBoundingClientRect();
-      if (!this.ring) return;
       this.ring.style.left = `${rect.left + rect.width / 2}px`;
       this.ring.style.top = `${rect.top + rect.height / 2}px`;
       this.ring.style.opacity = '1';
@@ -81,14 +87,13 @@ class LFocusRingMagnet extends HTMLElement {
     }
 
     if (!near) {
-      if (!this.ring) return;
       this.ring.style.opacity = '0';
       this.currentTarget = null;
     }
   }
 
   focus(e) {
-    if (!this.pulseOnFocus || !this.ring) return;
+    if (!this.pulseOnFocus) return;
     const rect = e.target.getBoundingClientRect();
     this.ring.style.left = `${rect.left + rect.width / 2}px`;
     this.ring.style.top = `${rect.top + rect.height / 2}px`;
@@ -97,9 +102,17 @@ class LFocusRingMagnet extends HTMLElement {
   }
 
   unfocus() {
-    if (!this.ring) return;
     this.ring.classList.remove('pulse');
     this.ring.style.opacity = '0';
+  }
+
+  attributeChangedCallback(name, oldVal, newVal) {
+    if (oldVal === newVal) return;
+    if (name === 'radius') this.radius = parseInt(newVal) || 30;
+    if (name === 'color') this.color = newVal || '#00ffff';
+    if (name === 'magnet-range') this.range = parseInt(newVal) || 80;
+    if (name === 'pulse-on-focus') this.pulseOnFocus = this.hasAttribute('pulse-on-focus');
+    this.render();
   }
 }
 

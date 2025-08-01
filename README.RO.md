@@ -45,7 +45,9 @@ Combină principii de design fluid, feedback senzorial și mișcare futuristă p
 
 | Componentă               | Descriere                                       | Demo |
 |--------------------------|--------------------------------------------------|------|
-| **`<l-glint-focus>`**    | Emite o reflexie mișcătoare la focus input       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+| **`<l-glint-focus>`**    | Emite o reflexie mișcătoare la focus input
+| **`<l-focus-ring-magnet>`** | Inel luminos magnetic ce urmărește cursorul și pulsează la focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
+       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
 
 ---
 
@@ -150,3 +152,37 @@ O componentă luminomorfică inovatoare care combină animația orbitală cu com
 - Ritmuri vizuale non-interactive, dar expresive
 
 [Demo Live](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)
+
+---
+
+### ✨ `<l-focus-ring-magnet>` – Inel Magnetic de Focus
+
+Componentă luminomorfică ce afișează un inel luminos magnetic care urmărește cursorul și se atașează automat la elemente interactive apropiate (`button`, `input`, `textarea` etc.).  
+Poate pulsa când un element primește focus și reacționează la următoarele atribute:
+
+| Atribut           | Descriere                                                      |
+|-------------------|----------------------------------------------------------------|
+| `radius`          | Controlează dimensiunea inelului (implicit: `30`)              |
+| `color`           | Culoarea efectului luminos (implicit: `#00ffff`)               |
+| `magnet-range`    | Distanța în pixeli pentru detectarea elementelor (implicit: `80`) |
+| `pulse-on-focus`  | Dacă este prezent, inelul pulsează când un element primește focus |
+
+🧪 Poți controla componenta live folosind input-uri native:
+
+```html
+<l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
+
+<input type="color" id="colorPicker" />
+<input type="range" id="radiusRange" min="10" max="100" />
+<input type="range" id="magnetRange" min="0" max="200" />
+<input type="checkbox" id="pulseToggle" checked />
+
+<script>
+  const ring = document.getElementById('focusRing');
+  document.getElementById('colorPicker').oninput = e => ring.setAttribute('color', e.target.value);
+  document.getElementById('radiusRange').oninput = e => ring.setAttribute('radius', e.target.value);
+  document.getElementById('magnetRange').oninput = e => ring.setAttribute('magnet-range', e.target.value);
+  document.getElementById('pulseToggle').onchange = e =>
+    e.target.checked ? ring.setAttribute('pulse-on-focus', '') : ring.removeAttribute('pulse-on-focus');
+</script>
+```
