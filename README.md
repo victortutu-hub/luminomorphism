@@ -45,9 +45,9 @@ It blends principles of fluid design, sensory feedback, and futuristic motion to
 
 | Component             | Description                                     | Demo Link |
 |----------------------|-------------------------------------------------|-----------|
-| **`<l-glint-focus>`** | Emits a scanning glint of light on focus event
+| **`<l-glint-focus>`** | Emits a scanning glint of light on focus event | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
 | **`<l-focus-ring-magnet>`** | Magnetic light ring that follows the cursor and pulses on focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
- | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+ 
 
 ---
 
