@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo – l-cursor-thread (Advanced)</title>
+  <script src="../l-cursor-thread.js"></script>
+  <style>
+    body {
+      background: #0a0e1a;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      min-height: 100vh;
+      margin: 0;
+      padding: 80px 20px;
+    }
+
+    h1 {
+      color: #00ffff;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .controls {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    select {
+      padding: 10px 20px;
+      background: #111;
+      color: #00ffff;
+      border: 1px solid #00ffff;
+      border-radius: 6px;
+      font-size: 16px;
+    }
+
+    button, input {
+      padding: 14px 24px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 255, 255, 0.2);
+      border-radius: 10px;
+      color: #ffffff;
+      transition: 0.3s ease;
+    }
+
+    button:hover, input:focus {
+      border-color: #00ffff;
+      box-shadow: 0 0 12px #00ffff44;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <l-cursor-thread></l-cursor-thread>
+
+  <h1>&lt;l-cursor-thread&gt; Modes Demo</h1>
+
+  <div class="controls">
+    <label for="mode">Select Thread Style:</label>
+    <select id="mode">
+      <option value="solid">Solid</option>
+      <option value="glow">Glow</option>
+      <option value="wave">Wave (sinusoidal)</option>
+      <option value="laser">Laser Pulse</option>
+      <option value="aura">Aura</option>
+      <option value="particles">Particles</option>
+    </select>
+  </div>
+
+  <div class="container">
+    <button>Click Me</button>
+    <input type="text" placeholder="Type something" />
+    <button>Another Action</button>
+    <input type="email" placeholder="Email address" />
+  </div>
+
+  <script>
+    const thread = document.querySelector('l-cursor-thread');
+    const modeSelect = document.getElementById('mode');
+
+    // Injectăm atribut personalizat de stil
+    modeSelect.addEventListener('change', () => {
+      thread.setAttribute('mode', modeSelect.value);
+      console.log('Mode set to:', modeSelect.value);
+    });
+
+    // Poți prelua modul selectat în implementarea viitoare
+  </script>
+
+</body>
+</html>
