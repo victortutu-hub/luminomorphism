@@ -46,6 +46,8 @@ It blends principles of fluid design, sensory feedback, and futuristic motion to
 | Component             | Description                                     | Demo Link |
 |----------------------|-------------------------------------------------|-----------|
 | **`<l-glint-focus>`** | Emits a scanning glint of light on focus event | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+
+| **`<l-focus-flare>`** | Radial light flare that activates on input focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-flare.html) |
 | **`<l-focus-ring-magnet>`** | Magnetic light ring that follows the cursor and pulses on focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
  
 
@@ -250,4 +252,24 @@ It can pulse when elements are focused and responds to the following attributes:
   document.getElementById('pulseToggle').onchange = e =>
     e.target.checked ? ring.setAttribute('pulse-on-focus', '') : ring.removeAttribute('pulse-on-focus');
 </script>
+```
+---
+
+### ✨ `<l-focus-flare>` – Radial Focus Flare
+
+A luminomorphic enhancer that displays a burst of radial light when an element inside gains focus. It's ideal for highlighting interactive fields in an aesthetic yet functional way.
+
+| Attribute   | Description                                      |
+|------------|--------------------------------------------------|
+| `color`    | Flare color (default: `#00ffff`)                 |
+| `intensity`| Opacity of flare (0–1, default: `0.6`)           |
+| `duration` | Animation duration in ms (default: `600`)        |
+| `radius`   | Radius of flare in pixels (default: `60`)        |
+
+🧪 Usage example:
+
+```html
+<l-focus-flare color="#ffaa00" intensity="0.6" duration="800" radius="80">
+  <input type="text" placeholder="Name">
+</l-focus-flare>
 ```

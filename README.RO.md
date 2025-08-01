@@ -46,6 +46,8 @@ Combină principii de design fluid, feedback senzorial și mișcare futuristă p
 | Componentă               | Descriere                                       | Demo |
 |--------------------------|--------------------------------------------------|------|
 | **`<l-glint-focus>`**    | Emite o reflexie mișcătoare la focus input
+
+| **`<l-focus-flare>`** | Flare luminos radial la focus pe input | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-flare.html) |
 | **`<l-focus-ring-magnet>`** | Inel luminos magnetic ce urmărește cursorul și pulsează la focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
 
@@ -185,4 +187,24 @@ Poate pulsa când un element primește focus și reacționează la următoarele 
   document.getElementById('pulseToggle').onchange = e =>
     e.target.checked ? ring.setAttribute('pulse-on-focus', '') : ring.removeAttribute('pulse-on-focus');
 </script>
+```
+---
+
+### ✨ `<l-focus-flare>` – Efect Flare la Focus
+
+Componentă luminomorfică ce emite o explozie radială de lumină atunci când un element intern primește focus (ex: input, buton).  
+
+| Atribut     | Descriere                                           |
+|-------------|-----------------------------------------------------|
+| `color`     | Culoarea flare-ului (implicit: `#00ffff`)           |
+| `intensity` | Opacitate flare (0–1, implicit: `0.6`)              |
+| `duration`  | Durata animației în milisecunde (implicit: `600`)  |
+| `radius`    | Raza efectului în pixeli (implicit: `60`)          |
+
+🧪 Exemplu de utilizare:
+
+```html
+<l-focus-flare color="#ffaa00" intensity="0.6" duration="800" radius="80">
+  <input type="text" placeholder="Nume">
+</l-focus-flare>
 ```

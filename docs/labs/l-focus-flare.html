@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Demo – l-focus-flare</title>
+  <script src="../l-focus-flare.js"></script>
+  <script type="module" src="https://cdn.jsdelivr.net/npm/luminomorphism@1.1.9/dist/l-focus-flare.min.js"></script>
+  <style>
+    body {
+      background: #0a0e1a;
+      font-family: 'Inter', sans-serif;
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 100px 20px;
+    }
+    h1 {
+      color: #00ffff;
+      margin-bottom: 40px;
+    }
+    l-focus-flare {
+      margin: 20px;
+    }
+    input {
+      padding: 14px 20px;
+      font-size: 16px;
+      border-radius: 10px;
+      border: none;
+      background: rgba(255, 255, 255, 0.05);
+      color: #ffffff;
+    }
+    input:focus {
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>&lt;l-focus-flare&gt; Demo</h1>
+
+  <l-focus-flare color="#00ffff" intensity="0.5" duration="1000" radius="35">
+    <input type="text" placeholder="Type your name..." />
+  </l-focus-flare>
+
+  <l-focus-flare color="#ff00cc" intensity="0.7" duration="800" radius="80">
+    <input type="email" placeholder="Email address" />
+  </l-focus-flare>
+
+  <l-focus-flare color="#ffaa00" intensity="0.5" duration="1000" radius="100">
+    <input type="password" placeholder="Password" />
+  </l-focus-flare>
+
+</body>
+</html>
