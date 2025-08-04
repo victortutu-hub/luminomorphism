@@ -208,3 +208,13 @@ Componentă luminomorfică ce emite o explozie radială de lumină atunci când 
   <input type="text" placeholder="Nume">
 </l-focus-flare>
 ```
+---
+
+### 🔐 Componente Protejate
+
+Unele componente precum `<l-magnetic-cluster>` și `<l-particle-net-v3>` sunt publicate doar în versiuni minificate și obfuscate pentru a proteja inovația.
+
+Codul sursă complet nu este inclus în repository, dar componentele funcționează integral și pot fi folosite normal în proiecte.  
+Demo-urile rămân disponibile public.
+
+[Vezi demo-uri](https://victortutu-hub.github.io/luminomorphism/labs/)

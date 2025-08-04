@@ -21,3 +21,10 @@ For licensing, partnerships or clarification, contact: **mihaivictordaniel@gmail
 ---
 
 © 2025 Victor Mihai. All rights reserved.
+
+## Component Protection Notice
+
+The internal logic of `<l-magnetic-cluster>`, `<l-particle-net-v3>` and `<l-particle-net>` is considered proprietary.  
+To protect originality and prevent unauthorized replication, these components are distributed only as obfuscated builds (`.min.js`).
+
+Their use remains fully open under the MIT license, but reverse engineering or de-obfuscation is prohibited under the trademark policy.

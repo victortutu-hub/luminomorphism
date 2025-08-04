@@ -1,34 +1,39 @@
-# OS
+# ─────────────────────────────
+# ✅ OS Files
 .DS_Store
 Thumbs.db
 
-# Logs
+# ✅ Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-
-# Editor folders
-.vscode/
-.idea/
-
-# Dependency directories
-node_modules/
-
-# Build output
-#dist/*.min.*
-dist/*.map
 *.log
 
-# Temp files
-*.tmp
-*.swp
-*.bak
+# ✅ IDEs / Editors
+.vscode/
+.idea/
 *.sublime-workspace
 *.sublime-project
 
-# System files
+# ✅ Dependencies
+node_modules/
+
+# ✅ Build Output
+dist/*.map
+*.tmp
+*.swp
+*.bak
 *.orig
 *.lock
-*.env
+
+# ✅ Environment Config
+.env
 .env.*
+
+# ✅ 🔒 Protecție: Cod sursă sensibil (nu îl urcăm pe GitHub!)
+src/sensitive/
+
+# ✅ Alte foldere generate (dacă folosești vite, parcel, vitepress etc.)
+.cache/
+output/

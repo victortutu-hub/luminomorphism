@@ -1,6 +1,6 @@
 {
   "name": "luminomorphism",
-  "version": "1.1.9",
+  "version": "1.1.10",
   "description": "A UI design system built around light, blur, ambient motion and perceptual feedback.",
   "main": "dist/luminomorph.min.js",
   "style": "dist/luminomorph.min.css",
@@ -8,9 +8,11 @@
     "dist"
   ],
   "scripts": {
-    "build": "npm run minify:js && npm run minify:css",
     "minify:js": "esbuild src/*.js --minify --outdir=dist --out-extension:.js=.min.js",
     "minify:css": "node -e \"require('fs').readdirSync('src').filter(f => f.endsWith('.css')).forEach(f => require('child_process').execSync(`npx csso src/${f} --output dist/${f.replace('.css', '.min.css')}`))\"",
+    "obfuscate:sensitive": "javascript-obfuscator src/sensitive --output dist/sensitive --compact true --self-defending true",
+    "rename:obfuscated": "mv dist/sensitive/l-particle-net-v3.js dist/l-particle-net-v3.min.js && mv dist/sensitive/l-magnetic-cluster.js dist/l-magnetic-cluster.min.js",
+    "build": "npm run minify:js && npm run minify:css && npm run obfuscate:sensitive && npm run rename:obfuscated",
     "release": "npm version patch && git push origin main --tags && npm publish --access public"
   },
   "keywords": [
