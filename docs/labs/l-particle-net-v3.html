@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>l-particle-net-v3 Demo</title>
+  <script src="l-particle-net-v3.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #08141f 0%, #0e1d2b 100%);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0,255,255,0.05);
+      padding: 12px;
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+      z-index: 10;
+      color: #cfffff;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-size: 0.85rem;
+    }
+
+    .controls label {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .controls input[type="range"] {
+      width: 160px;
+    }
+
+    l-particle-net-v3 {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+
+<l-particle-net-v3
+  id="net"
+  nodes="80"
+  speed="0.4"
+  color="#00ffff"
+  field-reactivity="0.9"
+  pulse-rate="1.2"
+  excitation-level="0.6"
+  trail="true"
+  autopilot="true"
+></l-particle-net-v3>
+
+<div class="controls">
+  <label>Nodes: <input id="nodes" type="range" min="10" max="1000" value="120"></label>
+  <label>Speed: <input id="speed" type="range" min="0.1" max="2" step="0.1" value="0.6"></label>
+  <label>Field Reactivity: <input id="fieldReactivity" type="range" min="0.1" max="2" step="0.1" value="0.9"></label>
+  <label>Pulse Rate: <input id="pulseRate" type="range" min="0.1" max="3" step="0.1" value="1.2"></label>
+  <label>Excitation Level: <input id="excitationLevel" type="range" min="0" max="1" step="0.05" value="0.6"></label>
+  <label><input type="checkbox" id="trail" checked> Enable Trail</label>
+  <label><input type="checkbox" id="autopilot" checked> Autopilot</label>
+  <label>Glow Color: <input type="color" id="color" value="#00ffff"></label>
+
+  <label><input type="checkbox" id="learning" checked> Enable Learning</label>
+  <label>Glow Sensitivity:
+    <input id="glowSensitivity" type="range" min="0.1" max="5" step="0.1" value="2.5">
+  </label>
+  <label>Memory Decay:
+    <input id="memoryDecay" type="range" min="0.001" max="0.1" step="0.001" value="0.01">
+  </label>
+  <label><input type="checkbox" id="showLearned" checked> Show Learned Particles</label>
+
+</div>
+
+<script>
+  const net = document.getElementById('net');
+  const controls = {
+    nodes: document.getElementById('nodes'),
+    speed: document.getElementById('speed'),
+    fieldReactivity: document.getElementById('fieldReactivity'),
+    pulseRate: document.getElementById('pulseRate'),
+    excitationLevel: document.getElementById('excitationLevel'),
+    trail: document.getElementById('trail'),
+    autopilot: document.getElementById('autopilot'),
+    color: document.getElementById('color'),
+    learning: document.getElementById('learning'),
+    glowSensitivity: document.getElementById('glowSensitivity'),
+    memoryDecay: document.getElementById('memoryDecay'),
+    showLearned: document.getElementById('showLearned'),
+  };
+
+  Object.entries(controls).forEach(([key, el]) => {
+    el.addEventListener('input', () => {
+      const attrName = key.replace(/[A-Z]/g, m => '-' + m.toLowerCase());
+      const value = el.type === 'checkbox' ? el.checked : el.value;
+      net.setAttribute(attrName, value);
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,217 @@
+<!-- l-magnetic-cluster.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>l-magnetic-cluster — Enhanced Demo with Emotional Controls</title>
+  <script src="https://5ee016b98f58.ngrok-free.app/api/js/l-magnetic-cluster.js?token=GITHUB_PUBLIC_DEMO"></script>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: radial-gradient(circle at center, #08141f 0%, #0e1d2b 100%);
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    .label, .legend, .controls, .emotional-field {
+      backdrop-filter: blur(10px);
+      background: rgba(0, 255, 255, 0.05);
+      border-radius: 12px;
+      color: #cfffff;
+      z-index: 10;
+      font-size: 0.85rem;
+    }
+    .label {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 6px 12px;
+      font-size: 1rem;
+    }
+    .legend {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      padding: 8px 12px;
+      line-height: 1.5;
+    }
+    .controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 14px;
+      max-height: 90vh;
+      overflow-y: auto;
+      min-width: 180px;
+    }
+    .controls h4 {
+      margin: 10px 0 5px 0;
+      padding-bottom: 3px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+      font-size: 0.9rem;
+    }
+    .controls label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .controls input[type="range"] {
+      width: 120px;
+      flex: 1;
+    }
+    .controls .value-display {
+      min-width: 30px;
+      text-align: right;
+      font-size: 0.8rem;
+      color: #a0ffff;
+    }
+    .emotional-field {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      padding: 8px 12px;
+      min-width: 140px;
+    }
+    .field-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+    l-magnetic-cluster {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="label">l-magnetic-cluster — Enhanced Demo</div>
+
+  <div class="legend">
+    <strong>Emotional Legend:</strong><br />
+    🟦 calm<br />
+    🟨 excited<br />
+    🟥 anxious<br />
+    🔵 sad<br />
+    🟪 euphoric<br />
+    <br />
+    <strong>Quantum:</strong><br />
+    🔵 alpha state<br />
+    🟣 beta state
+    <hr style="border-color: rgba(0,255,255,0.2); margin: 6px 0;" />
+    <strong>Emotional Field:</strong><br />
+    <span id="fieldDominant">Dominant: calm</span><br />
+    <span id="fieldIntensity">Intensity: 0%</span>
+  </div>
+
+  <div class="controls">
+    <h4>Basic Parameters</h4>
+    <label>Count: <input id="count" type="range" min="2" max="30" value="8" /> <span class="value-display" id="count-val">8</span></label>
+    <label>Size: <input id="size" type="range" min="10" max="100" value="60" /> <span class="value-display" id="size-val">60</span></label>
+    <label>Speed: <input id="speed" type="range" min="0.1" max="5" step="0.1" value="1.5" /> <span class="value-display" id="speed-val">1.5</span></label>
+    <label>Opacity: <input id="opacity" type="range" min="0.1" max="1" step="0.1" value="0.6" /> <span class="value-display" id="opacity-val">0.6</span></label>
+
+    <h4>Physics Systems</h4>
+    <label><input type="checkbox" id="toggle-verlet" checked /> Verlet Physics</label>
+    <label><input type="checkbox" id="toggle-boids" checked /> Boids Behavior</label>
+    <label><input type="checkbox" id="toggle-magnetic" checked /> Magnetic Cursor</label>
+
+    <h4>Advanced Features</h4>
+    <label><input type="checkbox" id="toggle-quantum" checked /> Quantum Effects</label>
+    <label><input type="checkbox" id="toggle-emotional" checked /> Emotional Physics</label>
+    <label><input type="checkbox" id="toggle-breathing" /> Breathing Mode</label>
+    <label><input type="checkbox" id="toggle-echoes" /> Temporal Echoes</label>
+
+    <h4>Emotional Tuning</h4>
+    <label>Contagion Rate: <input id="contagion-rate" type="range" min="0.001" max="0.02" step="0.001" value="0.005" /> <span class="value-display" id="contagion-val">0.005</span></label>
+    <label>Mutation Rate: <input id="mutation-rate" type="range" min="0.001" max="0.02" step="0.001" value="0.008" /> <span class="value-display" id="mutation-val">0.008</span></label>
+    <label>Field Influence: <input id="field-influence" type="range" min="0" max="0.5" step="0.05" value="0.2" /> <span class="value-display" id="field-val">0.2</span></label>
+    <label>Contagion Distance: <input id="contagion-distance" type="range" min="40" max="150" step="10" value="80" /> <span class="value-display" id="distance-val">80</span></label>
+
+    <h4>Quantum Tuning</h4>
+    <label>Tunneling Rate: <input id="tunnel-rate" type="range" min="0.001" max="0.01" step="0.001" value="0.003" /> <span class="value-display" id="tunnel-val">0.003</span></label>
+    <label>State Flip Rate: <input id="state-rate" type="range" min="0.01" max="0.1" step="0.01" value="0.02" /> <span class="value-display" id="state-val">0.02</span></label>
+    <label>Coherence Decay: <input id="coherence-decay" type="range" min="0.90" max="0.99" step="0.01" value="0.95" /> <span class="value-display" id="coherence-val">0.95</span></label>
+  </div>
+
+  <l-magnetic-cluster id="cluster" count="8" size="60" speed="1.5" opacity="0.6" quantum="true" emotional="true"></l-magnetic-cluster>
+
+  <script>
+    const cluster = document.getElementById('cluster');
+
+    // Basic parameter controls
+    ['count', 'size', 'speed', 'opacity'].forEach(id => {
+      const input = document.getElementById(id);
+      const display = document.getElementById(`${id}-val`);
+      input.addEventListener('input', () => {
+        display.textContent = input.value;
+        cluster.setAttribute(id, input.value);
+        cluster.reinit();
+      });
+    });
+
+    // Toggle features
+    [
+      { id: 'toggle-verlet', attr: 'verlet' },
+      { id: 'toggle-boids', attr: 'boids' },
+      { id: 'toggle-magnetic', attr: 'magnetic' },
+      { id: 'toggle-quantum', attr: 'quantum' },
+      { id: 'toggle-emotional', attr: 'emotional' },
+      { id: 'toggle-breathing', attr: 'breathing' },
+      { id: 'toggle-echoes', attr: 'echoes' },
+    ].forEach(({ id, attr }) => {
+      document.getElementById(id).addEventListener('change', e => {
+        cluster.setAttribute(attr, e.target.checked ? 'true' : 'false');
+        cluster.reinit();
+      });
+    });
+
+    // Emotional and quantum tuning controls
+    const emotionalControlMap = {
+      'contagion-rate': 'contagion-val',
+      'mutation-rate': 'mutation-val',
+      'field-influence': 'field-val',
+      'contagion-distance': 'distance-val',
+      'tunnel-rate': 'tunnel-val',
+      'state-rate': 'state-val',
+      'coherence-decay': 'coherence-val'
+    };
+
+    Object.entries(emotionalControlMap).forEach(([inputId, displayId]) => {
+      const input = document.getElementById(inputId);
+      const display = document.getElementById(displayId);
+      input.addEventListener('input', () => {
+        display.textContent = input.value;
+        cluster.setAttribute(inputId.replace('-', '_'), input.value);
+      });
+    });
+
+    // Emotional field display
+    const emotionColors = {
+      calm: "rgba(0,255,255,0.8)",
+      excited: "rgba(255,255,0,0.8)",
+      anxious: "rgba(255,100,100,0.8)",
+      sad: "rgba(24,92,238,0.8)",
+      euphoric: "rgba(255,0,255,0.8)"
+    };
+
+    setInterval(() => {
+      if (cluster.emotionalField) {
+        document.getElementById('fieldDominant').innerHTML =
+          `<span class="field-indicator" style="background: ${emotionColors[cluster.emotionalField.dominant]}"></span>Dominant: ${cluster.emotionalField.dominant}`;
+        document.getElementById('fieldIntensity').textContent =
+          `Intensity: ${Math.round(cluster.emotionalField.intensity * 100)}%`;
+      }
+    }, 500);
+  </script>
+</body>
+</html>
