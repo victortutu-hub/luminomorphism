@@ -4,6 +4,11 @@ The term **Luminomorphism™** and its associated design identity (visual style,
 
 While the source code is released under the MIT License, the name **"Luminomorphism"** is reserved to describe this specific visual system and style.
 
+## Trademark Extensions
+
+The terms **“Luminomorphic UI”** and **“Luminomorphic Cognitive Components (LCC)”** are part of an original conceptual and aesthetic framework authored by **Victor Mihai**.  
+These terms fall under the same trademark protections as “Luminomorphism™” and may not be used for derivative works, frameworks, or products without explicit permission.
+
 ## Usage Guidelines
 
 ✅ You may:
