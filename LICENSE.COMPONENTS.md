@@ -35,7 +35,7 @@ The source code may be freely used, modified, and redistributed under the open-s
 
 ## 🔒 Protected Web Components
 
-The following components are original creative works developed by Victor Mihai Tutu and distributed under the terms of this license:
+The following components are original creative works developed by Mihai Victor and distributed under the terms of this license:
 
 - **`l-particle-net.js`** – Dynamic particle network with visual glow and interactive motion.
 - **`l-particle-net-v3.js`** – Advanced behavioral UI system with memory-based excitation, learning, and AI glow differentiation.
