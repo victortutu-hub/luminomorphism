@@ -6,90 +6,81 @@
 [![GitHub stars](https://img.shields.io/github/stars/victortutu-hub/luminomorphism?style=social)](https://github.com/victortutu-hub/luminomorphism/stargazers)
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/luminomorphism)](https://bundlephobia.com/result?p=luminomorphism)
 
-**Luminomorphism** este un sistem de design UI de nouă generație, care transformă elementele de interfață în componente reactive la lumină și mișcare.  
-Combină principii de design fluid, feedback senzorial și mișcare futuristă pentru a crea o experiență digitală luminoasă și interactivă.
+**Luminomorphism** este o bibliotecă UI care transformă elementele de interfață în entități vizuale interactive, strălucitoare și reactive. Inspirată de lumină, memorie și mișcare, introduce o nouă categorie de componente web: **interfețe vii**.
 
-> ✨ Nu este doar un stil vizual — este o prezență reactivă.
-
----
-
-## 🚀 Ce îl face unic?
-
-- ✅ Web Components 100% originale — scrise de la zero
-- 💡 Inspirat de comportamentul luminii: dispersie, strălucire, reflexie, puls
-- 🎯 Creat pentru interfețe creative, artă digitală și UI imersiv
-- ⚙️ Fără framework-uri, fără dependențe — doar JavaScript + CSS
-- 📱 Complet responsive și optimizat pentru mobil
+> ✨ Nu este o temă sau un framework — este cogniție vizuală reactivă.
 
 ---
 
-## 🧩 Componente Disponibile
+## 🚀 De ce Luminomorphism?
 
-### 🎯 Efecte UI Interactive
-
-| Componentă                | Descriere                                             | Demo |
-|--------------------------|--------------------------------------------------------|------|
-| **`<l-orbital>`**        | Orbitează puncte luminoase în jurul unui centru        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html) |
-| **`<l-orbital-quantum>`** | Orbite cuantice cu entropie și sincron optic         | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html) |
-| **`<l-orbital-nav>`**    | Sistem de navigație cu butoane orbitale animate        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html) |
-| **`<l-particle-net>`**   | Rețea de particule cu noduri conectate prin lumină     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html) |
-| **`<l-prism-layer>`**    | Efect prismă refractivă ce reacționează la interacțiune| [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html) |
-| **`<l-glow-trail>`**     | Urmă radiantă ce urmărește cursorul                   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html) |
-| **`<l-ripple-hover>`**   | Explozie circulară de lumină la hover                 | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html) |
-| **`<l-echo-press>`**     | Ecou radial luminos pornind de la click                | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html) |
-| **`<l-magnetic-cluster>`** | Sfere cu fizică Verlet, comportament Boids și atracție magnetică | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html) |
+* ✅ Web Components 100% originale
+* 🔥 Lumina este comportament, nu decor
+* 🎯 Ideal pentru UI expresive, creative și futuriste
+* ⚙️ Fără dependențe — doar JavaScript și CSS pur
+* 📱 Optimizat pentru mobil și performanță
 
 ---
 
-### 🧠 Efecte bazate pe interacțiune
+## 🧩 Componente Publicate
 
-| Componentă               | Descriere                                       | Demo |
-|--------------------------|--------------------------------------------------|------|
-| **`<l-glint-focus>`**    | Emite o reflexie mișcătoare la focus input
+### 🎯 Interactive Fundamentale
 
-| **`<l-focus-flare>`** | Flare luminos radial la focus pe input | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-flare.html) |
-| **`<l-focus-ring-magnet>`** | Inel luminos magnetic ce urmărește cursorul și pulsează la focus | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-focus-ring-magnet.html) |
-       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glint-focus.html) |
+| Componentă             | Descriere                                      | Demo                                      |
+| ---------------------- | ---------------------------------------------- | ----------------------------------------- |
+| `<l-orbital>`          | Orbite luminoase circulare                     | [Demo](docs/labs/l-orbital.html)          |
+| `<l-orbital-quantum>`  | Comportament cuantic, entropie                 | [Demo](docs/labs/l-orbital-quantum.html)  |
+| `<l-orbital-nav>`      | Navigație cu butoane orbitale                  | [Demo](docs/labs/l-orbital-nav.html)      |
+| `<l-particle-net>`     | Câmp de particule cu legături dinamice         | [Demo](docs/labs/l-particle-net.html)     |
+| `<l-glow-trail>`       | Urmă luminoasă care urmărește cursorul         | [Demo](docs/labs/l-glow-trail.html)       |
+| `<l-prism-layer>`      | Strat prismă cu strălucire interactivă         | [Demo](docs/labs/l-prism-layer.html)      |
+| `<l-ripple-hover>`     | Efect de undă la hover                         | [Demo](docs/labs/l-ripple-hover.html)     |
+| `<l-echo-press>`       | Ecou radial din punctul de click               | [Demo](docs/labs/l-echo-press.html)       |
+| `<l-magnetic-cluster>` | Particule cu logică magnetică, boids și fizică | [Demo](docs/labs/l-magnetic-cluster.html) |
 
----
+### 🧠 Componente pentru Focus & Input
 
-### 🧊 Efecte de fundal și structură
+| Componentă              | Descriere                                                                    | Demo                                       |
+| ----------------------- | ---------------------------------------------------------------------------- | ------------------------------------------ |
+| `<l-glint-focus>`       | Reflexie în mișcare la focus                                                 | [Demo](docs/labs/l-glint-focus.html)       |
+| `<l-focus-flare>`       | Flare radial la focus pe input                                               | [Demo](docs/labs/l-focus-flare.html)       |
+| `<l-focus-ring-magnet>` | Inel magnetic care urmărește cursorul și se atașează la elemente interactive | [Demo](docs/labs/l-focus-ring-magnet.html) |
 
-| Componentă                | Descriere                                         | Demo |
-|---------------------------|---------------------------------------------------|------|
-| **`<l-depth-frame>`**     | Simulează profunzimea 3D prin umbre stratificate | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-depth-frame.html) |
-| **`<l-flare-sheen>`**     | Reflexie luminoasă trece peste conținut          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-flare-sheen.html) |
-| **`<l-generative-bg>`**   | Fundal procedural animat și strălucitor          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-generative-bg.html) |
-| **`<l-hologram>`**        | Simulează efecte de hologram și scanare          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-hologram.html) |
-| **`<l-light-ray>`**       | Animă raze de lumină pe o suprafață              | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-light-ray.html) |
-| **`<l-mosaic-grid>`**     | Matrice animată cu modele luminoase dinamice     | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-mosaic-grid.html) |
-| **`<l-pulse-bubble>`**    | Bulă luminoasă ce pulsează                       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-pulse-bubble.html) |
+### 🧊 Efecte Structurale și de Fundal
 
----
+| Componentă          | Descriere                                 | Demo                                   |
+| ------------------- | ----------------------------------------- | -------------------------------------- |
+| `<l-depth-frame>`   | Profunzime simulată cu umbre stratificate | [Demo](docs/labs/l-depth-frame.html)   |
+| `<l-flare-sheen>`   | Reflexie luminoasă în mișcare             | [Demo](docs/labs/l-flare-sheen.html)   |
+| `<l-generative-bg>` | Fundal procedural animat                  | [Demo](docs/labs/l-generative-bg.html) |
+| `<l-hologram>`      | Suprapunere holografică cu flicker        | [Demo](docs/labs/l-hologram.html)      |
+| `<l-light-ray>`     | Razele de lumină animate pe suprafață     | [Demo](docs/labs/l-light-ray.html)     |
+| `<l-mosaic-grid>`   | Grilă cu modele luminoase dinamice        | [Demo](docs/labs/l-mosaic-grid.html)   |
+| `<l-pulse-bubble>`  | Bulă pulsatorie cu strălucire             | [Demo](docs/labs/l-pulse-bubble.html)  |
 
 ### 🖼️ Experimente Vizuale
 
-| Pagini Speciale                | Descriere                                 | Demo |
-|-------------------------------|-------------------------------------------|------|
-| `l-gallery.html`              | Galerie luminomorfică clasică             | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery.html) |
-| `l-gallery-molecule.html`     | Galerie tip „moleculă” interactivă        | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-gallery-molecule.html) |
+| Pagină                    | Descriere                        | Demo                                      |
+| ------------------------- | -------------------------------- | ----------------------------------------- |
+| `l-gallery.html`          | Galerie luminomorfică clasică    | [Demo](docs/labs/l-gallery.html)          |
+| `l-gallery-molecule.html` | Galerie interactivă tip moleculă | [Demo](docs/labs/l-gallery-molecule.html) |
 
 ---
 
-## ✨ Exemplu pentru `<l-magnetic-cluster>`
+## 🔐 Componente Protejate
+
+Unele componente precum `<l-magnetic-cluster-v2>`, `l-particle-net-v3` si `l-particle-net.js` sunt publicate doar în versiuni minificate/obfuscate.
+
+> 🔒 Codul este complet funcțional, dar sursa nu este publică. Detalii în `LICENSE.COMPONENTS.md`.
+
+---
+
+## 🧪 Exemplu de Utilizare
 
 ```html
-<script src="dist/l-magnetic-cluster.min.js"></script>
+<script src="dist/l-particle-net.js"></script>
 
-<l-magnetic-cluster
-  count="12"
-  size="40"
-  speed="1.5"
-  opacity="0.6"
-  verlet="true"
-  boids="true"
-  magnetic="true">
-</l-magnetic-cluster>
+<l-particle-net nodes="32" color="#00ffff" speed="0.5"></l-particle-net>
 ```
 
 ---
@@ -102,119 +93,35 @@ npm install luminomorphism
 
 ---
 
-## 📁 Structură Foldere
+## 📁 Structură Proiect
 
 ```
 luminomorphism/
-├── dist/        → Componente minificate
-├── docs/labs/   → Fișiere pentru demo-uri GitHub Pages
-├── README.md    → Documentație în engleză
-├── README.RO.md → Această documentație în română
+├── dist/          → Componente minificate pentru producție
+├── docs/labs/     → Demo-uri publice pentru GitHub Pages
+├── README.md      → Documentație în engleză
+├── README.RO.md   → Această documentație
+├── MANIFEST.md    → Manifestul Luminomorphism (EN + RO)
 ```
+
+---
+
+## 💡 Filosofie
+
+> Lumina este percepție. Interacțiunea este memorie. Animația este prezență.
+> Luminomorphism nu e decor — e cogniție vizuală.
+
+Citește manifestul complet: [MANIFEST.md](MANIFEST.md)
 
 ---
 
 ## 👨‍💻 Autor
 
-Creat de [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)  
-100% original, scris manual, licențiat MIT.
+Creat de [Victor Mihai (victortutu-hub)](https://github.com/victortutu-hub)
+Concept original. Scris manual. Licențiat MIT.
 
 ---
 
-## 📄 Licență
+## 🌐 Alte limbi
 
-MIT — liber pentru utilizare și modificare.
-
-
-### `<l-orbital-quantum>` – Simulare orbitală cuantică cu entropie și entanglement optic
-O componentă luminomorfică inovatoare care combină animația orbitală cu comportamente inspirate din fizica cuantică. Orbitele pulsează, se rotesc, dispar și reapar în poziții aleatorii, controlate de un parametru de entropie configurabil.
-
-**✨ Caracteristici esențiale:**
-- Rotație continuă cu orbite care pulsează independent
-- Salturi cuantice: orbitele dispar și reapar neașteptat
-- Entanglement optic: o altă orbită reacționează sincron
-- Control al haosului cu `quantum-entropy`
-- Declarativ, fără framework-uri, 100% compatibil cu HTML
-
-**🔧 Atribute:**
-
-| Atribut             | Descriere                                                  | Exemplu         |
-|---------------------|------------------------------------------------------------|-----------------|
-| `count`             | Numărul de orbite                                           | `12`            |
-| `color`             | Culoarea punctelor luminoase                                | `#00ffff`       |
-| `radius`            | Distanța față de centru (în px)                             | `60`            |
-| `mode="quantum"`    | Activează modul cuantic                                     |                 |
-| `quantum-delay`     | Timpul între salturi (milisecunde)                          | `3000`          |
-| `quantum-entropy`   | Gradul de aleatoriu (0.5 = subtil, 3 = extrem de haotic)    | `1.5`           |
-
-**🔍 Utilizare:**
-- Atractori vizuali pentru interfețe creative
-- Animații de fundal în produse tehnologice
-- Metafore pentru inteligență, rețele sau comportament emergent
-- Ritmuri vizuale non-interactive, dar expresive
-
-[Demo Live](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)
-
----
-
-### ✨ `<l-focus-ring-magnet>` – Inel Magnetic de Focus
-
-Componentă luminomorfică ce afișează un inel luminos magnetic care urmărește cursorul și se atașează automat la elemente interactive apropiate (`button`, `input`, `textarea` etc.).  
-Poate pulsa când un element primește focus și reacționează la următoarele atribute:
-
-| Atribut           | Descriere                                                      |
-|-------------------|----------------------------------------------------------------|
-| `radius`          | Controlează dimensiunea inelului (implicit: `30`)              |
-| `color`           | Culoarea efectului luminos (implicit: `#00ffff`)               |
-| `magnet-range`    | Distanța în pixeli pentru detectarea elementelor (implicit: `80`) |
-| `pulse-on-focus`  | Dacă este prezent, inelul pulsează când un element primește focus |
-
-🧪 Poți controla componenta live folosind input-uri native:
-
-```html
-<l-focus-ring-magnet id="focusRing" radius="40" color="#00ffff" magnet-range="100" pulse-on-focus></l-focus-ring-magnet>
-
-<input type="color" id="colorPicker" />
-<input type="range" id="radiusRange" min="10" max="100" />
-<input type="range" id="magnetRange" min="0" max="200" />
-<input type="checkbox" id="pulseToggle" checked />
-
-<script>
-  const ring = document.getElementById('focusRing');
-  document.getElementById('colorPicker').oninput = e => ring.setAttribute('color', e.target.value);
-  document.getElementById('radiusRange').oninput = e => ring.setAttribute('radius', e.target.value);
-  document.getElementById('magnetRange').oninput = e => ring.setAttribute('magnet-range', e.target.value);
-  document.getElementById('pulseToggle').onchange = e =>
-    e.target.checked ? ring.setAttribute('pulse-on-focus', '') : ring.removeAttribute('pulse-on-focus');
-</script>
-```
----
-
-### ✨ `<l-focus-flare>` – Efect Flare la Focus
-
-Componentă luminomorfică ce emite o explozie radială de lumină atunci când un element intern primește focus (ex: input, buton).  
-
-| Atribut     | Descriere                                           |
-|-------------|-----------------------------------------------------|
-| `color`     | Culoarea flare-ului (implicit: `#00ffff`)           |
-| `intensity` | Opacitate flare (0–1, implicit: `0.6`)              |
-| `duration`  | Durata animației în milisecunde (implicit: `600`)  |
-| `radius`    | Raza efectului în pixeli (implicit: `60`)          |
-
-🧪 Exemplu de utilizare:
-
-```html
-<l-focus-flare color="#ffaa00" intensity="0.6" duration="800" radius="80">
-  <input type="text" placeholder="Nume">
-</l-focus-flare>
-```
----
-
-### 🔐 Componente Protejate
-
-Unele componente precum `<l-magnetic-cluster>` și `<l-particle-net-v3>` sunt publicate doar în versiuni minificate și obfuscate pentru a proteja inovația.
-
-Codul sursă complet nu este inclus în repository, dar componentele funcționează integral și pot fi folosite normal în proiecte.  
-Demo-urile rămân disponibile public.
-
-[Vezi demo-uri](https://victortutu-hub.github.io/luminomorphism/labs/)
+🇬🇧 [Versiunea în engleză / English version](./README.md)
