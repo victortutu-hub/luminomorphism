@@ -1,13 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
+  <title>Luminomorphic Demo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>l-particle-net-v3 Demo</title>
-  <script src="https://7ef3f5b58fb1.ngrok-free.app/api/js/l-particle-net-v3.js?token=GITHUB_PUBLIC_DEMO"></script>
-
+  <script src="dist/l-loader-protected.min.js"></script>
   <style>
     html, body {
       margin: 0;
@@ -16,7 +13,6 @@
       font-family: 'Segoe UI', sans-serif;
       overflow: hidden;
     }
-
     .controls {
       position: absolute;
       top: 10px;
@@ -32,17 +28,14 @@
       gap: 10px;
       font-size: 0.85rem;
     }
-
     .controls label {
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-
     .controls input[type="range"] {
       width: 160px;
     }
-
     l-particle-net-v3 {
       display: block;
       width: 100%;
@@ -50,9 +43,15 @@
     }
   </style>
 </head>
-
 <body>
 
+<!-- ✅ Loader Web Component: încarcă JS protejat fără să apară în HTML -->
+<l-loader-protected
+  files="l-particle-net-v3.js"
+  endpoint="https://7ef3f5b58fb1.ngrok-free.app/api/js/"
+></l-loader-protected>
+
+<!-- ✅ Componenta funcționează ca de obicei -->
 <l-particle-net-v3
   id="net"
   nodes="200"
@@ -74,16 +73,10 @@
   <label><input type="checkbox" id="trail" checked> Enable Trail</label>
   <label><input type="checkbox" id="autopilot" checked> Autopilot</label>
   <label>Glow Color: <input type="color" id="color" value="#00ffff"></label>
-
   <label><input type="checkbox" id="learning" checked> Enable Learning</label>
-  <label>Glow Sensitivity:
-    <input id="glowSensitivity" type="range" min="0.1" max="5" step="0.1" value="2.5">
-  </label>
-  <label>Memory Decay:
-    <input id="memoryDecay" type="range" min="0.001" max="0.1" step="0.001" value="0.01">
-  </label>
+  <label>Glow Sensitivity: <input id="glowSensitivity" type="range" min="0.1" max="5" step="0.1" value="2.5"></label>
+  <label>Memory Decay: <input id="memoryDecay" type="range" min="0.001" max="0.1" step="0.001" value="0.01"></label>
   <label><input type="checkbox" id="showLearned" checked> Show Learned Particles</label>
-
 </div>
 
 <script>
@@ -102,7 +95,6 @@
     memoryDecay: document.getElementById('memoryDecay'),
     showLearned: document.getElementById('showLearned'),
   };
-
   Object.entries(controls).forEach(([key, el]) => {
     el.addEventListener('input', () => {
       const attrName = key.replace(/[A-Z]/g, m => '-' + m.toLowerCase());

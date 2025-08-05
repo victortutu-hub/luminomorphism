@@ -1,15 +1,10 @@
-<!-- l-magnetic-cluster.html -->
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>l-magnetic-cluster — Enhanced Demo with Emotional Controls</title>
-  
-  <script src="https://7ef3f5b58fb1.ngrok-free.app/api/js/l-magnetic-cluster.js?token=GITHUB_PUBLIC_DEMO"></script>
-
-
+  <title>l-magnetic-cluster — Protected Demo</title>
+  <script src="dist/l-loader-protected.min.js"></script>
   <style>
     html, body {
       margin: 0;
@@ -95,9 +90,14 @@
     }
   </style>
 </head>
-
 <body>
   <div class="label">l-magnetic-cluster — Enhanced Demo</div>
+
+  <!-- Loader securizat -->
+  <l-loader-protected
+    files="l-magnetic-cluster.js"
+    endpoint="https://7ef3f5b58fb1.ngrok-free.app/api/js/"
+  ></l-loader-protected>
 
   <div class="legend">
     <strong>Emotional Legend:</strong><br />
@@ -106,10 +106,6 @@
     🟥 anxious<br />
     🔵 sad<br />
     🟪 euphoric<br />
-    <br />
-    <strong>Quantum:</strong><br />
-    🔵 alpha state<br />
-    🟣 beta state
     <hr style="border-color: rgba(0,255,255,0.2); margin: 6px 0;" />
     <strong>Emotional Field:</strong><br />
     <span id="fieldDominant">Dominant: calm</span><br />
@@ -150,8 +146,6 @@
 
   <script>
     const cluster = document.getElementById('cluster');
-
-    // Basic parameter controls
     ['count', 'size', 'speed', 'opacity'].forEach(id => {
       const input = document.getElementById(id);
       const display = document.getElementById(`${id}-val`);
@@ -162,7 +156,6 @@
       });
     });
 
-    // Toggle features
     [
       { id: 'toggle-verlet', attr: 'verlet' },
       { id: 'toggle-boids', attr: 'boids' },
@@ -178,7 +171,6 @@
       });
     });
 
-    // Emotional and quantum tuning controls
     const emotionalControlMap = {
       'contagion-rate': 'contagion-val',
       'mutation-rate': 'mutation-val',
@@ -198,7 +190,6 @@
       });
     });
 
-    // Emotional field display
     const emotionColors = {
       calm: "rgba(0,255,255,0.8)",
       excited: "rgba(255,255,0,0.8)",
