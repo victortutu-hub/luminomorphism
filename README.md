@@ -69,7 +69,7 @@
 
 ## 🔐 Protected Components
 
-Some components like `<l-magnetic-cluster>` and `l-particle-net-v3` are distributed only as minified versions to preserve innovation.
+Some components like `<l-magnetic-cluster>` and `l-particle-net-v3`, `l-particle-net` are distributed only as minified versions to preserve innovation.
 
 > 🔒 These are fully functional and safe to use in projects, but source code is not public. See `LICENSE.COMPONENTS.md` for more.
 
