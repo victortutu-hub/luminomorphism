@@ -279,6 +279,10 @@ A luminomorphic enhancer that displays a burst of radial light when an element i
 
 Some components such as `<l-magnetic-cluster>` and `<l-particle-net-v3>` are published only as minified/obfuscated versions for innovation protection.
 
+🔒 Certain components in this package (e.g., `l-particle-net-v3`, `l-magnetic-cluster`) are subject to additional protections.
+See [LICENSE.COMPONENTS.md](./LICENSE.COMPONENTS.md) for details.
+
+
 These remain fully functional and included in `dist/`, but the original source is not part of the public repository.  
 This ensures that core luminomorphic logic (e.g. AI behavior, field reactivity) is protected while enabling live demos and usage.
 
