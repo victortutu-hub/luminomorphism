@@ -69,7 +69,7 @@
 
 ## 🔐 Componente Protejate
 
-Unele componente precum `<l-magnetic-cluster-v2>`, `l-particle-net-v3` si `l-particle-net.js` sunt publicate doar în versiuni minificate/obfuscate.
+Unele componente precum `<l-magnetic-cluster>` sau `l-particle-net-v3` sunt publicate doar în versiuni minificate/obfuscate.
 
 > 🔒 Codul este complet funcțional, dar sursa nu este publică. Detalii în `LICENSE.COMPONENTS.md`.
 
