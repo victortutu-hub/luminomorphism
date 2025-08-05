@@ -16,15 +16,17 @@ While the source code is released under the MIT License, the name **"Luminomorph
 - Use "Luminomorphism" in product names, logos, domains or libraries without permission
 - Imply affiliation with or endorsement by the original creator without consent
 
-For licensing, partnerships or clarification, contact: **mihaivictordaniel@gmail.com**
-
----
-
-© 2025 Victor Mihai. All rights reserved.
-
 ## Component Protection Notice
 
 The internal logic of `<l-magnetic-cluster>`, `<l-particle-net-v3>` and `<l-particle-net>` is considered proprietary.  
 To protect originality and prevent unauthorized replication, these components are distributed only as obfuscated builds (`.min.js`).
 
 Their use remains fully open under the MIT license, but reverse engineering or de-obfuscation is prohibited under the trademark policy.
+
+For licensing, partnerships or clarification, contact: **mihaivictordaniel@gmail.com**
+
+---
+
+© 2025 Victor Mihai. All rights reserved.
+
+
