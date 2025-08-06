@@ -6,6 +6,8 @@
 [![GitHub stars](https://img.shields.io/github/stars/victortutu-hub/luminomorphism?style=social)](https://github.com/victortutu-hub/luminomorphism/stargazers)
 [![Bundle size](https://img.shields.io/bundlephobia/minzip/luminomorphism)](https://bundlephobia.com/result?p=luminomorphism)
 
+![alt text](luminomorphism.png)
+
 **Luminomorphism** is a UI design library that turns interface elements into interactive, glowing, behavior-rich visual entities. Inspired by light, memory, and motion, it introduces a new category of web components: **living interfaces**.
 
 > ✨ It's not a theme or framework. It's reactive visual cognition.
