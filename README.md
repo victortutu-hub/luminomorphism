@@ -26,7 +26,30 @@
 
 ## 🧰 Published Components
 
+
 ## 🧠 New Component in v1.1.11
+
+### `<l-magnetic-cluster>`
+
+A multi-agent simulation with **magnetic fields**, **quantum behavior**, and **emotional contagion**. Particles respond to the cursor and to each other using behaviors like boids logic, quantum tunneling, breathing rhythm, and memory echoes.
+
+- 🧲 Magnetic attraction/repulsion with Verlet integration
+- 🧬 Quantum state flipping, entanglement, and trace particles
+- 😮 Emotional states with collective field dominance and mutation
+- 🫧 Echoes of past positions to simulate temporal memory
+
+**Demo:** [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html)
+
+
+### `<l-particle-net-v3>`
+
+An advanced particle system that integrates **temporal memory**, **field reactivity**, and a **learning mechanism**. Each node accumulates excitation history and connection density to determine whether it has "learned" — changing its glow dynamically.
+
+- 🧠 Interaction-based learning and memory
+- 🔄 Adaptive motion fields with user or autopilot input
+- ✨ Visual differentiation of learned vs. unlearned particles via dynamic glow
+
+**Demo:** [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net-v3.html)
 
 
 ### `<l-neural-growth>`
