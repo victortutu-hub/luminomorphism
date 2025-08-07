@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>l-neural-growth — Demo with Controls</title>
-  <script src="https://060447f27610.ngrok-free.app/api/js/"></script>
+  <script src="l-loader-protected.min.js"></script>
   <style>
     html, body {
       margin: 0;
@@ -35,6 +35,10 @@
   </style>
 </head>
 <body>
+  <l-loader-protected
+  files="l-neural-growth.js"
+  endpoint="https://060447f27610.ngrok-free.app/api/js/"
+></l-loader-protected>
   <div class="controls">
     <label>
       Split Chance
