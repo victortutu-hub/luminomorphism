@@ -63,8 +63,7 @@ A biologically-inspired component that simulates **neural branching and synapse 
 
 > No dependencies. Rendered via 2D canvas with glow-enhanced animation. Optimized for ambient dark interfaces.
 
-**Demo:**  
-🔗 [https://victortutu-hub.github.io/luminomorphism/labs/l-neural-growth.html](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-growth.html)
+**Demo:**  🔗 [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-growth.html)
 
 ---
 
