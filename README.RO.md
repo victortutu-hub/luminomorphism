@@ -26,17 +26,20 @@
 
 ### 🎯 Interactive Fundamentale
 
-| Componentă             | Descriere                                      | Demo                                      |
-| ---------------------- | ---------------------------------------------- | ----------------------------------------- |
-| `<l-orbital>`          | Orbite luminoase circulare                     | [Demo](docs/labs/l-orbital.html)          |
-| `<l-orbital-quantum>`  | Comportament cuantic, entropie                 | [Demo](docs/labs/l-orbital-quantum.html)  |
-| `<l-orbital-nav>`      | Navigație cu butoane orbitale                  | [Demo](docs/labs/l-orbital-nav.html)      |
-| `<l-particle-net>`     | Câmp de particule cu legături dinamice         | [Demo](docs/labs/l-particle-net.html)     |
-| `<l-glow-trail>`       | Urmă luminoasă care urmărește cursorul         | [Demo](docs/labs/l-glow-trail.html)       |
-| `<l-prism-layer>`      | Strat prismă cu strălucire interactivă         | [Demo](docs/labs/l-prism-layer.html)      |
-| `<l-ripple-hover>`     | Efect de undă la hover                         | [Demo](docs/labs/l-ripple-hover.html)     |
-| `<l-echo-press>`       | Ecou radial din punctul de click               | [Demo](docs/labs/l-echo-press.html)       |
-| `<l-magnetic-cluster>` | Particule cu logică magnetică, boids și fizică | [Demo](docs/labs/l-magnetic-cluster.html) |
+| Component              | Description                                      | Demo                                                                                 |
+| ---------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `<l-orbital>`          | Circular glowing orbs                            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html)          |
+| `<l-orbital-quantum>`  | Quantum orbital behavior with entropy            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)  |
+| `<l-orbital-nav>`      | Navigation with orbital buttons                  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html)      |
+| `<l-particle-net>`     | Interactive particle field with dynamic linking  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html)     |
+| `<l-particle-net-v3>`  | Adaptive particle system with learning and glow memory | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net-v3.html) |
+| `<l-neural-growth>`    | Organic neural branches with animated synapses   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-growth.html)    |
+| `<l-glow-trail>`       | Cursor-following glow trail                      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html)       |
+| `<l-prism-layer>`      | Shimmering prismatic layer                       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html)      |
+| `<l-ripple-hover>`     | Ripple effect on hover                           | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html)     |
+| `<l-echo-press>`       | Expanding echo at click point                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html)       |
+| `<l-magnetic-cluster>` | Particles with magnetic, boid, and physics logic | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html) |
+
 
 ### 🧠 Componente pentru Focus & Input
 
