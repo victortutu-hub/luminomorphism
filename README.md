@@ -39,7 +39,7 @@ A multi-agent simulation with **magnetic fields**, **quantum behavior**, and **e
 - 😮 Emotional states with collective field dominance and mutation
 - 🫧 Echoes of past positions to simulate temporal memory
 
-**Demo:** [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html)
+**Demo:** [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster-v2.html)
 
 
 ### `<l-particle-net-v3>`
