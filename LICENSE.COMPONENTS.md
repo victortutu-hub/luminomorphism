@@ -38,8 +38,9 @@ The source code may be freely used, modified, and redistributed under the open-s
 The following components are original creative works developed by Mihai Victor and distributed under the terms of this license:
 
 - **`l-particle-net.js`** – Dynamic particle network with visual glow and interactive motion.
-- **`l-particle-net-v3.js`** –  Interactive particle system with temporal memory, configurable field reactivity, and enhanced glow for learned interaction patterns.
+- **`l-particle-net-v3.js`** – Interactive particle system with temporal memory, configurable field reactivity, and enhanced glow for learned interaction patterns.
 - **`l-magnetic-cluster.js`** – Emergent magnetic system with simulated entanglement, emotional propagation, and memory of past interactions.
+- **`l-neural-growth.js`** – Procedural neural branching system with bidirectional synapse animation, glow-based visual memory, and adaptive energy pulses.
 
 These components:
 - Are **not derived from** any existing libraries or open-source projects;
