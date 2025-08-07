@@ -76,14 +76,14 @@ A biologically-inspired component that simulates **neural branching and synapse 
 >
 > Whether seen as art, interface design, or simulation, `<l-neural-growth>` contributes a **distinct category** of interface logic: a biologically-inspired, reactive, and memory-infused UI component.
 
-### 🔮 Core Interactives
-
 | Component              | Description                                      | Demo                                                                                 |
 | ---------------------- | ------------------------------------------------ | ------------------------------------------------------------------------------------ |
 | `<l-orbital>`          | Circular glowing orbs                            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital.html)          |
 | `<l-orbital-quantum>`  | Quantum orbital behavior with entropy            | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-quantum.html)  |
 | `<l-orbital-nav>`      | Navigation with orbital buttons                  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-orbital-nav.html)      |
 | `<l-particle-net>`     | Interactive particle field with dynamic linking  | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net.html)     |
+| `<l-particle-net-v3>`  | Adaptive particle system with learning and glow memory | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-particle-net-v3.html) |
+| `<l-neural-growth>`    | Organic neural branches with animated synapses   | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-growth.html)    |
 | `<l-glow-trail>`       | Cursor-following glow trail                      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-glow-trail.html)       |
 | `<l-prism-layer>`      | Shimmering prismatic layer                       | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-prism-layer.html)      |
 | `<l-ripple-hover>`     | Ripple effect on hover                           | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html)     |
