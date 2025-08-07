@@ -29,6 +29,7 @@
 
 ## 🧠 New Component in v1.1.11
 
+
 ### `<l-magnetic-cluster>`
 
 A multi-agent simulation with **magnetic fields**, **quantum behavior**, and **emotional contagion**. Particles respond to the cursor and to each other using behaviors like boids logic, quantum tunneling, breathing rhythm, and memory echoes.
