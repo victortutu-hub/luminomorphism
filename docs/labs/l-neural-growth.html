@@ -1,36 +1,77 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>l-neural-growth Demo</title>
-    <script src="l-loader-protected.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            background: #0c0f15;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        l-neural-growth {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>l-neural-growth — Demo with Controls</title>
+  <script src="../l-neural-growth.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #0c0c0c;
+      font-family: sans-serif;
+      color: white;
+    }
+    .controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      border-radius: 10px;
+      z-index: 10;
+    }
+    .controls label {
+      display: block;
+      margin-top: 10px;
+    }
+    l-neural-growth {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+  </style>
 </head>
-
 <body>
+  <div class="controls">
+    <label>
+      Split Chance
+      <input type="range" id="splitChance" min="0.01" max="0.5" step="0.01" value="0.12">
+    </label>
+    <label>
+      Max Depth
+      <input type="range" id="maxDepth" min="1" max="10" step="1" value="5">
+    </label>
+    <label>
+      Synapse Threshold
+      <input type="range" id="synapseThreshold" min="10" max="100" step="1" value="35">
+    </label>
+    <label>
+      Pulse Frequency
+      <input type="range" id="pulseFrequency" min="0.01" max="0.2" step="0.01" value="0.08">
+    </label>
+    <p>Apasă <strong>R</strong> pentru restart instant.</p>
+  </div>
 
-    <!-- Loader protejat -->
-    <l-loader-protected files="l-neural-growth.js"
-        endpoint="https://94e89444df5d.ngrok-free.app/api/js/"></l-loader-protected>
+  <l-neural-growth></l-neural-growth>
 
-    <l-neural-growth growth-speed="0.8" max-depth="6" branching-angle="0.6"></l-neural-growth>
+  <script>
+    const growth = document.querySelector("l-neural-growth");
+
+    document.getElementById("splitChance").addEventListener("input", e => {
+      growth.config.splitChance = parseFloat(e.target.value);
+    });
+    document.getElementById("maxDepth").addEventListener("input", e => {
+      growth.config.maxDepth = parseInt(e.target.value);
+    });
+    document.getElementById("synapseThreshold").addEventListener("input", e => {
+      growth.config.synapseThreshold = parseFloat(e.target.value);
+    });
+    document.getElementById("pulseFrequency").addEventListener("input", e => {
+      growth.config.pulseFrequency = parseFloat(e.target.value);
+    });
+  </script>
 </body>
-
 </html>
