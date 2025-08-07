@@ -1,81 +1,138 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>l-neural-growth — Demo with Controls</title>
-  <script src="l-loader-protected.min.js"></script>
-  <style>
-    html, body {
-      margin: 0;
-      height: 100%;
-      background: #0c0c0c;
-      font-family: sans-serif;
-      color: white;
-    }
-    .controls {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 15px;
-      background: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-      z-index: 10;
-    }
-    .controls label {
-      display: block;
-      margin-top: 10px;
-    }
-    l-neural-growth {
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Growth - Boundary Fixed</title>
+    <script src="l-loader-protected.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #0a0a0a;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+
+        .controls {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: rgba(0, 20, 40, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .control-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .control-group label {
+            min-width: 120px;
+            font-size: 12px;
+            color: #00ffff;
+        }
+
+        .slider {
+            width: 120px;
+            height: 4px;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .slider::-webkit-slider-thumb {
+            appearance: none;
+            width: 12px;
+            height: 12px;
+            background: #00ffff;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+
+        .reset-btn {
+            background: rgba(255, 0, 150, 0.8);
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            background: rgba(255, 0, 150, 1);
+            box-shadow: 0 0 15px rgba(255, 0, 150, 0.5);
+        }
+
+        l-neural-growth {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .info {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
-  <l-loader-protected
-  files="l-neural-growth-with-synapses.js"
-  endpoint="https://060447f27610.ngrok-free.app/api/js/"
-></l-loader-protected>
-  <div class="controls">
-    <label>
-      Split Chance
-      <input type="range" id="splitChance" min="0.01" max="0.5" step="0.01" value="0.12">
-    </label>
-    <label>
-      Max Depth
-      <input type="range" id="maxDepth" min="1" max="10" step="1" value="5">
-    </label>
-    <label>
-      Synapse Threshold
-      <input type="range" id="synapseThreshold" min="10" max="100" step="1" value="35">
-    </label>
-    <label>
-      Pulse Frequency
-      <input type="range" id="pulseFrequency" min="0.01" max="0.2" step="0.01" value="0.08">
-    </label>
-    <p>Apasă <strong>R</strong> pentru restart instant.</p>
-  </div>
+    <l-loader-protected files="l-neural-growth.js"
+        endpoint="https://060447f27610.ngrok-free.app/api/js/"></l-loader-protected>
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label>Split Chance:</label>
+                <input type="range" class="slider" id="splitChance" min="0.05" max="0.3" step="0.01" value="0.12">
+            </div>
+            <div class="control-group">
+                <label>Max Depth:</label>
+                <input type="range" class="slider" id="maxDepth" min="3" max="8" step="1" value="5">
+            </div>
+            <div class="control-group">
+                <label>Synapse Threshold:</label>
+                <input type="range" class="slider" id="synapseThreshold" min="20" max="60" step="5" value="35">
+            </div>
+            <div class="control-group">
+                <label>Pulse Frequency:</label>
+                <input type="range" class="slider" id="pulseFrequency" min="0.02" max="0.15" step="0.01" value="0.08">
+            </div>
+            <button class="reset-btn" onclick="neuralGrowth.reset()">Reset (R)</button>
+        </div>
 
-  <l-neural-growth></l-neural-growth>
+        <l-neural-growth id="neuralGrowth" growth-speed="0.5" max-depth="5" branching-angle="0.5">
+        </l-neural-growth>
 
-  <script>
-    const growth = document.querySelector("l-neural-growth");
-
-    document.getElementById("splitChance").addEventListener("input", e => {
-      growth.config.splitChance = parseFloat(e.target.value);
-    });
-    document.getElementById("maxDepth").addEventListener("input", e => {
-      growth.config.maxDepth = parseInt(e.target.value);
-    });
-    document.getElementById("synapseThreshold").addEventListener("input", e => {
-      growth.config.synapseThreshold = parseFloat(e.target.value);
-    });
-    document.getElementById("pulseFrequency").addEventListener("input", e => {
-      growth.config.pulseFrequency = parseFloat(e.target.value);
-    });
-  </script>
+        <div class="info">
+            🧠 Neural Growth - | Press R to restart | Adjust parameters above
+        </div>
+    </div>
 </body>
+
 </html>
