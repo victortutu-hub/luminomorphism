@@ -26,6 +26,20 @@
 
 ## 🧰 Published Components
 
+## 🧠 Componente noi în v1.1.13
+
+### `<l-luminous-field>`
+Simulări de câmp luminos (electromagnetic, gravitațional, cuantic) cu particule, rezonanță opțională și memorie temporală.  
+**Demo:** [labs/l-luminous-field.html](https://victortutu-hub.github.io/luminomorphism/labs/l-luminous-field.html) 
+
+### `<l-morphic-card>`
+Card 3D cu atracție magnetică, glow adaptiv, flip față/spate și efecte de click ripple. Emite evenimente: `card-hover`, `card-click`, `card-flip`.  
+**Demo:** [labs/l-morphic-card.html](https://victortutu-hub.github.io/luminomorphism/labs/l-morphic-card.html) 
+
+### `<l-neural-progress>`
+Indicator de progres tip rețea neurală, cu noduri stratificate, conexiuni animate și impulsuri care „călătoresc”; suportă stări (`loading|success|error|idle`).  
+**Demo:** [labs/l-neural-progress.html](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-progress.html) 
+
 
 ## 🧠 New Component in v1.1.11
 
