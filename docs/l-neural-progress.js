@@ -384,6 +384,10 @@ class LNeuralProgress extends HTMLElement {
     this.setAttribute('value', value);
   }
 
+  getValue() {
+    return this.config.value;
+  }
+
   setState(state) {
     this.setAttribute('state', state);
     this.render(); // Re-render pentru noua culoare
@@ -395,6 +399,39 @@ class LNeuralProgress extends HTMLElement {
     for (let i = 0; i < 5; i++) {
       setTimeout(() => this.createPulse(), i * 200);
     }
+  }
+
+  learn() {
+    // Simulare learning mode - face conexiunile să pulseze mai intens
+    this.neural.connections.forEach(connection => {
+      if (connection.active && Math.random() < 0.7) {
+        connection.element.style.animation = 'pulse 0.5s ease-in-out 3';
+        connection.element.style.background = this.config.color;
+        connection.element.style.height = '3px';
+        connection.element.style.boxShadow = `0 0 10px ${this.config.color}`;
+        
+        setTimeout(() => {
+          connection.element.style.animation = '';
+          connection.element.style.height = connection.active ? '2px' : '1px';
+          connection.element.style.boxShadow = connection.active ? `0 0 5px ${this.config.color}60` : '';
+        }, 1500);
+      }
+    });
+    
+    // Activează toate nodurile temporar pentru effect "learning"
+    this.neural.network.flat().forEach((node, index) => {
+      setTimeout(() => {
+        node.element.classList.add('active');
+        node.element.style.animation = 'pulse 0.3s ease-in-out 2';
+        
+        setTimeout(() => {
+          if (!node.active) {
+            node.element.classList.remove('active');
+          }
+          node.element.style.animation = '';
+        }, 600);
+      }, index * 50);
+    });
   }
 
   reset() {
