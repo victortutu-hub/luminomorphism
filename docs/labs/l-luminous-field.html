@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>l-luminous-field - Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #0a0e1a;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .demo-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(15,21,32,0.9) 0%, transparent 100%);
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ffff, #00ff80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            opacity: 0.7;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin: 40px 0;
+            padding: 20px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .demo-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border-radius: 16px;
+            border: 1px solid rgba(0,255,255,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .demo-card-header {
+            padding: 20px;
+            border-bottom: 1px solid rgba(0,255,255,0.1);
+            background: rgba(0,0,0,0.2);
+        }
+
+        .demo-card h3 {
+            font-size: 1.2rem;
+            color: #00ffff;
+            margin-bottom: 5px;
+        }
+
+        .demo-card p {
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        .field-container {
+            height: 300px;
+            position: relative;
+            background: rgba(0,0,0,0.1);
+        }
+
+        .controls {
+            padding: 20px;
+            border-top: 1px solid rgba(0,255,255,0.1);
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #00ffff;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+
+        .single-demo {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .single-demo .field-container {
+            height: 500px;
+            border-radius: 16px;
+            border: 1px solid rgba(0,255,255,0.2);
+        }
+
+        .info-panel {
+            background: rgba(0,255,255,0.02);
+            border: 1px solid rgba(0,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px auto;
+            max-width: 800px;
+        }
+
+        .info-panel h4 {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .info-panel code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+        }
+
+        .reset-btn {
+            background: linear-gradient(135deg, #00ffff, #00ff80);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,255,255,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .field-container {
+                height: 250px;
+            }
+            
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>l-luminous-field</h1>
+        <p>Simulări interactive de câmpuri luminoase cu particule fizice. Testează diferitele moduri și setări.</p>
+    </div>
+
+    <!-- Demo cu multiple configurări -->
+    <div class="demo-section">
+        <h2 class="section-title">Moduri de Câmp Diferite</h2>
+        <div class="demo-grid">
+            <!-- Electromagnetic Field -->
+            <div class="demo-card">
+                <div class="demo-card-header">
+                    <h3>Câmp Electromagnetic</h3>
+                    <p>Particule încărcate cu atracție/respingere</p>
+                </div>
+                <div class="field-container">
+                    <l-luminous-field 
+                        field-type="electromagnetic"
+                        particle-count="30"
+                        intensity="1.2"
+                        color-primary="#00ffff"
+                        color-secondary="#ff00ff"
+                        interaction-mode="attract"
+                        resonance-enabled="true">
+                    </l-luminous-field>
+                </div>
+                <div class="controls">
+                    <button class="reset-btn" onclick="resetField(this)">Reset</button>
+                </div>
+            </div>
+
+            <!-- Gravitational Field -->
+            <div class="demo-card">
+                <div class="demo-card-header">
+                    <h3>Câmp Gravitațional</h3>
+                    <p>Atracție centrală cu orbite</p>
+                </div>
+                <div class="field-container">
+                    <l-luminous-field 
+                        field-type="gravitational"
+                        particle-count="25"
+                        intensity="0.8"
+                        color-primary="#00ff80"
+                        color-secondary="#ffff00"
+                        interaction-mode="attract"
+                        memory-enabled="true">
+                    </l-luminous-field>
+                </div>
+                <div class="controls">
+                    <button class="reset-btn" onclick="resetField(this)">Reset</button>
+                </div>
+            </div>
+
+            <!-- Quantum Field -->
+            <div class="demo-card">
+                <div class="demo-card-header">
+                    <h3>Câmp Cuantic</h3>
+                    <p>Efecte de tunel cuantic și incertitudine</p>
+                </div>
+                <div class="field-container">
+                    <l-luminous-field 
+                        field-type="quantum"
+                        particle-count="20"
+                        intensity="1.5"
+                        frequency="0.08"
+                        color-primary="#ff00ff"
+                        color-secondary="#00ffff"
+                        interaction-mode="repel"
+                        resonance-enabled="true"
+                        memory-enabled="true">
+                    </l-luminous-field>
+                </div>
+                <div class="controls">
+                    <button class="reset-btn" onclick="resetField(this)">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo interactiv cu controale -->
+    <div class="demo-section">
+        <h2 class="section-title">Demo Interactiv</h2>
+        <div class="single-demo">
+            <div class="field-container">
+                <l-luminous-field 
+                    id="interactiveField"
+                    field-type="electromagnetic"
+                    particle-count="40"
+                    intensity="1.0"
+                    frequency="0.05"
+                    color-primary="#00ffff"
+                    color-secondary="#ff00ff"
+                    interaction-mode="attract"
+                    field-decay="0.95">
+                </l-luminous-field>
+            </div>
+            
+            <div class="info-panel">
+                <h4>Controale Interactive</h4>
+                <p>Modifică setările în timp real și observă cum se schimbă comportamentul câmpului:</p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div class="control-group">
+                        <label>Tip Câmp</label>
+                        <select id="fieldType" onchange="updateField()">
+                            <option value="electromagnetic">Electromagnetic</option>
+                            <option value="gravitational">Gravitațional</option>
+                            <option value="quantum">Cuantic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Număr Particule</label>
+                        <input type="range" id="particleCount" min="10" max="80" value="40" onchange="updateField()">
+                        <span id="particleCountValue">40</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Intensitate</label>
+                        <input type="range" id="intensity" min="0.1" max="3.0" step="0.1" value="1.0" onchange="updateField()">
+                        <span id="intensityValue">1.0</span>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Mod Interacțiune</label>
+                        <select id="interactionMode" onchange="updateField()">
+                            <option value="attract">Atracție</option>
+                            <option value="repel">Respingere</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Rezonanță</label>
+                        <select id="resonance" onchange="updateField()">
+                            <option value="false">Dezactivată</option>
+                            <option value="true">Activată</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label>Memorie Temporală</label>
+                        <select id="memory" onchange="updateField()">
+                            <option value="false">Dezactivată</option>
+                            <option value="true">Activată</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informații despre utilizare -->
+    <div class="info-panel">
+        <h4>Utilizare în Proiect</h4>
+        <p>Pentru a folosi componenta în proiectele tale:</p>
+        <br>
+        <code>&lt;l-luminous-field 
+    field-type="electromagnetic"
+    particle-count="30"
+    intensity="1.2"
+    color-primary="#00ffff"
+    resonance-enabled="true"&gt;
+&lt;/l-luminous-field&gt;</code>
+        <br><br>
+        <p><strong>Atribute disponibile:</strong> field-type, particle-count, intensity, frequency, color-primary, color-secondary, interaction-mode, field-decay, resonance-enabled, memory-enabled</p>
+    </div>
+
+    <script src="../l-luminous-field.js"></script>
+    <script>
+        function resetField(button) {
+            const fieldContainer = button.closest('.demo-card').querySelector('l-luminous-field');
+            fieldContainer.reinitialize();
+        }
+
+        function updateField() {
+            const field = document.getElementById('interactiveField');
+            
+            // Actualizează valorile afișate
+            document.getElementById('particleCountValue').textContent = document.getElementById('particleCount').value;
+            document.getElementById('intensityValue').textContent = document.getElementById('intensity').value;
+            
+            // Actualizează atributele componentei
+            field.setAttribute('field-type', document.getElementById('fieldType').value);
+            field.setAttribute('particle-count', document.getElementById('particleCount').value);
+            field.setAttribute('intensity', document.getElementById('intensity').value);
+            field.setAttribute('interaction-mode', document.getElementById('interactionMode').value);
+            field.setAttribute('resonance-enabled', document.getElementById('resonance').value);
+            field.setAttribute('memory-enabled', document.getElementById('memory').value);
+        }
+
+        // Inițializare
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('L-Luminous-Field Demo încărcat');
+        });
+    </script>
+</body>
+</html>

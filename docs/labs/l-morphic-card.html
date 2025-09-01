@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>l-morphic-card - Demo Interactiv</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .demo-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(15,21,32,0.9) 0%, transparent 100%);
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .demo-section {
+            margin: 60px 0;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .single-card-demo {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        /* Stiluri pentru conținutul cardurilor */
+        .card-content-demo {
+            text-align: center;
+        }
+
+        .card-content-demo h3 {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+
+        .card-content-demo p {
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-feature {
+            display: inline-block;
+            padding: 6px 12px;
+            background: rgba(0,255,255,0.1);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 4px;
+            color: #00ffff;
+        }
+
+        .profile-demo {
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .profile-name {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .profile-role {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff00ff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .controls-panel {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px auto;
+            max-width: 600px;
+        }
+
+        .controls-panel h4 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #00ffff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #00ffff, #00ff80);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,255,255,0.3);
+        }
+
+        .info-box {
+            background: rgba(0,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .info-box h5 {
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .flip-content {
+            text-align: center;
+        }
+
+        .flip-content h3 {
+            color: #ff00ff;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>l-morphic-card</h1>
+        <p>Carduri interactive cu efecte luminomorfice. Magnetic attraction, depth shadows, flip content și click ripples.</p>
+    </div>
+
+    <!-- Demo Basic Cards -->
+    <div class="demo-section">
+        <h2 class="section-title">Carduri cu Efecte Diferite</h2>
+        <div class="cards-grid">
+            <!-- Card 1: Magnetic Simple -->
+            <l-morphic-card 
+                magnetic="true" 
+                glow-color="#00ffff" 
+                depth="1.0"
+                attraction-strength="0.3">
+                <div slot="front" class="card-content-demo">
+                    <h3>Magnetic Card</h3>
+                    <p>Cardul se atrage spre mouse cu efecte 3D și glow dinamic.</p>
+                    <span class="card-feature">Magnetic</span>
+                    <span class="card-feature">3D Depth</span>
+                </div>
+            </l-morphic-card>
+
+            <!-- Card 2: Profile Card cu Flip -->
+            <l-morphic-card 
+                magnetic="true" 
+                flip-enabled="true"
+                glow-color="#ff00ff" 
+                depth="1.2"
+                hover-lift="15">
+                <div slot="front" class="profile-demo">
+                    <div class="profile-avatar">👨‍💻</div>
+                    <div class="profile-name">Alex Dev</div>
+                    <div class="profile-role">Frontend Developer</div>
+                    <p>Click pentru detalii →</p>
+                </div>
+                <div slot="back" class="flip-content">
+                    <h3>Detalii Contact</h3>
+                    <p>📧 alex@example.com</p>
+                    <p>📱 +40 123 456 789</p>
+                    <p>🌍 București, România</p>
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <div class="stat-number">150+</div>
+                            <div class="stat-label">Proiecte</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Ani exp</div>
+                        </div>
+                    </div>
+                </div>
+            </l-morphic-card>
+
+            <!-- Card 3: High Intensity -->
+            <l-morphic-card 
+                magnetic="true" 
+                glow-color="#00ff80" 
+                depth="1.8"
+                attraction-strength="0.5"
+                hover-lift="20">
+                <div slot="front" class="card-content-demo">
+                    <h3>High Intensity</h3>
+                    <p>Efecte puternice de atracție magnetică și lift înalt.</p>
+                    <span class="card-feature">High Depth</span>
+                    <span class="card-feature">Strong Attraction</span>
+                    <span class="card-feature">High Lift</span>
+                </div>
+            </l-morphic-card>
+        </div>
+    </div>
+
+    <!-- Demo Interactiv -->
+    <div class="demo-section">
+        <h2 class="section-title">Demo Interactiv cu Controale</h2>
+        <div class="single-card-demo">
+            <l-morphic-card 
+                id="interactiveCard"
+                magnetic="true" 
+                flip-enabled="false"
+                glow-color="#00ffff" 
+                depth="1.0"
+                attraction-strength="0.3"
+                hover-lift="10">
+                <div slot="front" class="card-content-demo">
+                    <h3>Card Configurabil</h3>
+                    <p>Modifică setările din panoul de mai jos și observă efectele în timp real.</p>
+                    <span class="card-feature" id="currentSettings">Default Settings</span>
+                </div>
+                <div slot="back" class="flip-content">
+                    <h3>Partea din Spate</h3>
+                    <p>Acesta este conținutul din spatele cardului.</p>
+                    <p>Click din nou pentru a reveni.</p>
+                </div>
+            </l-morphic-card>
+        </div>
+
+        <div class="controls-panel">
+            <h4>Controale Interactive</h4>
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label>Efect Magnetic</label>
+                    <select id="magnetic" onchange="updateCard()">
+                        <option value="true">Activat</option>
+                        <option value="false">Dezactivat</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Flip Content</label>
+                    <select id="flipEnabled" onchange="updateCard()">
+                        <option value="false">Dezactivat</option>
+                        <option value="true">Activat</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Culoare Glow</label>
+                    <select id="glowColor" onchange="updateCard()">
+                        <option value="#00ffff">Cyan</option>
+                        <option value="#ff00ff">Magenta</option>
+                        <option value="#00ff80">Verde</option>
+                        <option value="#ff8000">Portocaliu</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Profunzime 3D</label>
+                    <input type="range" id="depth" min="0" max="2" step="0.1" value="1.0" onchange="updateCard()">
+                    <span id="depthValue">1.0</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Forța Atracției</label>
+                    <input type="range" id="attractionStrength" min="0" max="1" step="0.1" value="0.3" onchange="updateCard()">
+                    <span id="attractionValue">0.3</span>
+                </div>
+
+                <div class="control-group">
+                    <label>Înălțime Hover</label>
+                    <input type="range" id="hoverLift" min="0" max="30" step="5" value="10" onchange="updateCard()">
+                    <span id="liftValue">10</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="demo-button" onclick="resetCard()">Reset Card</button>
+                <button class="demo-button" onclick="forceFlip()">Force Flip</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Informații despre Evenimente -->
+    <div class="demo-section">
+        <div class="info-box">
+            <h5>Evenimente Custom</h5>
+            <p>Componenta emite evenimente personalizate:</p>
+            <ul>
+                <li><code>card-hover</code> - când mouse-ul intră/iese din card</li>
+                <li><code>card-click</code> - la click pe card</li>
+                <li><code>card-flip</code> - când cardul se flip-ează</li>
+            </ul>
+            <div id="eventLog" style="background: rgba(0,0,0,0.3); padding: 10px; border-radius: 6px; margin-top: 10px; font-family: monospace; font-size: 0.8rem; max-height: 100px; overflow-y: auto;">
+                Eventi vor apărea aici...
+            </div>
+        </div>
+
+        <div class="info-box">
+            <h5>Utilizare în Cod</h5>
+            <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; overflow-x: auto;"><code>&lt;l-morphic-card 
+    magnetic="true"
+    flip-enabled="true"
+    glow-color="#00ffff"
+    depth="1.2"
+    attraction-strength="0.4"
+    hover-lift="15"&gt;
+    &lt;div slot="front"&gt;Front content&lt;/div&gt;
+    &lt;div slot="back"&gt;Back content&lt;/div&gt;
+&lt;/l-morphic-card&gt;</code></pre>
+        </div>
+    </div>
+
+    <script src="../l-morphic-card.js"></script>
+    <script>
+        // Event listeners pentru demo
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveCard = document.getElementById('interactiveCard');
+            const eventLog = document.getElementById('eventLog');
+            
+            function logEvent(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                eventLog.innerHTML += `[${timestamp}] ${message}\n`;
+                eventLog.scrollTop = eventLog.scrollHeight;
+            }
+            
+            // Ascultă toate eventurile custom
+            interactiveCard.addEventListener('card-hover', (e) => {
+                logEvent(`Hover: ${e.detail.hovered ? 'ENTER' : 'LEAVE'}`);
+            });
+            
+            interactiveCard.addEventListener('card-click', (e) => {
+                logEvent(`Click la (${e.detail.mouseX.toFixed(2)}, ${e.detail.mouseY.toFixed(2)})`);
+            });
+            
+            interactiveCard.addEventListener('card-flip', (e) => {
+                logEvent(`Flip: ${e.detail.flipped ? 'BACK' : 'FRONT'}`);
+            });
+            
+            logEvent('Demo încărcat și gata pentru interacțiune');
+        });
+
+        function updateCard() {
+            const card = document.getElementById('interactiveCard');
+            
+            // Actualizează valorile afișate
+            document.getElementById('depthValue').textContent = document.getElementById('depth').value;
+            document.getElementById('attractionValue').textContent = document.getElementById('attractionStrength').value;
+            document.getElementById('liftValue').textContent = document.getElementById('hoverLift').value;
+            
+            // Actualizează atributele cardului
+            card.setAttribute('magnetic', document.getElementById('magnetic').value);
+            card.setAttribute('flip-enabled', document.getElementById('flipEnabled').value);
+            card.setAttribute('glow-color', document.getElementById('glowColor').value);
+            card.setAttribute('depth', document.getElementById('depth').value);
+            card.setAttribute('attraction-strength', document.getElementById('attractionStrength').value);
+            card.setAttribute('hover-lift', document.getElementById('hoverLift').value);
+            
+            // Actualizează indicator-ul de setări
+            const settings = document.getElementById('currentSettings');
+            const magnetic = document.getElementById('magnetic').value === 'true';
+            const flip = document.getElementById('flipEnabled').value === 'true';
+            const color = document.getElementById('glowColor').value;
+            
+            settings.textContent = `${magnetic ? 'Magnetic' : 'Static'} • ${flip ? 'Flippable' : 'Single'} • ${color}`;
+        }
+
+        function resetCard() {
+            const card = document.getElementById('interactiveCard');
+            card.reset();
+        }
+
+        function forceFlip() {
+            const card = document.getElementById('interactiveCard');
+            if (document.getElementById('flipEnabled').value === 'true') {
+                card.forceFlip();
+            } else {
+                alert('Activează mai întâi opțiunea "Flip Content"');
+            }
+        }
+
+        // Inițializare
+        updateCard();
+    </script>
+</body>
+</html>
