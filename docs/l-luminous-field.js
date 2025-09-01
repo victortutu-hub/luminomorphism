@@ -17,6 +17,9 @@ class LLuminousField extends HTMLElement {
     this.ctx = this.canvas.getContext('2d');
     this.shadowRoot.appendChild(this.canvas);
 
+    // DPR state (pentru randare nedistorsionată)
+    this.dpr = Math.max(1, window.devicePixelRatio || 1);
+
     // Enhanced state management following your patterns
     this.field = {
       nodes: [],
@@ -49,13 +52,16 @@ class LLuminousField extends HTMLElement {
 
     // Cleanup tracking like your components
     this.cleanupTasks = [];
+
+    // păstrăm referințe pentru removeEventListener corect
+    this._onResize = null;
   }
 
   connectedCallback() {
     this.parseAttributes();
     // Delay pentru a permite CSS-ului să se încarce complet
     setTimeout(() => {
-      this.setupCanvas();
+      this.setupCanvas();        // => setează dimensiunea pe DPR
       this.initializeField();
       this.attachEventListeners();
       this.startAnimation();
@@ -89,11 +95,11 @@ class LLuminousField extends HTMLElement {
     };
   }
 
+  // ——————————————————————————————————————————————————————————
+  // Canvas: dimensionare corectă (DPR) + transform pentru coordonate CSS
+  // ——————————————————————————————————————————————————————————
   setupCanvas() {
-    this.canvas.width = this.offsetWidth || 800;
-    this.canvas.height = this.offsetHeight || 600;
-
-    // Enhanced canvas setup with your styling approach
+    // Stilul tău rămâne neschimbat
     const style = document.createElement('style');
     style.textContent = `
       :host {
@@ -111,9 +117,21 @@ class LLuminousField extends HTMLElement {
     `;
     this.shadowRoot.appendChild(style);
 
-    window.addEventListener('resize', () => this.handleResize());
+    // dimensionare inițială (fix pentru first paint)
+    this.handleResize();
+
+    // listener stocat (nu funcție anonimă)
+    this._onResize = () => {
+      // actualizează dpr dacă utilizatorul mută fereastra pe alt monitor
+      const newDpr = Math.max(1, window.devicePixelRatio || 1);
+      if (newDpr !== this.dpr) this.dpr = newDpr;
+      this.handleResize();
+    };
+    window.addEventListener('resize', this._onResize);
+
     this.cleanupTasks.push(() => {
-      window.removeEventListener('resize', this.handleResize);
+      if (this._onResize) window.removeEventListener('resize', this._onResize);
+      this._onResize = null;
     });
   }
 
@@ -125,8 +143,8 @@ class LLuminousField extends HTMLElement {
     for (let i = 0; i < particleCount; i++) {
       const node = {
         id: i,
-        x: Math.random() * this.canvas.width,
-        y: Math.random() * this.canvas.height,
+        x: Math.random() * (this.canvas.width / this.dpr),
+        y: Math.random() * (this.canvas.height / this.dpr),
         vx: (Math.random() - 0.5) * 2,
         vy: (Math.random() - 0.5) * 2,
         charge: Math.random() > 0.5 ? 1 : -1,
@@ -174,11 +192,12 @@ class LLuminousField extends HTMLElement {
     });
   }
 
+  // FIX: nu ieși când x === 0; verificăm null/undefined
   calculateFieldDisruption() {
-    if (!this.interaction.mouse.x) return;
+    if (this.interaction.mouse.x == null || this.interaction.mouse.y == null) return;
 
-    const centerX = this.canvas.width / 2;
-    const centerY = this.canvas.height / 2;
+    const centerX = (this.canvas.width / this.dpr) / 2;
+    const centerY = (this.canvas.height / this.dpr) / 2;
     const dx = this.interaction.mouse.x - centerX;
     const dy = this.interaction.mouse.y - centerY;
     const distance = Math.sqrt(dx * dx + dy * dy);
@@ -287,8 +306,8 @@ class LLuminousField extends HTMLElement {
   calculateGravitationalForces(node, index) {
     // Simplified gravitational attraction
     let fx = 0, fy = 0;
-    const centerX = this.canvas.width / 2;
-    const centerY = this.canvas.height / 2;
+    const centerX = (this.canvas.width / this.dpr) / 2;
+    const centerY = (this.canvas.height / this.dpr) / 2;
 
     const dx = centerX - node.x;
     const dy = centerY - node.y;
@@ -328,22 +347,23 @@ class LLuminousField extends HTMLElement {
       node.x = margin;
       node.vx *= -0.8;
     }
-    if (node.x > this.canvas.width - margin) {
-      node.x = this.canvas.width - margin;
+    if (node.x > (this.canvas.width / this.dpr) - margin) {
+      node.x = (this.canvas.width / this.dpr) - margin;
       node.vx *= -0.8;
     }
     if (node.y < margin) {
       node.y = margin;
       node.vy *= -0.8;
     }
-    if (node.y > this.canvas.height - margin) {
-      node.y = this.canvas.height - margin;
+    if (node.y > (this.canvas.height / this.dpr) - margin) {
+      node.y = (this.canvas.height / this.dpr) - margin;
       node.vy *= -0.8;
     }
   }
 
   render() {
     const { ctx, canvas } = this;
+    // clear pe coordonate fizice, dar cu transform activ rămâne corect
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Render field lines first
@@ -368,7 +388,7 @@ class LLuminousField extends HTMLElement {
 
   renderFieldLines() {
     const { ctx } = this;
-    const { fieldType, intensity } = this.physics;
+    const { fieldType } = this.physics;
 
     if (fieldType === 'electromagnetic') {
       // Draw field lines emanating from charged particles
@@ -444,7 +464,6 @@ class LLuminousField extends HTMLElement {
     const { ctx } = this;
 
     for (const node of this.field.nodes) {
-      const energyGlow = node.energy * 2;
       const radius = node.radius + node.resonanceAmplitude;
 
       // Create gradient based on energy and charge
@@ -455,8 +474,9 @@ class LLuminousField extends HTMLElement {
 
       const baseAlpha = node.opacity;
       const energyAlpha = Math.min(0.8, baseAlpha + node.energy * 0.3);
+      const alphaHex = Math.floor(energyAlpha * 255).toString(16).padStart(2, '0');
 
-      gradient.addColorStop(0, `${node.color}${Math.floor(energyAlpha * 255).toString(16).padStart(2, '0')}`);
+      gradient.addColorStop(0, `${node.color}${alphaHex}`);
       gradient.addColorStop(0.7, `${node.color}40`);
       gradient.addColorStop(1, `${node.color}00`);
 
@@ -481,7 +501,8 @@ class LLuminousField extends HTMLElement {
         const pulseRadius = node.radius * 2 + Math.abs(node.resonanceAmplitude) * 10;
         const alpha = Math.abs(node.resonanceAmplitude) * 0.3;
 
-        ctx.strokeStyle = `${node.color}${Math.floor(alpha * 255).toString(16).padStart(2, '0')}`;
+        const ah = Math.floor(alpha * 255).toString(16).padStart(2, '0');
+        ctx.strokeStyle = `${node.color}${ah}`;
         ctx.lineWidth = 2;
         ctx.beginPath();
         ctx.arc(node.x, node.y, pulseRadius, 0, Math.PI * 2);
@@ -492,10 +513,8 @@ class LLuminousField extends HTMLElement {
 
   animate() {
     this.animation.frameCount++;
-
     this.updateField();
     this.render();
-
     this.animation.animationId = requestAnimationFrame(() => this.animate());
   }
 
@@ -506,13 +525,30 @@ class LLuminousField extends HTMLElement {
     this.animate();
   }
 
+  // FIX: redimensionare cu DPR + coordonate CSS
   handleResize() {
-    this.canvas.width = this.offsetWidth || 800;
-    this.canvas.height = this.offsetHeight || 600;
+    const rect = this.getBoundingClientRect();
+    const cssW = Math.max(1, Math.floor(rect.width));
+    const cssH = Math.max(1, Math.floor(rect.height));
+
+    // buffer fizic
+    const need =
+      this.canvas.width !== Math.floor(cssW * this.dpr) ||
+      this.canvas.height !== Math.floor(cssH * this.dpr);
+
+    if (need) {
+      this.canvas.width = Math.floor(cssW * this.dpr);
+      this.canvas.height = Math.floor(cssH * this.dpr);
+      this.canvas.style.width = cssW + 'px';
+      this.canvas.style.height = cssH + 'px';
+      // coordonate în pixeli CSS:
+      this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    }
   }
 
   reinitialize() {
     this.cleanup();
+    // păstrăm canvas-ul și listeners de resize; refacem doar starea
     this.initializeField();
     this.attachEventListeners();
     this.startAnimation();
@@ -524,7 +560,7 @@ class LLuminousField extends HTMLElement {
       this.animation.animationId = null;
     }
 
-    this.cleanupTasks.forEach(task => task());
+    this.cleanupTasks.forEach(task => { try { task(); } catch (_) { } });
     this.cleanupTasks = [];
   }
 }
