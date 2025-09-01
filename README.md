@@ -26,17 +26,19 @@
 
 ## 🧰 Published Components
 
+## 🧠 New Components in v1.1.13
+
 ### `<l-luminous-field>`
 Interactive luminous-field simulations (electromagnetic, gravitational, quantum) with particles, optional resonance, and temporal memory.  
-**Demo:** labs/l-luminous-field.html
+**Demo:** [labs/l-luminous-field.html](https://victortutu-hub.github.io/luminomorphism/labs/l-luminous-field.html) 
 
 ### `<l-morphic-card>`
 3D card with magnetic attraction, adaptive glow, front/back flip, and click ripple effects. Emits custom events: `card-hover`, `card-click`, `card-flip`.  
-**Demo:** labs/l-morphic-card.html
+**Demo:** [labs/l-morphic-card.html](https://victortutu-hub.github.io/luminomorphism/labs/l-morphic-card.html) 
 
 ### `<l-neural-progress>`
 Neural network–style progress indicator with layered nodes, animated connections, and traveling pulses; supports states (`loading|success|error|idle`).  
-**Demo:** labs/l-neural-progress.html
+**Demo:** [labs/l-neural-progress.html](https://victortutu-hub.github.io/luminomorphism/labs/l-neural-progress.html) 
 
 
 ## 🧠 New Component in v1.1.11
