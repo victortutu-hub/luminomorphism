@@ -31,25 +31,25 @@
 Toggle luminomorfic cu **superpoziție cuantică**, particule și efect de colaps al funcției de undă.  
 Atribute: `checked`, `disabled`, `size`, `color-on`, `color-off`, `quantum-mode`, `transition-speed`, `particle-count`, `superposition-enabled`, `label`, `glow-intensity`.  
 Emite: `change` cu `{ checked: boolean }`.  
-**Demo:** `labs/l-quantum-toggle.html`
-**Fișier:** `dist/l-quantum-toggle.min.js`. :contentReference[oaicite:9]{index=9}
+**Demo:** [labs/l-quantum-toggle.html](https://victortutu-hub.github.io/luminomorphism/labs/l-quantum-toggle.html)  
+**Fișier:** `dist/l-quantum-toggle.min.js`.
 
 ### `<l-morphic-slider>`
-Slider cu **deformare magnetică a trasei**, **urmă luminoasă** și control din tastatură; focus accesibil.  
+Slider cu **deformare a trasei**, **urmă luminoasă**, control din tastatură și focus ARIA-friendly.  
 Atribute: `value`, `min`, `max`, `step`, `disabled`, `color`, `track-deform`, `trail-enabled`, `magnetic-strength`, `glow-intensity`, `orientation`, `label`.  
 Emite: `slide-start`, `change`, `slide-end`.  
-**Demo:** `labs/l-morphic-slider.html`
-**Fișier:** `dist/l-morphic-slider.min.js`. :contentReference[oaicite:10]{index=10}
+**Demo:** [labs/l-morphic-slider.html](https://victortutu-hub.github.io/luminomorphism/labs/l-morphic-slider.html)  
+**Fișier:** `dist/l-morphic-slider.min.js`.
 
 ### `<l-aurora-modal>`
-Modal cu **efect de auroră boreală**, valuri fluide pe canvas și particule; suportă blur pe backdrop și animații de intrare.  
+Modal cu **efect de auroră boreală**, valuri fluide pe canvas și particule; include blur pe backdrop și animații de intrare.  
 Atribute: `open`, `size`, `aurora-intensity`, `aurora-speed`, `color-palette`, `backdrop-blur`, `close-on-backdrop`, `particle-count`, `animation-type`, `glow-intensity`.  
 Emite: `modal-open`, `modal-close`.  
-**Demo:** `labs/l-aurora-modal.html`
-**Fișier:** `dist/l-aurora-modal.min.js`. :contentReference[oaicite:11]{index=11}
+**Demo:** [labs/l-aurora-modal.html](https://victortutu-hub.github.io/luminomorphism/labs/l-aurora-modal.html)  
+**Fișier:** `dist/l-aurora-modal.min.js`.
 
 
-## 🧠 Componente noi în v1.1.13
+## 🧠 Componente noi în v1.1.15
 
 ### `<l-luminous-field>`
 Simulări de câmp luminos (electromagnetic, gravitațional, cuantic) cu particule, rezonanță opțională și memorie temporală.  
