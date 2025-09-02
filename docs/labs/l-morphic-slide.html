@@ -1,0 +1,746 @@
+        <h2 class="section-title">Interactive Demo with Controls</h2><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>l-morphic-slider - Interactive Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: linear-gradient(135deg, #0a0e1a 0%, #1a1a2e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .demo-header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(15,21,32,0.9) 0%, transparent 100%);
+        }
+
+        .demo-header h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #00ffff, #00ff80);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .demo-header p {
+            opacity: 0.8;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            margin: 60px 0;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .slider-grid {
+            display: grid;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .slider-demo {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+            border-radius: 16px;
+            border: 1px solid rgba(0,255,255,0.1);
+            padding: 30px;
+            position: relative;
+        }
+
+        .slider-demo h3 {
+            color: #00ffff;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        .slider-demo p {
+            opacity: 0.7;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .slider-showcase {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            padding: 20px;
+            min-height: 120px;
+        }
+
+        .horizontal-demo {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .vertical-demo {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            min-height: 200px;
+        }
+
+        .demo-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .demo-button {
+            background: linear-gradient(135deg, #00ffff, #00ff80);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            color: #000;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,255,255,0.3);
+        }
+
+        .demo-button.secondary {
+            background: linear-gradient(135deg, #ff00ff, #8000ff);
+        }
+
+        .demo-button.danger {
+            background: linear-gradient(135deg, #ff4444, #ff0080);
+        }
+
+        .interactive-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .controls-panel {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+
+        .controls-panel h4 {
+            color: #00ffff;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            font-size: 0.85rem;
+            color: #00ffff;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select,
+        .control-group input {
+            width: 100%;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 0.9rem;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+
+        .value-display {
+            display: inline-block;
+            font-weight: bold;
+            color: #00ff80;
+            margin-left: 10px;
+        }
+
+        .event-log {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            font-size: 0.8rem;
+            max-height: 150px;
+            overflow-y: auto;
+            color: #00ff80;
+        }
+
+        .feature-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            background: rgba(0,255,255,0.1);
+            border: 1px solid rgba(0,255,255,0.3);
+            border-radius: 15px;
+            font-size: 0.75rem;
+            margin: 2px;
+            color: #00ffff;
+        }
+
+        .info-panel {
+            background: rgba(0,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 30px 0;
+        }
+
+        .info-panel h5 {
+            color: #00ffff;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .info-panel code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            font-size: 0.85rem;
+        }
+
+        .stats-display {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,255,255,0.05);
+            border: 1px solid rgba(0,255,255,0.2);
+            border-radius: 8px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #00ffff;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .demo-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .slider-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vertical-demo {
+                flex-direction: column;
+                min-height: auto;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>l-morphic-slider</h1>
+        <p>Slider with magnetic effects and luminous trail. Track deforms magnetically towards cursor, thumb leaves glowing particles behind.</p>
+    </div>
+
+    <!-- Demo cu Configurații Diferite -->
+    <div class="demo-section">
+        <h2 class="section-title">Configurations and Effects</h2>
+        <div class="slider-grid">
+            <!-- Slider Standard -->
+            <div class="slider-demo">
+                <h3>🎛️ Standard Slider with Magnetic Effects</h3>
+                <p>Track deforms magnetically towards cursor, thumb with glow and particle trail.</p>
+                <div class="slider-showcase">
+                    <div class="horizontal-demo">
+                        <l-morphic-slider 
+                            id="standardSlider"
+                            value="60"
+                            min="0"
+                            max="100"
+                            step="5"
+                            color="#00ffff"
+                            label="Volume"
+                            track-deform="true"
+                            trail-enabled="true"
+                            magnetic-strength="0.4">
+                        </l-morphic-slider>
+                    </div>
+                    <div class="feature-badge">Magnetic Track</div>
+                    <div class="feature-badge">Trail Particles</div>
+                    <div class="feature-badge">Glow Effects</div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-button" onclick="animateSlider('standardSlider', 0, 100)">Animate 0→100</button>
+                    <button class="demo-button secondary" onclick="document.getElementById('standardSlider').reset()">Reset</button>
+                </div>
+            </div>
+
+            <!-- Slider Vertical -->
+            <div class="slider-demo">
+                <h3>📊 Vertical Sliders with Different Colors</h3>
+                <p>Vertical orientation perfect for audio mixers, volume controls and dashboards.</p>
+                <div class="slider-showcase">
+                    <div class="vertical-demo">
+                        <l-morphic-slider 
+                            id="verticalSlider1"
+                            orientation="vertical"
+                            value="30"
+                            min="0"
+                            max="100"
+                            color="#ff00ff"
+                            label="Bass"
+                            track-deform="true"
+                            trail-enabled="true">
+                        </l-morphic-slider>
+                        <l-morphic-slider 
+                            id="verticalSlider2"
+                            orientation="vertical"
+                            value="70"
+                            min="0"
+                            max="100"
+                            color="#00ff80"
+                            label="Mid"
+                            track-deform="true"
+                            trail-enabled="true">
+                        </l-morphic-slider>
+                        <l-morphic-slider 
+                            id="verticalSlider3"
+                            orientation="vertical"
+                            value="50"
+                            min="0"
+                            max="100"
+                            color="#ff8000"
+                            label="Treble"
+                            track-deform="true"
+                            trail-enabled="true">
+                        </l-morphic-slider>
+                    </div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-button" onclick="randomizeEqualizer()">🎵 Random EQ</button>
+                    <button class="demo-button secondary" onclick="resetEqualizer()">Reset All</button>
+                </div>
+            </div>
+
+            <!-- Slider fără Efecte -->
+            <div class="slider-demo">
+                <h3>⚡ Minimalist Configuration</h3>
+                <p>Static track without magnetic deformation - for less intensive interfaces.</p>
+                <div class="slider-showcase">
+                    <div class="horizontal-demo">
+                        <l-morphic-slider 
+                            id="minimalSlider"
+                            value="25"
+                            min="0"
+                            max="100"
+                            step="1"
+                            color="#666666"
+                            label="Brightness"
+                            track-deform="false"
+                            trail-enabled="false"
+                            glow-intensity="0.5">
+                        </l-morphic-slider>
+                    </div>
+                    <div class="feature-badge">No Deformation</div>
+                    <div class="feature-badge">No Trail</div>
+                    <div class="feature-badge">Reduced Glow</div>
+                </div>
+                <div class="demo-controls">
+                    <button class="demo-button" onclick="document.getElementById('minimalSlider').setValue(75)">Set 75%</button>
+                    <button class="demo-button" onclick="document.getElementById('minimalSlider').disable()">Disable</button>
+                    <button class="demo-button secondary" onclick="document.getElementById('minimalSlider').enable()">Enable</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Interactiv -->
+    <div class="demo-section">
+        <h2 class="section-title">Interactive Demo with Controls</h2>
+        <div class="interactive-section">
+            <div class="slider-demo">
+                <h3>🎛️ Complete Configuration</h3>
+                <p>Test all functionalities and observe effects in real time.</p>
+                
+                <div class="slider-showcase">
+                    <l-morphic-slider 
+                        id="interactiveSlider"
+                        value="50"
+                        min="0"
+                        max="100"
+                        step="1"
+                        color="#00ffff"
+                        label="Interactive Slider"
+                        track-deform="true"
+                        trail-enabled="true"
+                        magnetic-strength="0.3"
+                        glow-intensity="1.0"
+                        orientation="horizontal">
+                    </l-morphic-slider>
+                </div>
+
+                <div class="stats-display">
+                    <div class="stat-box">
+                        <div class="stat-value" id="currentValue">50</div>
+                        <div class="stat-label">Current Value</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="totalChanges">0</div>
+                        <div class="stat-label">Total Changes</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-value" id="trailParticles">0</div>
+                        <div class="stat-label">Trail Particles</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <h4>Slider Controls</h4>
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label>Value</label>
+                        <input type="range" id="valueControl" min="0" max="100" value="50" onchange="updateInteractiveSlider()">
+                        <span class="value-display" id="valueDisplay">50</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Orientation</label>
+                        <select id="orientationControl" onchange="updateInteractiveSlider()">
+                            <option value="horizontal">Horizontal</option>
+                            <option value="vertical">Vertical</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Color</label>
+                        <select id="colorControl" onchange="updateInteractiveSlider()">
+                            <option value="#00ffff">Cyan</option>
+                            <option value="#ff00ff">Magenta</option>
+                            <option value="#00ff80">Green</option>
+                            <option value="#ff8000">Orange</option>
+                            <option value="#8000ff">Purple</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Step</label>
+                        <select id="stepControl" onchange="updateInteractiveSlider()">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="25">25</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Track Deformation</label>
+                        <select id="deformControl" onchange="updateInteractiveSlider()">
+                            <option value="true">Enabled</option>
+                            <option value="false">Disabled</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Particle Trail</label>
+                        <select id="trailControl" onchange="updateInteractiveSlider()">
+                            <option value="true">Enabled</option>
+                            <option value="false">Disabled</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Magnetic Strength</label>
+                        <input type="range" id="magneticControl" min="0" max="1" step="0.1" value="0.3" onchange="updateInteractiveSlider()">
+                        <span class="value-display" id="magneticDisplay">0.3</span>
+                    </div>
+
+                    <div class="control-group">
+                        <label>Glow Intensity</label>
+                        <input type="range" id="glowControl" min="0" max="2" step="0.1" value="1.0" onchange="updateInteractiveSlider()">
+                        <span class="value-display" id="glowDisplay">1.0</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="demo-button" onclick="animateSlider('interactiveSlider', 0, 100, 2000)">Animate Full Range</button>
+                    <button class="demo-button secondary" onclick="testKeyboardControls()">Test Keyboard</button>
+                    <button class="demo-button danger" onclick="document.getElementById('interactiveSlider').reset()">Reset</button>
+                </div>
+            </div>
+
+            <div class="event-log" id="eventLog">
+                [Demo] Morphic Slider loaded and ready for testing...
+            </div>
+        </div>
+    </div>
+
+    <!-- Informații Tehnice -->
+    <div class="demo-section">
+        <div class="info-panel">
+            <h5>🎛️ Slider Features</h5>
+            <ul style="margin: 15px 0; padding-left: 20px; line-height: 1.6;">
+                <li><strong>Magnetic Deformation:</strong> Track bends towards cursor for visual feedback</li>
+                <li><strong>Particle Trail:</strong> Thumb leaves glowing particles behind</li>
+                <li><strong>Glow Effects:</strong> Configurable intensity for luminous effects</li>
+                <li><strong>Multiple Orientations:</strong> Horizontal and vertical with same API</li>
+                <li><strong>Keyboard Support:</strong> Arrow keys, Home, End for navigation</li>
+                <li><strong>Touch Support:</strong> Optimized for mobile devices</li>
+            </ul>
+        </div>
+
+        <div class="info-panel">
+            <h5>📝 Usage in Code</h5>
+            <pre style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 6px; overflow-x: auto;"><code>&lt;l-morphic-slider 
+    value="50"
+    min="0"
+    max="100"
+    step="5"
+    color="#00ffff"
+    label="Volume"
+    orientation="horizontal"
+    track-deform="true"
+    trail-enabled="true"
+    magnetic-strength="0.4"
+    glow-intensity="1.2"&gt;
+&lt;/l-morphic-slider&gt;
+
+&lt;script&gt;
+const slider = document.querySelector('l-morphic-slider');
+
+// API Methods
+slider.setValue(75);
+slider.getValue(); // returns current value
+slider.disable();
+slider.enable();
+slider.reset(); // set to middle
+
+// Event Listeners
+slider.addEventListener('change', e => {
+    console.log('Value:', e.detail.value);
+});
+
+slider.addEventListener('slide-start', e => {
+    console.log('Drag started');
+});
+
+slider.addEventListener('slide-end', e => {
+    console.log('Drag ended');
+});
+&lt;/script&gt;</code></pre>
+        </div>
+
+        <div class="info-panel">
+            <h5>⚙️ Available Attributes</h5>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin-top: 10px;">
+                <div><code>value</code> - Current value</div>
+                <div><code>min</code> - Minimum value</div>
+                <div><code>max</code> - Maximum value</div>
+                <div><code>step</code> - Increment value</div>
+                <div><code>disabled</code> - Disable slider</div>
+                <div><code>color</code> - Effect color</div>
+                <div><code>orientation</code> - horizontal|vertical</div>
+                <div><code>track-deform</code> - Magnetic deformation</div>
+                <div><code>trail-enabled</code> - Particle trail</div>
+                <div><code>magnetic-strength</code> - Magnetic force</div>
+                <div><code>glow-intensity</code> - Effect intensity</div>
+                <div><code>label</code> - Slider label</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../l-morphic-slider.js"></script>
+    <script>
+        let changeCount = 0;
+        let particleCount = 0;
+
+        // Event listeners for demo
+        document.addEventListener('DOMContentLoaded', function() {
+            const interactiveSlider = document.getElementById('interactiveSlider');
+            const eventLog = document.getElementById('eventLog');
+            
+            function logEvent(message) {
+                const timestamp = new Date().toLocaleTimeString();
+                eventLog.innerHTML += `\n[${timestamp}] ${message}`;
+                eventLog.scrollTop = eventLog.scrollHeight;
+            }
+            
+            // Ascultă toate eventurile slider-ului
+            interactiveSlider.addEventListener('change', (e) => {
+                changeCount++;
+                document.getElementById('currentValue').textContent = Math.round(e.detail.value);
+                document.getElementById('totalChanges').textContent = changeCount;
+                logEvent(`Value changed: ${Math.round(e.detail.value)}`);
+            });
+            
+            interactiveSlider.addEventListener('slide-start', (e) => {
+                logEvent('Slide started');
+            });
+            
+            interactiveSlider.addEventListener('slide-end', (e) => {
+                logEvent(`Slide ended at: ${Math.round(e.detail.value)}`);
+            });
+            
+            // Particle counter simulation
+            setInterval(() => {
+                if (Math.random() < 0.1) {
+                    particleCount++;
+                    document.getElementById('trailParticles').textContent = particleCount;
+                }
+            }, 500);
+            
+            logEvent('Morphic Slider demo initialized');
+        });
+
+        function updateInteractiveSlider() {
+            const slider = document.getElementById('interactiveSlider');
+            
+            // Update display values
+            const value = document.getElementById('valueControl').value;
+            const magnetic = document.getElementById('magneticControl').value;
+            const glow = document.getElementById('glowControl').value;
+            
+            document.getElementById('valueDisplay').textContent = value;
+            document.getElementById('magneticDisplay').textContent = magnetic;
+            document.getElementById('glowDisplay').textContent = glow;
+            
+            // Update slider attributes
+            slider.setAttribute('value', value);
+            slider.setAttribute('orientation', document.getElementById('orientationControl').value);
+            slider.setAttribute('color', document.getElementById('colorControl').value);
+            slider.setAttribute('step', document.getElementById('stepControl').value);
+            slider.setAttribute('track-deform', document.getElementById('deformControl').value);
+            slider.setAttribute('trail-enabled', document.getElementById('trailControl').value);
+            slider.setAttribute('magnetic-strength', magnetic);
+            slider.setAttribute('glow-intensity', glow);
+        }
+
+        function animateSlider(elementId, start, end, duration = 2000) {
+            const slider = document.getElementById(elementId);
+            const startTime = Date.now();
+            const startValue = start;
+            const endValue = end;
+            
+            function update() {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                const currentValue = startValue + (endValue - startValue) * progress;
+                
+                slider.setValue(currentValue);
+                
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                }
+            }
+            
+            update();
+        }
+
+        function randomizeEqualizer() {
+            ['verticalSlider1', 'verticalSlider2', 'verticalSlider3'].forEach(id => {
+                const randomValue = Math.random() * 100;
+                document.getElementById(id).setValue(randomValue);
+            });
+        }
+
+        function resetEqualizer() {
+            ['verticalSlider1', 'verticalSlider2', 'verticalSlider3'].forEach(id => {
+                document.getElementById(id).reset();
+            });
+        }
+
+        function testKeyboardControls() {
+            const slider = document.getElementById('interactiveSlider');
+            slider.focus();
+            
+            // Simulate keyboard events
+            const events = [
+                { key: 'ArrowRight' },
+                { key: 'ArrowRight' },
+                { key: 'ArrowRight' },
+                { key: 'ArrowLeft' },
+                { key: 'Home' },
+                { key: 'End' }
+            ];
+            
+            events.forEach((event, index) => {
+                setTimeout(() => {
+                    const keyEvent = new KeyboardEvent('keydown', event);
+                    slider.dispatchEvent(keyEvent);
+                }, index * 500);
+            });
+            
+            alert('Watch the slider - it will move automatically with arrow keys, Home and End');
+        }
+
+        // Initialize controls
+        updateInteractiveSlider();
+    </script>
+</body>
+</html>
