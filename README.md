@@ -33,22 +33,22 @@
 A luminomorphic toggle with **quantum superposition** visuals, particles and wave-collapse transition.  
 Attributes: `checked`, `disabled`, `size`, `color-on`, `color-off`, `quantum-mode`, `transition-speed`, `particle-count`, `superposition-enabled`, `label`, `glow-intensity`.  
 Emits: `change` with `{ checked: boolean }`.  
-**Demo:** `labs/l-quantum-toggle.html`
-**File:** `dist/l-quantum-toggle.min.js`  (no deps). :contentReference[oaicite:5]{index=5}
+**Demo:** [labs/l-quantum-toggle.html](https://victortutu-hub.github.io/luminomorphism/labs/l-quantum-toggle.html)  
+**File:** `dist/l-quantum-toggle.min.js`  (no deps).
 
 ### `<l-morphic-slider>`
 A magnetic, glow-traced slider with **track deformation**, **trail particles**, keyboard control and ARIA-friendly focus states.  
 Attributes: `value`, `min`, `max`, `step`, `disabled`, `color`, `track-deform`, `trail-enabled`, `magnetic-strength`, `glow-intensity`, `orientation`, `label`.  
 Emits: `slide-start`, `change`, `slide-end`.  
-**Demo:** `labs/l-morphic-slider.html`
-**File:** `dist/l-morphic-slider.min.js`. :contentReference[oaicite:6]{index=6}
+**Demo:** [labs/l-morphic-slider.html](https://victortutu-hub.github.io/luminomorphism/labs/l-morphic-slider.html)  
+**File:** `dist/l-morphic-slider.min.js`.
 
 ### `<l-aurora-modal>`
 A fullscreen-capable modal with **aurora borealis** layers, fluid canvas waves and particle drift; backdrop blur and entrance animations included.  
 Attributes: `open`, `size`, `aurora-intensity`, `aurora-speed`, `color-palette`, `backdrop-blur`, `close-on-backdrop`, `particle-count`, `animation-type`, `glow-intensity`.  
 Emits: `modal-open`, `modal-close`.  
-**Demo:** `labs/l-aurora-modal.html`
-**File:** `dist/l-aurora-modal.min.js`. :contentReference[oaicite:7]{index=7}
+**Demo:** [labs/l-aurora-modal.html](https://victortutu-hub.github.io/luminomorphism/labs/l-aurora-modal.html)  
+**File:** `dist/l-aurora-modal.min.js`.
 
 
 ## 🧠 New Components in v1.1.15
