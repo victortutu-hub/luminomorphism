@@ -26,6 +26,31 @@
 
 ## 🧰 Published Components
 
+
+## 🧠 New Components in v1.1.16
+
+### `<l-quantum-toggle>`
+A luminomorphic toggle with **quantum superposition** visuals, particles and wave-collapse transition.  
+Attributes: `checked`, `disabled`, `size`, `color-on`, `color-off`, `quantum-mode`, `transition-speed`, `particle-count`, `superposition-enabled`, `label`, `glow-intensity`.  
+Emits: `change` with `{ checked: boolean }`.  
+**Demo:** `labs/l-quantum-toggle.html`
+**File:** `dist/l-quantum-toggle.min.js`  (no deps). :contentReference[oaicite:5]{index=5}
+
+### `<l-morphic-slider>`
+A magnetic, glow-traced slider with **track deformation**, **trail particles**, keyboard control and ARIA-friendly focus states.  
+Attributes: `value`, `min`, `max`, `step`, `disabled`, `color`, `track-deform`, `trail-enabled`, `magnetic-strength`, `glow-intensity`, `orientation`, `label`.  
+Emits: `slide-start`, `change`, `slide-end`.  
+**Demo:** `labs/l-morphic-slider.html`
+**File:** `dist/l-morphic-slider.min.js`. :contentReference[oaicite:6]{index=6}
+
+### `<l-aurora-modal>`
+A fullscreen-capable modal with **aurora borealis** layers, fluid canvas waves and particle drift; backdrop blur and entrance animations included.  
+Attributes: `open`, `size`, `aurora-intensity`, `aurora-speed`, `color-palette`, `backdrop-blur`, `close-on-backdrop`, `particle-count`, `animation-type`, `glow-intensity`.  
+Emits: `modal-open`, `modal-close`.  
+**Demo:** `labs/l-aurora-modal.html`
+**File:** `dist/l-aurora-modal.min.js`. :contentReference[oaicite:7]{index=7}
+
+
 ## 🧠 New Components in v1.1.13
 
 ### `<l-luminous-field>`
@@ -102,6 +127,10 @@ A biologically-inspired component that simulates **neural branching and synapse 
 | `<l-ripple-hover>`     | Ripple effect on hover                           | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-ripple-hover.html)     |
 | `<l-echo-press>`       | Expanding echo at click point                    | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-echo-press.html)       |
 | `<l-magnetic-cluster>` | Particles with magnetic, boid, and physics logic | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-magnetic-cluster.html) |
+| `<l-quantum-toggle>` | Quantum superposition toggle with particles & wave collapse | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-quantum-toggle.html) |
+| `<l-morphic-slider>` | Magnetic slider with glow trail & deforming track          | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-morphic-slider.html) |
+| `<l-aurora-modal>`   | Aurora-style modal with fluid canvas & particle drift      | [Demo](https://victortutu-hub.github.io/luminomorphism/labs/l-aurora-modal.html)   |
+
 
 ### 🧠 Input-Responsive Enhancers
 
