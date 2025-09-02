@@ -51,7 +51,7 @@ Emits: `modal-open`, `modal-close`.
 **File:** `dist/l-aurora-modal.min.js`. :contentReference[oaicite:7]{index=7}
 
 
-## 🧠 New Components in v1.1.13
+## 🧠 New Components in v1.1.15
 
 ### `<l-luminous-field>`
 Interactive luminous-field simulations (electromagnetic, gravitational, quantum) with particles, optional resonance, and temporal memory.  
