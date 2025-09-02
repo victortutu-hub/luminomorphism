@@ -1,10 +1,13 @@
 // l-aurora-modal.js - Modal cu efecte de aurora boreală și fundal fluid
 class LAuroraModal extends HTMLElement {
+  static ENTER_MS = 600;
+  static EXIT_MS  = 400;
+
   static get observedAttributes() {
     return [
       'open', 'size', 'aurora-intensity', 'aurora-speed', 'color-palette',
       'backdrop-blur', 'close-on-backdrop', 'particle-count', 
-      'animation-type', 'glow-intensity'
+      'animation-type', 'glow-intensity', 'entrance-animation'
     ];
   }
 
@@ -77,31 +80,64 @@ class LAuroraModal extends HTMLElement {
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
-    if (oldValue !== newValue) {
-      this.parseAttributes();
-      if (name === 'open') {
-        if (this.config.open) {
-          this.show();
-        } else {
-          this.hide();
-        }
-      } else {
-        this.updateStyling();
-      }
-    }
-  }
+    if (oldValue === newValue) return;
 
-  parseAttributes() {
-    this.config.open = this.hasAttribute('open');
-    this.config.size = this.getAttribute('size') || 'medium';
-    this.config.auroraIntensity = parseFloat(this.getAttribute('aurora-intensity')) || 1.0;
-    this.config.auroraSpeed = parseFloat(this.getAttribute('aurora-speed')) || 1.0;
-    this.config.colorPalette = this.getAttribute('color-palette') || 'arctic';
-    this.config.backdropBlur = this.getAttribute('backdrop-blur') !== 'false';
-    this.config.closeOnBackdrop = this.getAttribute('close-on-backdrop') !== 'false';
-    this.config.particleCount = parseInt(this.getAttribute('particle-count')) || 20;
-    this.config.animationType = this.getAttribute('animation-type') || 'fluid';
-    this.config.glowIntensity = parseFloat(this.getAttribute('glow-intensity')) || 1.0;
+    // Keep config in sync
+    if (name === 'open') {
+      this.parseAttributes();
+      if (this.hasAttribute('open')) this.show(); else this.hide();
+      return;
+    }
+
+    if (name === 'animation-type') {
+      this.config.animationType = newValue || this.config.animationType;
+      const r = this.shadowRoot || this;
+      const canvas  = r.getElementById('auroraCanvas');
+      const overlay = r.getElementById('auroraOverlay');
+      const useFluid = this._shouldUseFluid ? this._shouldUseFluid() : false;
+      if (canvas)  canvas.style.display  = useFluid ? '' : 'none';
+      if (overlay) overlay.style.display = useFluid ? 'none' : '';
+      if (useFluid) this.startAnimation(); else this.stopAnimation();
+      return;
+    }
+
+    if (name === 'aurora-intensity') {
+      const v = parseFloat(newValue);
+      if (!Number.isNaN(v)) this.config.auroraIntensity = v;
+      const overlay = (this.shadowRoot || this).getElementById('auroraOverlay');
+      if (overlay && this.state && Array.isArray(this.state.auroraLayers)) {
+        Array.from(overlay.children).forEach((el, i) => {
+          const base = (this.state.auroraLayers[i] && this.state.auroraLayers[i].opacity) || 1;
+          el.style.setProperty('--opacity', base * (this.config.auroraIntensity || 1));
+        });
+      }
+      return;
+    }
+
+    if (name === 'color-palette') {
+      this.config.colorPalette = newValue || this.config.colorPalette;
+      this.initializeAurora();
+      return;
+    }
+
+    if (name === 'backdrop-blur') {
+      this.config.backdropBlur = this.getAttribute('backdrop-blur') !== 'false';
+      const backdrop = (this.shadowRoot || this).getElementById('modalBackdrop');
+      if (backdrop) {
+        backdrop.style.backdropFilter = this.config.backdropBlur ? 'blur(8px)' : 'none';
+      }
+      return;
+    }
+
+    if (name === 'entrance-animation') {
+      // only store; show() will read it
+      this._entranceAnimation = newValue;
+      return;
+    }
+
+    // Fallback to existing heavy update for other attributes
+    this.parseAttributes();
+    this.updateStyling();
   }
 
   render() {
@@ -154,7 +190,6 @@ class LAuroraModal extends HTMLElement {
           left: 0;
           width: 100%;
           height: 100%;
-          pointer-events: none;
           z-index: 1;
         }
         
@@ -172,103 +207,16 @@ class LAuroraModal extends HTMLElement {
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%, -50%) scale(0.7);
+          transform: translate(-50%, -50%);
           width: ${sizeConfig.width};
           height: ${sizeConfig.height};
-          max-width: 95vw;
-          max-height: 90vh;
-          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          z-index: 10;
-          cursor: default;
-        }
-        
-        :host(.show) .modal-container {
-          transform: translate(-50%, -50%) scale(1);
-        }
-        
-        .modal-content {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          background: linear-gradient(135deg, 
-            rgba(0, 0, 0, 0.9) 0%,
-            rgba(0, 0, 0, 0.8) 50%,
-            rgba(0, 0, 0, 0.9) 100%);
-          border-radius: 16px;
+          background: rgba(10, 15, 30, 0.85);
           border: 1px solid rgba(255, 255, 255, 0.1);
-          backdrop-filter: blur(20px);
+          box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+          border-radius: 16px;
+          backdrop-filter: blur(10px);
           overflow: hidden;
-          box-shadow: 
-            0 20px 60px rgba(0, 0, 0, 0.5),
-            0 0 80px rgba(${this.hexToRgb(colors[0])}, 0.2),
-            inset 0 1px 1px rgba(255, 255, 255, 0.1);
-        }
-        
-        .modal-header {
-          position: relative;
-          padding: 24px 24px 0;
-          z-index: 20;
-        }
-        
-        .modal-title {
-          font-size: 1.5rem;
-          font-weight: 700;
-          color: #ffffff;
-          margin: 0;
-          background: linear-gradient(135deg, ${colors[0]}, ${colors[1]});
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-        
-        .modal-close {
-          position: absolute;
-          top: 24px;
-          right: 24px;
-          width: 32px;
-          height: 32px;
-          background: rgba(255, 255, 255, 0.1);
-          border: 1px solid rgba(255, 255, 255, 0.2);
-          border-radius: 50%;
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          transition: all 0.3s ease;
-          z-index: 20;
-        }
-        
-        .modal-close:hover {
-          background: rgba(255, 255, 255, 0.2);
-          transform: scale(1.1);
-          box-shadow: 0 0 20px ${colors[0]}60;
-        }
-        
-        .modal-close::before,
-        .modal-close::after {
-          content: '';
-          position: absolute;
-          width: 16px;
-          height: 2px;
-          background: #ffffff;
-          border-radius: 1px;
-        }
-        
-        .modal-close::before {
-          transform: rotate(45deg);
-        }
-        
-        .modal-close::after {
-          transform: rotate(-45deg);
-        }
-        
-        .modal-body {
-          position: relative;
-          padding: 24px;
-          height: calc(100% - 80px);
-          overflow-y: auto;
-          z-index: 20;
-          color: #ffffff;
+          z-index: 10;
         }
         
         .aurora-overlay {
@@ -305,130 +253,48 @@ class LAuroraModal extends HTMLElement {
           opacity: var(--opacity);
         }
         
-        .particle {
-          position: absolute;
-          width: 3px;
-          height: 3px;
-          background: ${colors[0]};
-          border-radius: 50%;
-          pointer-events: none;
-          opacity: 0.8;
-          animation: particleFloat linear infinite;
-          box-shadow: 0 0 6px currentColor;
+        @keyframes auroraFlow {
+          0% { transform: translate(-10%, -10%) rotate(0deg); }
+          50% { transform: translate(10%, 10%) rotate(180deg); }
+          100% { transform: translate(-10%, -10%) rotate(360deg); }
         }
         
         .glow-effect {
           position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          border-radius: 16px;
-          opacity: 0;
-          pointer-events: none;
-          z-index: 15;
-          transition: opacity 0.3s ease;
+          inset: -20% -10% -10% -20%;
+          background: radial-gradient(
+            circle at var(--mx, 50%) var(--my, 50%),
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0) 40%
+          );
+          filter: blur(18px);
+          mix-blend-mode: screen;
+          opacity: ${Math.min(0.9, this.config.glowIntensity)};
+          z-index: 6;
         }
         
-        .glow-effect.active {
-          opacity: 1;
-          box-shadow: 
-            0 0 40px ${colors[0]}40,
-            0 0 80px ${colors[1]}30,
-            0 0 120px ${colors[2]}20;
+        .modal-content { position: relative; z-index: 20; color: #e7ecff; }
+        .modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,.08); }
+        .modal-title { margin: 0; font-size: 18px; font-weight: 600; color: #f1f5ff; }
+        .modal-close {
+          width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(255,255,255,.1);
+          background: rgba(255,255,255,.06); cursor: pointer; position: relative;
         }
-        
-        @keyframes auroraFlow {
-          0% { 
-            transform: translateX(-50%) translateY(-50%) rotate(0deg);
-          }
-          100% { 
-            transform: translateX(-50%) translateY(-50%) rotate(360deg);
-          }
+        .modal-close::before, .modal-close::after {
+          content: ""; position: absolute; top: 7px; left: 15px; width: 2px; height: 18px; background: #fff; border-radius: 2px;
         }
-        
-        @keyframes particleFloat {
-          0% {
-            transform: translate(0, 100vh) scale(0);
-            opacity: 0;
-          }
-          10% {
-            opacity: 1;
-            transform: translate(0, 90vh) scale(1);
-          }
-          90% {
-            opacity: 1;
-            transform: translate(var(--drift), 10vh) scale(1);
-          }
-          100% {
-            transform: translate(var(--drift), 0) scale(0);
-            opacity: 0;
-          }
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-          .modal-container {
-            width: 95vw;
-            height: 80vh;
-            margin: 10px;
-          }
-          
-          .modal-header,
-          .modal-body {
-            padding: 16px;
-          }
-          
-          .modal-title {
-            font-size: 1.3rem;
-          }
-        }
-        
-        /* Animation entrance effects */
-        .modal-container.entrance-fade {
-          animation: fadeInScale 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .modal-container.entrance-slide {
-          animation: slideInUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .modal-container.entrance-zoom {
-          animation: zoomIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        @keyframes fadeInScale {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.3);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-          }
-        }
-        
-        @keyframes slideInUp {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -30%) scale(0.9);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-          }
-        }
-        
-        @keyframes zoomIn {
-          0% {
-            opacity: 0;
-            transform: translate(-50%, -50%) scale(0.1);
-          }
-          100% {
-            opacity: 1;
-            transform: translate(-50%, -50%) scale(1);
-          }
-        }
+        .modal-close::before { transform: rotate(45deg); }
+        .modal-close::after  { transform: rotate(-45deg); }
+        .modal-body { padding: 16px 20px; max-height: calc(100% - 60px); overflow: auto; }
+
+        /* Entrance animations */
+        .entrance-fade   { animation: modalFadeIn ${this.constructor.ENTER_MS}ms both ease; }
+        .entrance-slide  { animation: modalSlideIn ${this.constructor.ENTER_MS}ms both ease; }
+        .entrance-zoom   { animation: modalZoomIn ${this.constructor.ENTER_MS}ms both ease; }
+
+        @keyframes modalFadeIn { from { opacity: 0; transform: translate(-50%, -52%);} to { opacity: 1; transform: translate(-50%,-50%);} }
+        @keyframes modalSlideIn { from { opacity: 0; transform: translate(-50%, -40%);} to { opacity: 1; transform: translate(-50%,-50%);} }
+        @keyframes modalZoomIn  { from { opacity: 0; transform: translate(-50%,-50%) scale(.96);} to { opacity: 1; transform: translate(-50%,-50%) scale(1);} }
       </style>
       
       <div class="modal-backdrop" id="modalBackdrop"></div>
@@ -457,6 +323,8 @@ class LAuroraModal extends HTMLElement {
         </div>
       </div>
     `;
+
+    // After render, cache animated elements if needed
   }
 
   initializeElements() {
@@ -473,6 +341,33 @@ class LAuroraModal extends HTMLElement {
     
     // Setup canvas
     this.setupCanvas();
+    
+    // ARIA setup
+    this._setupAria && this._setupAria();
+    
+    // Sync visibility of canvas/overlay based on animation-type
+    const useFluid = this._shouldUseFluid ? this._shouldUseFluid() : (this.getAttribute('animation-type')||'').toLowerCase()==='fluid';
+    if (this.elements.canvas)  this.elements.canvas.style.display  = useFluid ? '' : 'none';
+    if (this.elements.auroraOverlay) this.elements.auroraOverlay.style.display = useFluid ? 'none' : '';
+  }
+
+  _setupAria() {
+    const r = this.shadowRoot || this;
+    const container = r.getElementById('modalContainer');
+    const closeBtn  = r.getElementById('modalClose');
+    const titleEl   = r.getElementById('modalTitle');
+    if (container) {
+      container.setAttribute('role','dialog');
+      container.setAttribute('aria-modal','true');
+      if (titleEl) {
+        if (!titleEl.id) titleEl.id = `modalTitle-${Math.random().toString(36).slice(2)}`;
+        container.setAttribute('aria-labelledby', titleEl.id);
+      }
+      if (!container.hasAttribute('tabindex')) container.setAttribute('tabindex','-1');
+    }
+    if (closeBtn && !closeBtn.hasAttribute('aria-label')) {
+      closeBtn.setAttribute('aria-label','Close modal');
+    }
   }
 
   attachEventListeners() {
@@ -489,17 +384,19 @@ class LAuroraModal extends HTMLElement {
       }
     };
     
-    // Mouse movement for interactive effects
+    // Mouse move glow
     const handleMouseMove = (e) => {
-      this.state.mouseX = e.clientX;
-      this.state.mouseY = e.clientY;
-      this.updateInteractiveEffects();
+      const rect = this.elements.container.getBoundingClientRect();
+      const mx = ((e.clientX - rect.left) / rect.width) * 100;
+      const my = ((e.clientY - rect.top) / rect.height) * 100;
+      this.elements.glowEffect.style.setProperty('--mx', mx + '%');
+      this.elements.glowEffect.style.setProperty('--my', my + '%');
     };
-    
-    // Keyboard events
+
+    // Esc to close (global safeguard)
     const handleKeydown = (e) => {
       if (e.key === 'Escape') {
-        this.hide();
+        if (this.getAttribute('close-on-backdrop') !== 'false') this.hide();
       }
     };
     
@@ -585,94 +482,33 @@ class LAuroraModal extends HTMLElement {
     for (let i = 0; i < this.config.particleCount; i++) {
       const particle = document.createElement('div');
       particle.className = 'particle';
-      particle.style.left = Math.random() * 100 + '%';
-      particle.style.color = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.animationDuration = (8 + Math.random() * 12) + 's';
-      particle.style.animationDelay = Math.random() * 20 + 's';
-      particle.style.setProperty('--drift', (Math.random() - 0.5) * 200 + 'px');
-      
+      const size = Math.random() * 2 + 1;
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      const speed = Math.random() * 0.5 + 0.2;
+      particle.style.cssText = `
+        position: absolute;
+        width: ${size}px;
+        height: ${size}px;
+        background: ${color};
+        border-radius: 50%;
+        opacity: 0.5;
+        filter: blur(1px);
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        transform: translate(-50%, -50%);
+      `;
+      particle.dataset.speed = speed;
       particleLayer.appendChild(particle);
     }
   }
 
-  updateInteractiveEffects() {
-    if (!this.config.open) return;
-    
-    // Create glow effect based on mouse position
-    const rect = this.getBoundingClientRect();
-    const mouseX = this.state.mouseX - rect.left;
-    const mouseY = this.state.mouseY - rect.top;
-    
-    // Activate glow effect when mouse is over modal
-    if (mouseX > 0 && mouseX < rect.width && mouseY > 0 && mouseY < rect.height) {
-      this.elements.glowEffect.classList.add('active');
-    } else {
-      this.elements.glowEffect.classList.remove('active');
-    }
-  }
-
-  renderFluidAurora() {
-    if (!this.ctx || !this.config.open) return;
-    
-    const { canvas, ctx } = this;
-    const { auroraIntensity, auroraSpeed } = this.config;
-    
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Get colors
-    const colors = this.colorPalettes[this.config.colorPalette] || this.colorPalettes.arctic;
-    
-    // Create fluid aurora waves
-    const layers = 3;
-    for (let layer = 0; layer < layers; layer++) {
-      ctx.save();
-      
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      const color1 = colors[layer % colors.length];
-      const color2 = colors[(layer + 1) % colors.length];
-      
-      gradient.addColorStop(0, this.hexToRgba(color1, 0));
-      gradient.addColorStop(0.3, this.hexToRgba(color1, 0.3 * auroraIntensity));
-      gradient.addColorStop(0.7, this.hexToRgba(color2, 0.2 * auroraIntensity));
-      gradient.addColorStop(1, this.hexToRgba(color2, 0));
-      
-      ctx.fillStyle = gradient;
-      
-      // Create wavy path
-      ctx.beginPath();
-      const waveHeight = 100 + layer * 50;
-      const frequency = 0.01 + layer * 0.005;
-      const phase = this.state.wavePhase + layer * Math.PI / 3;
-      
-      for (let x = 0; x <= canvas.width; x += 10) {
-        const y = canvas.height / 2 + 
-          Math.sin(x * frequency + phase) * waveHeight +
-          Math.sin(x * frequency * 2 + phase * 1.5) * (waveHeight / 3);
-        
-        if (x === 0) {
-          ctx.moveTo(x, y);
-        } else {
-          ctx.lineTo(x, y);
-        }
-      }
-      
-      ctx.lineTo(canvas.width, canvas.height);
-      ctx.lineTo(0, canvas.height);
-      ctx.closePath();
-      ctx.fill();
-      
-      ctx.restore();
-    }
-    
-    this.state.wavePhase += 0.02 * auroraSpeed;
-  }
-
   startAnimation() {
+    if (this._shouldUseFluid && !this._shouldUseFluid()) return;
+    if (this.animationId) return;
     const animate = () => {
       this.renderFluidAurora();
       this.animationId = requestAnimationFrame(animate);
     };
-    
     animate();
   }
 
@@ -683,10 +519,156 @@ class LAuroraModal extends HTMLElement {
     }
     if (this.openTimeout) {
       clearTimeout(this.openTimeout);
+      this.openTimeout = null;
     }
     if (this.closeTimeout) {
       clearTimeout(this.closeTimeout);
+      this.closeTimeout = null;
     }
+  }
+
+  renderFluidAurora() {
+    const ctx = this.ctx;
+    const canvas = this.elements.canvas;
+    if (!ctx || !canvas) return;
+
+    // Clear
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Update + draw layers as flowing ribbons
+    const t = performance.now() * 0.001 * this.config.auroraSpeed;
+    this.state.auroraLayers.forEach((layer, i) => {
+      layer.phase += 0.002 * layer.speed * this.config.auroraSpeed;
+      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+      gradient.addColorStop(0.0, this.hexToRgba(layer.color1, 0.25 * this.config.auroraIntensity));
+      gradient.addColorStop(0.5, this.hexToRgba(layer.color2, 0.18 * this.config.auroraIntensity));
+      gradient.addColorStop(1.0, this.hexToRgba(layer.color3, 0.25 * this.config.auroraIntensity));
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+
+      const amp = 60 + 30 * Math.sin(layer.phase + i);
+      const yBase = canvas.height * (0.3 + 0.15 * i);
+      const k = 0.8 + 0.2 * Math.cos(layer.phase);
+
+      ctx.moveTo(0, yBase);
+      for (let x = 0; x <= canvas.width; x += 24) {
+        const y = yBase + Math.sin(x * 0.004 * k + t + i) * amp;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(canvas.width, canvas.height);
+      ctx.lineTo(0, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+    });
+
+    // Particles drift
+    const particles = this.elements.particleLayer?.children || [];
+    for (const p of particles) {
+      const s = parseFloat(p.dataset.speed || '0.3');
+      const x = (parseFloat(p.style.left) || 50) + s * 0.05;
+      const y = (parseFloat(p.style.top) || 50) + Math.sin(t * 0.5) * 0.02;
+      p.style.left = (x % 100) + '%';
+      p.style.top  = (y % 100) + '%';
+    }
+  }
+
+  updateInteractiveEffects(e) {
+    // placeholder for future advanced interactions
+  }
+
+  parseAttributes() {
+    const boolAttr = (name, def=true) => {
+      const v = this.getAttribute(name);
+      if (v === null) return def; // not present
+      if (v === '' || v === 'true') return true;
+      if (v === 'false') return false;
+      return def;
+    };
+
+    this.config.open           = this.hasAttribute('open');
+    this.config.size           = this.getAttribute('size') || this.config.size;
+    this.config.auroraIntensity= parseFloat(this.getAttribute('aurora-intensity')) || this.config.auroraIntensity;
+    this.config.auroraSpeed    = parseFloat(this.getAttribute('aurora-speed')) || this.config.auroraSpeed;
+    this.config.colorPalette   = this.getAttribute('color-palette') || this.config.colorPalette;
+    this.config.backdropBlur   = boolAttr('backdrop-blur', this.config.backdropBlur);
+    this.config.closeOnBackdrop= boolAttr('close-on-backdrop', this.config.closeOnBackdrop);
+    this.config.particleCount  = parseInt(this.getAttribute('particle-count') || this.config.particleCount, 10);
+    this.config.animationType  = this.getAttribute('animation-type') || this.config.animationType;
+    this.config.glowIntensity  = parseFloat(this.getAttribute('glow-intensity')) || this.config.glowIntensity;
+  }
+
+  updateCanvasSize() {
+    const canvas = this.elements.canvas;
+    if (canvas) {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+  }
+
+  show(entranceType = (this.getAttribute('entrance-animation') || 'fade')) {
+    if (this.state.isAnimating) return;
+    // Remember last active element
+    this._lastActiveElement = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    
+    this.state.isAnimating = true;
+    this.config.open = true;
+    this.setAttribute('open', '');
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
+    
+    // Add entrance animation class
+    this.elements.container.classList.add(`entrance-${entranceType}`);
+    
+    // Show modal
+    this.classList.add('show');
+    
+    // Start fluid loop conditionally
+    if (this._shouldUseFluid && this._shouldUseFluid()) this.startAnimation();
+    // Enable focus trap
+    this._enableFocusTrap && this._enableFocusTrap();
+    
+    this.openTimeout = setTimeout(() => {
+      this.state.isAnimating = false;
+      this.elements.container.classList.remove(`entrance-${entranceType}`);
+    }, this.constructor.ENTER_MS || 600);
+    
+    // Emit open event
+    this.dispatchEvent(new CustomEvent('modal-open', {
+      detail: { modal: this }
+    }));
+  }
+
+  hide() {
+    if (this.state.isAnimating || !this.config.open) return;
+    
+    this.state.isAnimating = true;
+    this.config.open = false;
+    this.removeAttribute('open');
+    
+    // Hide modal
+    this.classList.remove('show');
+    
+    // Stop fluid loop and remove focus trap
+    this.stopAnimation && this.stopAnimation();
+    this._disableFocusTrap && this._disableFocusTrap();
+    
+    this.closeTimeout = setTimeout(() => {
+      this.state.isAnimating = false;
+      document.body.style.overflow = '';
+    }, this.constructor.EXIT_MS || 400);
+    
+    // Restore focus to opener
+    if (this._lastActiveElement && document.contains(this._lastActiveElement)) {
+      this._lastActiveElement.focus({ preventScroll: true });
+    }
+    this._lastActiveElement = null;
+    
+    // Emit close event
+    this.dispatchEvent(new CustomEvent('modal-close', {
+      detail: { modal: this }
+    }));
   }
 
   updateStyling() {
@@ -706,76 +688,13 @@ class LAuroraModal extends HTMLElement {
   }
 
   hexToRgba(hex, alpha) {
-    const rgb = this.hexToRgb(hex);
-    return `rgba(${rgb}, ${alpha})`;
-  }
-
-  // Public API
-  show(entranceType = 'fade') {
-    if (this.state.isAnimating) return;
-    
-    this.state.isAnimating = true;
-    this.config.open = true;
-    this.setAttribute('open', '');
-    
-    // Prevent body scroll
-    document.body.style.overflow = 'hidden';
-    
-    // Add entrance animation class
-    this.elements.container.classList.add(`entrance-${entranceType}`);
-    
-    // Show modal
-    this.classList.add('show');
-    
-    this.openTimeout = setTimeout(() => {
-      this.state.isAnimating = false;
-      this.elements.container.classList.remove(`entrance-${entranceType}`);
-    }, 600);
-    
-    // Emit open event
-    this.dispatchEvent(new CustomEvent('modal-open', {
-      detail: { modal: this }
-    }));
-  }
-
-  hide() {
-    if (this.state.isAnimating || !this.config.open) return;
-    
-    this.state.isAnimating = true;
-    this.config.open = false;
-    this.removeAttribute('open');
-    
-    // Hide modal
-    this.classList.remove('show');
-    
-    this.closeTimeout = setTimeout(() => {
-      this.state.isAnimating = false;
-      document.body.style.overflow = '';
-    }, 400);
-    
-    // Emit close event
-    this.dispatchEvent(new CustomEvent('modal-close', {
-      detail: { modal: this }
-    }));
-  }
-
-  toggle() {
-    if (this.config.open) {
-      this.hide();
-    } else {
-      this.show();
-    }
-  }
-
-  isOpen() {
-    return this.config.open;
+    const rgb = this.hexToRgb(hex).split(',').map(v => parseInt(v.trim(), 10));
+    return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
   }
 
   setTitle(title) {
     const titleSlot = this.querySelector('[slot="title"]');
-    if (titleSlot) {
-      titleSlot.textContent = title;
-    }
+    if (titleSlot) titleSlot.textContent = title;
   }
 
   setContent(content) {
@@ -788,6 +707,53 @@ class LAuroraModal extends HTMLElement {
         contentSlot.appendChild(content);
       }
     }
+  }
+
+  // ——— A11y: focus trap + restore
+  _lastActiveElement = null;
+  _focusTrapHandler = null;
+
+  _getFocusable() {
+    const root = this.shadowRoot || this;
+    const sel = [
+      'a[href]','area[href]','button:not([disabled])',
+      'input:not([disabled]):not([type="hidden"])',
+      'select:not([disabled])','textarea:not([disabled])',
+      '[tabindex]:not([tabindex="-1"])','[contenteditable]'
+    ].join(',');
+    return Array.from(root.querySelectorAll(sel))
+      .filter(el => el.offsetParent !== null || el.getClientRects().length);
+  }
+
+  _enableFocusTrap() {
+    const nodes = this._getFocusable();
+    if (!nodes.length) return;
+    const first = nodes[0], last = nodes[nodes.length - 1];
+    queueMicrotask(() => {
+      this.elements?.container?.setAttribute?.('tabindex','-1');
+      this.elements?.container?.focus?.({ preventScroll: true });
+    });
+    this._focusTrapHandler = (ev) => {
+      if (ev.key === 'Tab') {
+        const active = this.shadowRoot?.activeElement || document.activeElement;
+        if (!ev.shiftKey && active === last) { ev.preventDefault(); first.focus(); }
+        else if (ev.shiftKey && active === first) { ev.preventDefault(); last.focus(); }
+      } else if (ev.key === 'Escape') {
+        if (this.getAttribute('close-on-backdrop') !== 'false') this.hide?.();
+      }
+    };
+    (this.shadowRoot || this).addEventListener('keydown', this._focusTrapHandler, true);
+  }
+
+  _disableFocusTrap() {
+    if (this._focusTrapHandler) {
+      (this.shadowRoot || this).removeEventListener('keydown', this._focusTrapHandler, true);
+      this._focusTrapHandler = null;
+    }
+  }
+
+  _shouldUseFluid() {
+    return (this.config?.animationType || (this.getAttribute('animation-type')||'')).toLowerCase() === 'fluid';
   }
 }
 
