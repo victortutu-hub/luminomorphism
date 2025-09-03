@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L-Magnetic-Cursor - Web Component Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: radial-gradient(ellipse at top, #1a1a2e 0%, #0f0f23 50%, #000 100%);
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px
+        }
+
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 12px;
+            border: 1px solid rgba(0, 255, 255, .2)
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-size: .9rem;
+            color: #00ffff;
+            font-weight: 600;
+        }
+
+        .control-group select,
+        .control-group input[type="range"] {
+            background: rgba(0, 0, 0, .3);
+            border: 1px solid rgba(0, 255, 255, .3);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: .9rem;
+            width: 100%
+        }
+
+        .control-group input[type="checkbox"] {
+            margin-right: 8px;
+            accent-color: #00ffff;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 5px;
+        }
+
+        .value-display {
+            color: #ff00ff;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+
+        .test-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px
+        }
+
+        .test-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .02));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(0, 255, 255, .1);
+            transition: all .3s ease;
+            text-align: center;
+            will-change: transform;
+            position: relative;
+        }
+
+        .test-card::before {
+            content: attr(data-strength);
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 0, 255, 0.8);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .test-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #00ffff
+        }
+
+        .test-card p {
+            opacity: .7;
+            margin-bottom: 20px;
+            line-height: 1.6
+        }
+
+        .test-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #00ffff, #0088ff);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            border: none;
+            transition: all .3s ease;
+            will-change: transform;
+            cursor: pointer;
+        }
+
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .special-elements {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-bottom: 60px
+        }
+
+        .magnetic-element {
+            padding: 20px;
+            background: rgba(255, 0, 255, .1);
+            border: 2px solid rgba(255, 0, 255, .3);
+            border-radius: 15px;
+            color: #ff00ff;
+            font-weight: bold;
+            text-align: center;
+            min-width: 120px;
+            cursor: pointer;
+        }
+
+        .orbit-element {
+            padding: 15px;
+            background: rgba(0, 255, 128, .1);
+            border: 2px solid rgba(0, 255, 128, .4);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00ff80;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .info-panel {
+            background: rgba(0, 0, 0, .5);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 255, .2);
+            margin-bottom: 40px
+        }
+
+        .info-panel h2 {
+            color: #00ffff;
+            margin-bottom: 15px
+        }
+
+        .footer {
+            text-align: center;
+            padding: 40px;
+            color: rgba(255, 255, 255, .5)
+        }
+
+        .api-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+            flex-wrap: wrap
+        }
+
+        .api-button {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, .1);
+            border: 1px solid rgba(0, 255, 255, .3);
+            border-radius: 8px;
+            color: #fff;
+            font-size: .9rem;
+            cursor: pointer;
+            transition: all .3s ease;
+            font-family: inherit;
+        }
+
+        .api-button:hover {
+            background: rgba(0, 255, 255, .2);
+            border-color: #00ffff;
+            transform: translateY(-2px);
+        }
+
+        .api-button.active {
+            background: rgba(255, 0, 255, .3);
+            border-color: #ff00ff;
+        }
+
+        .status-display {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, .8);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, .3);
+            font-size: 0.8rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .status-value {
+            color: #00ffff;
+            font-weight: bold;
+        }
+
+        @media (max-width:768px) {
+            .controls {
+                grid-template-columns: 1fr;
+            }
+
+            .special-elements {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .header h1 {
+                font-size: 2rem
+            }
+
+            .api-buttons {
+                flex-direction: column;
+                align-items: center
+            }
+
+            .status-display {
+                position: static;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Componenta -->
+    <l-magnetic-cursor id="magneticCursor" strength="1.5" mode="attract" max-distance="150" particle-count="8"
+        show-particles="true" show-field="false" color-scheme="electric"
+        target-selector=".magnetic, [data-magnetic], button, a, input, textarea">
+    </l-magnetic-cursor>
+
+    <div class="container">
+        <div class="header">
+            <h1>L-Magnetic-Cursor</h1>
+            <p class="tagline">Web Component - Hollywood-Level Effects</p>
+            <p>Move your mouse around to see elements attracted to your cursor!</p>
+        </div>
+
+        <!-- Enhanced Controls -->
+        <div class="controls">
+            <div class="control-group">
+                <label for="strengthControl">Magnetic Strength</label>
+                <input type="range" id="strengthControl" min="0.5" max="3" step="0.1" value="1.5">
+                <small class="value-display">Current: <span id="strengthValue">1.5</span></small>
+            </div>
+            <div class="control-group">
+                <label for="modeControl">Effect Mode</label>
+                <select id="modeControl">
+                    <option value="attract">Attract</option>
+                    <option value="repel">Repel</option>
+                    <option value="orbit">Orbit</option>
+                    <option value="quantum">Quantum</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="colorSchemeControl">Color Scheme</label>
+                <select id="colorSchemeControl">
+                    <option value="electric">Electric</option>
+                    <option value="plasma">Plasma</option>
+                    <option value="aurora">Aurora</option>
+                    <option value="quantum">Quantum</option>
+                    <option value="subtle">Subtle</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label>Visual Effects</label>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="particlesControl" checked>
+                    <label for="particlesControl">Show Particles</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="fieldControl">
+                    <label for="fieldControl">Show Magnetic Field</label>
+                </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="arcsControl">
+                    <label for="arcsControl">Electric Arcs</label>
+                </div>
+            </div>
+            <div class="control-group">
+                <label for="particleCountControl">Particle Count</label>
+                <input type="range" id="particleCountControl" min="4" max="20" step="1" value="8">
+                <small class="value-display">Count: <span id="particleCountValue">8</span></small>
+            </div>
+            <div class="control-group">
+                <label for="distanceControl">Max Distance</label>
+                <input type="range" id="distanceControl" min="80" max="300" step="10" value="150">
+                <small class="value-display">Distance: <span id="distanceValue">150</span>px</small>
+            </div>
+        </div>
+
+        <div class="api-buttons">
+            <button class="api-button" id="toggleModeBtn">Toggle Mode</button>
+            <button class="api-button" id="randomColorsBtn">Random Colors</button>
+            <button class="api-button" id="pulseEffectBtn">Pulse Effect</button>
+            <button class="api-button" id="toggleParticlesBtn">Toggle Particles</button>
+            <button class="api-button" id="resetBtn">Reset All</button>
+        </div>
+
+        <!-- Status Display -->
+        <div class="status-display">
+            <div class="status-item">
+                <span>Mouse X:</span>
+                <span class="status-value" id="mouseX">0</span>
+            </div>
+            <div class="status-item">
+                <span>Mouse Y:</span>
+                <span class="status-value" id="mouseY">0</span>
+            </div>
+            <div class="status-item">
+                <span>Velocity:</span>
+                <span class="status-value" id="velocity">0</span>
+            </div>
+            <div class="status-item">
+                <span>Mode:</span>
+                <span class="status-value" id="currentMode">attract</span>
+            </div>
+            <div class="status-item">
+                <span>Particles:</span>
+                <span class="status-value" id="particleCount">8</span>
+            </div>
+        </div>
+
+        <div class="test-grid">
+            <div class="test-card magnetic" data-strength="1.0x">
+                <h3>Standard Magnet</h3>
+                <p>This card has normal magnetic strength and responds to cursor attraction.</p>
+                <button class="test-button" onclick="testCardEffect(this, 'standard')">Hover Over Me</button>
+            </div>
+            <div class="test-card magnetic" data-magnetic-strength="2.5" data-strength="2.5x">
+                <h3>Strong Magnet</h3>
+                <p>This card has 2.5x magnetic strength for dramatic effects.</p>
+                <button class="test-button" onclick="testCardEffect(this, 'strong')">Strong Attraction</button>
+            </div>
+            <div class="test-card magnetic" data-magnetic-strength="0.5" data-strength="0.5x">
+                <h3>Weak Magnet</h3>
+                <p>This card has reduced magnetic properties for subtle interactions.</p>
+                <button class="test-button" onclick="testCardEffect(this, 'weak')">Gentle Effect</button>
+            </div>
+            <div class="test-card magnetic" data-magnetic-strength="1.8" data-strength="1.8x">
+                <h3>Physics Demo</h3>
+                <p>Watch the realistic momentum and damping physics in action.</p>
+                <button class="test-button" onclick="testCardEffect(this, 'physics')">Physics Test</button>
+            </div>
+        </div>
+
+        <div class="special-elements">
+            <div class="magnetic-element magnetic" data-magnetic-strength="2.0" onclick="specialElementTest(this)">High
+                Power Element</div>
+            <div class="orbit-element magnetic" data-magnetic-strength="1.5" onclick="specialElementTest(this)">ORB
+            </div>
+            <input class="test-button magnetic" placeholder="Magnetic input field" data-magnetic-strength="1.2"
+                style="background:rgba(0,0,0,.3);border:1px solid #00ffff;color:#fff;padding:15px;">
+            <textarea class="magnetic" placeholder="Magnetic textarea" data-magnetic-strength="1.0"
+                style="background:rgba(0,0,0,.3);border:1px solid #00ffff;color:#fff;padding:15px;resize:none;height:60px;border-radius:8px;"></textarea>
+        </div>
+
+        <div class="info-panel">
+            <h2>Component Features</h2>
+            <ul>
+                <li>Realistic physics with momentum and damping</li>
+                <li>Multiple interaction modes (attract, repel, orbit, quantum)</li>
+                <li>Customizable particle systems</li>
+                <li>Performance optimization for mobile devices</li>
+                <li>Accessibility support with reduced motion</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>Part of <strong>Luminomorphism</strong> - Next-generation web components</p>
+        <p>Built with Web Components standard + Shadow DOM</p>
+    </div>
+
+    <!-- Load external JS -->
+    <script src="../l-magnetic-cursor.js"></script>
+
+    <!-- Enhanced Demo Script -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const el = document.getElementById('magneticCursor');
+
+            // Control elements
+            const strengthControl = document.getElementById('strengthControl');
+            const strengthValue = document.getElementById('strengthValue');
+            const modeControl = document.getElementById('modeControl');
+            const colorSchemeControl = document.getElementById('colorSchemeControl');
+            const particlesControl = document.getElementById('particlesControl');
+            const fieldControl = document.getElementById('fieldControl');
+            const arcsControl = document.getElementById('arcsControl');
+            const particleCountControl = document.getElementById('particleCountControl');
+            const particleCountValue = document.getElementById('particleCountValue');
+            const distanceControl = document.getElementById('distanceControl');
+            const distanceValue = document.getElementById('distanceValue');
+
+            // Status elements
+            const mouseXEl = document.getElementById('mouseX');
+            const mouseYEl = document.getElementById('mouseY');
+            const velocityEl = document.getElementById('velocity');
+            const currentModeEl = document.getElementById('currentMode');
+            const particleCountEl = document.getElementById('particleCount');
+
+            // Button elements
+            const toggleModeBtn = document.getElementById('toggleModeBtn');
+            const randomColorsBtn = document.getElementById('randomColorsBtn');
+            const pulseEffectBtn = document.getElementById('pulseEffectBtn');
+            const toggleParticlesBtn = document.getElementById('toggleParticlesBtn');
+            const resetBtn = document.getElementById('resetBtn');
+
+            // Enhanced control handlers
+            strengthControl.addEventListener('input', function () {
+                const v = parseFloat(this.value);
+                strengthValue.textContent = v.toFixed(1);
+                el.setAttribute('strength', v);
+            });
+
+            modeControl.addEventListener('change', function () {
+                el.setAttribute('mode', this.value);
+                currentModeEl.textContent = this.value;
+            });
+
+            colorSchemeControl.addEventListener('change', function () {
+                el.setAttribute('color-scheme', this.value);
+            });
+
+            particlesControl.addEventListener('change', function () {
+                el.setAttribute('show-particles', this.checked);
+                particleCountEl.textContent = this.checked ? particleCountControl.value : '0';
+            });
+
+            fieldControl.addEventListener('change', function () {
+                el.setAttribute('show-field', this.checked);
+            });
+
+            arcsControl.addEventListener('change', function () {
+                el.setAttribute('enable-arcs', this.checked);
+            });
+
+            particleCountControl.addEventListener('input', function () {
+                const count = parseInt(this.value);
+                particleCountValue.textContent = count;
+                el.setAttribute('particle-count', count);
+                if (particlesControl.checked) {
+                    particleCountEl.textContent = count;
+                }
+            });
+
+            distanceControl.addEventListener('input', function () {
+                const distance = parseInt(this.value);
+                distanceValue.textContent = distance;
+                el.setAttribute('max-distance', distance);
+            });
+
+            // Enhanced button functionality
+            toggleModeBtn.addEventListener('click', function () {
+                const modes = ['attract', 'repel', 'orbit', 'quantum'];
+                const currentIndex = modes.indexOf(modeControl.value);
+                const nextIndex = (currentIndex + 1) % modes.length;
+                const newMode = modes[nextIndex];
+
+                modeControl.value = newMode;
+                el.setAttribute('mode', newMode);
+                currentModeEl.textContent = newMode;
+
+                // Visual feedback
+                this.classList.add('active');
+                setTimeout(() => this.classList.remove('active'), 300);
+            });
+
+            randomColorsBtn.addEventListener('click', function () {
+                const colors = ['electric', 'plasma', 'aurora', 'quantum', 'subtle'];
+                const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+                colorSchemeControl.value = randomColor;
+                el.setAttribute('color-scheme', randomColor);
+
+                // Visual feedback
+                this.classList.add('active');
+                setTimeout(() => this.classList.remove('active'), 300);
+            });
+
+            // Fixed pulse effect - now properly updates slider
+            let pulseInterval = null;
+            pulseEffectBtn.addEventListener('click', function () {
+                if (pulseInterval) {
+                    clearInterval(pulseInterval);
+                    pulseInterval = null;
+                    el.setStrength(1.5);
+                    strengthControl.value = 1.5;
+                    strengthValue.textContent = '1.5';
+                    this.textContent = 'Pulse Effect';
+                    this.classList.remove('active');
+                    return;
+                }
+
+                let s = 1.0, dir = 1;
+                this.textContent = 'Stop Pulse';
+                this.classList.add('active');
+
+                pulseInterval = setInterval(() => {
+                    s += dir * 0.15;
+                    if (s >= 3.0 || s <= 0.5) dir *= -1;
+
+                    el.setStrength(s);
+                    strengthControl.value = s; // This was missing!
+                    strengthValue.textContent = s.toFixed(1);
+                }, 150);
+
+                setTimeout(() => {
+                    if (pulseInterval) {
+                        clearInterval(pulseInterval);
+                        pulseInterval = null;
+                        el.setStrength(1.5);
+                        strengthControl.value = 1.5;
+                        strengthValue.textContent = '1.5';
+                        this.textContent = 'Pulse Effect';
+                        this.classList.remove('active');
+                    }
+                }, 10000);
+            });
+
+            toggleParticlesBtn.addEventListener('click', function () {
+                const current = particlesControl.checked;
+                particlesControl.checked = !current;
+                el.setAttribute('show-particles', !current);
+                particleCountEl.textContent = !current ? particleCountControl.value : '0';
+
+                // Visual feedback
+                this.classList.add('active');
+                setTimeout(() => this.classList.remove('active'), 300);
+            });
+
+            resetBtn.addEventListener('click', function () {
+                // Reset all controls to defaults
+                strengthControl.value = 1.5;
+                strengthValue.textContent = '1.5';
+                modeControl.value = 'attract';
+                colorSchemeControl.value = 'electric';
+                particlesControl.checked = true;
+                fieldControl.checked = false;
+                arcsControl.checked = false;
+                particleCountControl.value = 8;
+                particleCountValue.textContent = '8';
+                distanceControl.value = 150;
+                distanceValue.textContent = '150';
+
+                // Reset component
+                el.setAttribute('strength', '1.5');
+                el.setAttribute('mode', 'attract');
+                el.setAttribute('color-scheme', 'electric');
+                el.setAttribute('show-particles', 'true');
+                el.setAttribute('show-field', 'false');
+                el.setAttribute('enable-arcs', 'false');
+                el.setAttribute('particle-count', '8');
+                el.setAttribute('max-distance', '150');
+
+                // Update status
+                currentModeEl.textContent = 'attract';
+                particleCountEl.textContent = '8';
+
+                // Visual feedback
+                this.classList.add('active');
+                setTimeout(() => this.classList.remove('active'), 300);
+            });
+
+            // Status updates
+            let lastMouseUpdate = { x: 0, y: 0, time: Date.now() };
+            document.addEventListener('mousemove', function (e) {
+                mouseXEl.textContent = e.clientX;
+                mouseYEl.textContent = e.clientY;
+
+                const now = Date.now();
+                const dt = now - lastMouseUpdate.time;
+                if (dt > 0) {
+                    const dx = e.clientX - lastMouseUpdate.x;
+                    const dy = e.clientY - lastMouseUpdate.y;
+                    const velocity = Math.sqrt(dx * dx + dy * dy) / dt * 1000;
+                    velocityEl.textContent = Math.round(velocity);
+                }
+
+                lastMouseUpdate = { x: e.clientX, y: e.clientY, time: now };
+            });
+
+            // Initialize values
+            currentModeEl.textContent = el.getAttribute('mode') || 'attract';
+            particleCountEl.textContent = el.getAttribute('particle-count') || '8';
+        });
+
+        // Test card effect functions
+        function testCardEffect(button, type) {
+            const effects = {
+                standard: 'Standard magnetic field activated',
+                strong: 'High-power attraction engaged',
+                weak: 'Gentle magnetic field active',
+                physics: 'Physics simulation running'
+            };
+
+            const originalText = button.textContent;
+            button.textContent = effects[type];
+            button.style.background = 'linear-gradient(135deg, #ff00ff, #ff0080)';
+
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = 'linear-gradient(135deg, #00ffff, #0088ff)';
+            }, 2000);
+        }
+
+        function specialElementTest(element) {
+            const originalBg = element.style.background;
+            element.style.background = 'linear-gradient(45deg, #ff00ff, #00ffff)';
+            element.style.transform = 'scale(1.1)';
+
+            setTimeout(() => {
+                element.style.background = originalBg;
+                element.style.transform = 'scale(1)';
+            }, 1000);
+        }
+    </script>
+</body>
+
+</html>
