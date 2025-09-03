@@ -33,7 +33,7 @@
             this.updateThrottle = 12; // Improved from 16ms
             this._lastT = 0;
             this.dpr = Math.max(1, window.devicePixelRatio || 1);
-            
+
             // Performance tracking
             this.frameCount = 0;
             this.performanceMode = 'auto'; // auto, high, low
@@ -81,13 +81,13 @@
             try {
                 if (this.animationId) cancelAnimationFrame(this.animationId);
                 this.init();
-            } catch (e) { 
-                console.warn('LMagneticCursor init error:', e); 
+            } catch (e) {
+                console.warn('LMagneticCursor init error:', e);
             }
         }
 
-        disconnectedCallback() { 
-            this.cleanup(); 
+        disconnectedCallback() {
+            this.cleanup();
         }
 
         attributeChangedCallback(name, oldV, newV) {
@@ -128,7 +128,7 @@
         createShadowContent() {
             this.canvas = document.createElement('canvas');
             this.ctx = this.canvas.getContext('2d', { alpha: true, desynchronized: true });
-            
+
             this.cursor = document.createElement('div');
             this.cursorTrail = document.createElement('div');
 
@@ -150,7 +150,7 @@
         getComponentStyles() {
             const c = this.getColors();
             const subtlety = this.config.subtlety;
-            
+
             return `
                 :host {
                     position: fixed; inset: 0; pointer-events: none; z-index: 9999;
@@ -208,10 +208,10 @@
         setupEventListeners() {
             // Passive listeners for better performance
             const passiveOpts = { passive: true };
-            
+
             document.addEventListener('mousemove', this._onMove, passiveOpts);
             document.addEventListener('mouseleave', this._onLeave, passiveOpts);
-            document.addEventListener('click', this._onClick, passiveOpts);
+            document.addEventListener('click', this._onClick);
             window.addEventListener('resize', this._onResize, passiveOpts);
             window.addEventListener('scroll', this._onScroll, passiveOpts);
 
@@ -222,10 +222,10 @@
                     this._moTimer = setTimeout(() => this.findMagneticElements(), 200);
                 });
                 this.mutationObserver.observe(document.body, {
-                    childList: true, 
-                    subtree: true, 
+                    childList: true,
+                    subtree: true,
                     attributes: true,
-                    attributeFilter: ['class', 'data-magnetic']
+                    attributeFilter: ['class', 'data-magnetic', 'data-magnetic-strength']
                 });
             }
         }
@@ -236,33 +236,33 @@
 
             // Smooth velocity calculation
             const px = this.mouse.x, py = this.mouse.y;
-            this.mouse.x = e.clientX; 
+            this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
-            
+
             // Track movement state
             const moved = (px !== this.mouse.x || py !== this.mouse.y);
             if (moved) {
                 this.isMoving = true;
                 this.lastMoveTime = now;
-                
+
                 const rawVx = (this.mouse.x - px) * 0.6;
                 const rawVy = (this.mouse.y - py) * 0.6;
                 this.mouse.vx = this.mouse.vx * 0.8 + rawVx * 0.2;
                 this.mouse.vy = this.mouse.vy * 0.8 + rawVy * 0.2;
             }
-            
+
             this.lastMouseUpdate = now;
             this.isActive = true;
 
             // Update cursor position
-            if (this.cursor) { 
-                this.cursor.style.transform = `translate(${this.mouse.x - 8}px, ${this.mouse.y - 8}px)`; 
+            if (this.cursor) {
+                this.cursor.style.transform = `translate(${this.mouse.x - 8}px, ${this.mouse.y - 8}px)`;
             }
-            
+
             // Update trail position and state
             if (this.cursorTrail) {
                 this.cursorTrail.style.transform = `translate(${this.mouse.x - 12}px, ${this.mouse.y - 12}px)`;
-                
+
                 // Show trail when moving fast
                 const speed = Math.hypot(this.mouse.vx, this.mouse.vy);
                 if (speed > 2 && this.isMoving) {
@@ -271,13 +271,13 @@
             }
         }
 
-        handleMouseLeave() { 
-            this.isActive = false; 
+        handleMouseLeave() {
+            this.isActive = false;
         }
 
         handleClick(e) {
             if (!this.config.enableClickEffects) return;
-            
+
             // Subtle click effect on cursor
             if (this.cursor) {
                 this.cursor.classList.add('clicked');
@@ -288,15 +288,15 @@
             this.createClickEffect(e.clientX, e.clientY);
         }
 
-        handleResize() { 
+        handleResize() {
             clearTimeout(this._resizeTimer);
             this._resizeTimer = setTimeout(() => {
-                this.resizeCanvas(); 
+                this.resizeCanvas();
                 this.refreshRects();
                 this.detectPerformanceMode();
             }, 100);
         }
-        
+
         handleScroll() {
             clearTimeout(this._scrollTimer);
             this._scrollTimer = setTimeout(() => this.refreshRects(), 100);
@@ -305,7 +305,7 @@
         detectPerformanceMode() {
             const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             const isSlowDevice = this.dpr < 1.5 && window.innerWidth * window.innerHeight < 1920 * 1080;
-            
+
             if (isMobile || isSlowDevice) {
                 this.performanceMode = 'low';
                 this.config.particleCount = Math.min(this.config.particleCount, 4);
@@ -340,13 +340,13 @@
 
         resizeCanvas(first = false) {
             if (!this.canvas) return;
-            
+
             this.dpr = Math.min(2, Math.max(1, window.devicePixelRatio || 1));
             const w = Math.max(1, Math.floor(window.innerWidth * this.dpr));
             const h = Math.max(1, Math.floor(window.innerHeight * this.dpr));
-            
+
             if (this.canvas.width !== w || this.canvas.height !== h) {
-                this.canvas.width = w; 
+                this.canvas.width = w;
                 this.canvas.height = h;
                 this.canvas.style.width = window.innerWidth + 'px';
                 this.canvas.style.height = window.innerHeight + 'px';
@@ -367,7 +367,7 @@
                 const el = it.element;
                 if (el?.style) {
                     el.style.transform = it.originalTransform || '';
-                    el.style.boxShadow = ''; 
+                    el.style.boxShadow = '';
                     el.style.filter = '';
                     el.classList.remove('luminomorphism-magnetic-active');
                 }
@@ -407,18 +407,18 @@
         initParticles() {
             const n = this.config.particleCount;
             if (this.particles.length === n) return;
-            
+
             this.particles.length = 0;
             const W = window.innerWidth || 800, H = window.innerHeight || 600;
-            
+
             for (let i = 0; i < n; i++) {
                 this.particles.push({
-                    x: Math.random() * W, 
+                    x: Math.random() * W,
                     y: Math.random() * H,
                     vx: 0, vy: 0,
                     size: Math.random() * 2 + 1,
                     energy: Math.random() * 0.4 + 0.6,
-                    trail: [], 
+                    trail: [],
                     life: 1,
                     baseSize: Math.random() * 2 + 1,
                     personality: Math.random()
@@ -426,9 +426,9 @@
             }
         }
 
-        startAnimation() { 
+        startAnimation() {
             if (!this.animationId) {
-                this.animationId = requestAnimationFrame(this._tick); 
+                this.animationId = requestAnimationFrame(this._tick);
             }
         }
 
@@ -466,7 +466,7 @@
                     if (this.config.showParticles) {
                         this.updateParticles(dt);
                         this.renderParticles();
-                        
+
                         if (this.config.enableArcs && this.frameCount % 2 === 0) {
                             this.updateElectricArcs(dt);
                             this.renderElectricArcs();
@@ -499,9 +499,9 @@
             const subtlety = this.config.subtlety;
 
             for (const it of this.elements) {
-                const el = it.element; 
+                const el = it.element;
                 if (!el) continue;
-                
+
                 try {
                     const r = it.rect;
                     const cx = r.left + r.width / 2;
@@ -545,7 +545,7 @@
                         const intensity = Math.min((1 - dist / effD) * 0.8, 1) * subtlety;
                         const glowSize = 15 + intensity * 25;
                         const glowOpacity = 0.7 * intensity;
-                        
+
                         el.style.boxShadow = `0 0 ${glowSize}px ${colors.glow_rgba(glowOpacity)}`;
                         el.style.filter = `brightness(${1 + intensity * 0.2}) saturate(${1 + intensity * 0.15})`;
                         el.classList.add('luminomorphism-magnetic-active');
@@ -555,7 +555,7 @@
                             it.ripplePhase = 0.8;
                         }
                     } else {
-                        el.style.boxShadow = ''; 
+                        el.style.boxShadow = '';
                         el.style.filter = '';
                         el.classList.remove('luminomorphism-magnetic-active');
                     }
@@ -585,7 +585,7 @@
                     const len = Math.hypot(it.offset.x, it.offset.y);
                     if (len > maxOff) {
                         const f = maxOff / len;
-                        it.offset.x *= f; 
+                        it.offset.x *= f;
                         it.offset.y *= f;
                     }
 
@@ -604,7 +604,7 @@
 
             for (let i = 0; i < this.particles.length; i++) {
                 const p = this.particles[i];
-                
+
                 // Mouse attraction with subtlety
                 const dx = this.mouse.x - p.x;
                 const dy = this.mouse.y - p.y;
@@ -647,9 +647,9 @@
                 p.vy *= Math.exp(-3 * dt);
 
                 // Boundary wrapping
-                if (p.x < 0) p.x = W; 
+                if (p.x < 0) p.x = W;
                 if (p.x > W) p.x = 0;
-                if (p.y < 0) p.y = H; 
+                if (p.y < 0) p.y = H;
                 if (p.y > H) p.y = 0;
 
                 // Simplified trail
@@ -657,7 +657,7 @@
                     p.trail.push({ x: p.x, y: p.y, life: 0.8 });
                     if (p.trail.length > 6) p.trail.shift();
                 }
-                
+
                 p.trail.forEach(point => point.life = Math.max(0, point.life - dt * 2));
 
                 // Dynamic size
@@ -668,12 +668,12 @@
 
         updateElectricArcs(dt) {
             this.electricArcs.length = 0;
-            
+
             if (this.performanceMode === 'low') return;
-            
+
             const threshold = this.physics.arcThreshold;
             const subtlety = this.config.subtlety;
-            
+
             for (let i = 0; i < this.particles.length; i++) {
                 for (let j = i + 1; j < this.particles.length; j++) {
                     const p1 = this.particles[i];
@@ -681,7 +681,7 @@
                     const dx = p1.x - p2.x;
                     const dy = p1.y - p2.y;
                     const dist = Math.hypot(dx, dy);
-                    
+
                     if (dist < threshold) {
                         const intensity = (1 - dist / threshold) * subtlety;
                         if (Math.random() < intensity * 0.2 * dt * 60) {
@@ -695,7 +695,7 @@
                     }
                 }
             }
-            
+
             for (let i = this.electricArcs.length - 1; i >= 0; i--) {
                 const arc = this.electricArcs[i];
                 arc.life -= dt;
@@ -709,12 +709,12 @@
             for (let i = this.clickEffects.length - 1; i >= 0; i--) {
                 const effect = this.clickEffects[i];
                 effect.life -= dt / effect.maxLife;
-                
+
                 if (effect.life <= 0) {
                     this.clickEffects.splice(i, 1);
                     continue;
                 }
-                
+
                 effect.particles.forEach(p => {
                     p.x += p.vx * dt;
                     p.y += p.vy * dt;
@@ -728,7 +728,7 @@
         renderParticles() {
             const c = this.ctx, col = this.getColors();
             const subtlety = this.config.subtlety;
-            
+
             for (const p of this.particles) {
                 // Simplified trail
                 if (p.trail.length > 1) {
@@ -741,30 +741,30 @@
                     c.lineWidth = 1;
                     c.stroke();
                 }
-                
+
                 // Refined particle with subtle glow
                 const glowSize = p.size * 3 * p.life;
                 const g = c.createRadialGradient(p.x, p.y, 0, p.x, p.y, glowSize);
                 g.addColorStop(0, col.particle_rgba(p.life * subtlety));
                 g.addColorStop(0.4, col.primary_rgba(p.life * 0.5 * subtlety));
                 g.addColorStop(1, 'rgba(0,0,0,0)');
-                
+
                 c.fillStyle = g;
-                c.beginPath(); 
-                c.arc(p.x, p.y, p.size, 0, Math.PI * 2); 
+                c.beginPath();
+                c.arc(p.x, p.y, p.size, 0, Math.PI * 2);
                 c.fill();
             }
         }
 
         renderElectricArcs() {
             if (!this.electricArcs.length) return;
-            
+
             const c = this.ctx, col = this.getColors();
             const subtlety = this.config.subtlety;
-            
+
             for (const arc of this.electricArcs) {
                 const opacity = arc.life / 0.15 * arc.intensity * subtlety;
-                
+
                 c.strokeStyle = col.primary_rgba(opacity);
                 c.lineWidth = 1.5;
                 c.beginPath();
@@ -777,7 +777,7 @@
         renderClickEffects() {
             const c = this.ctx, col = this.getColors();
             const subtlety = this.config.subtlety;
-            
+
             for (const effect of this.clickEffects) {
                 for (const p of effect.particles) {
                     const size = p.size * p.life;
@@ -785,7 +785,7 @@
                     g.addColorStop(0, col.primary_rgba(p.life * subtlety));
                     g.addColorStop(0.6, col.secondary_rgba(p.life * 0.4 * subtlety));
                     g.addColorStop(1, 'rgba(0,0,0,0)');
-                    
+
                     c.fillStyle = g;
                     c.beginPath();
                     c.arc(p.x, p.y, size, 0, Math.PI * 2);
@@ -798,38 +798,38 @@
             const c = this.ctx, col = this.getColors();
             const subtlety = this.config.subtlety;
             const g = c.createRadialGradient(
-                this.mouse.x, this.mouse.y, 0, 
+                this.mouse.x, this.mouse.y, 0,
                 this.mouse.x, this.mouse.y, this.config.maxDistance
             );
             g.addColorStop(0, col.primary_rgba(0.06 * subtlety));
             g.addColorStop(0.5, col.primary_rgba(0.03 * subtlety));
             g.addColorStop(1, 'rgba(0,0,0,0)');
-            
+
             c.fillStyle = g;
-            c.beginPath(); 
-            c.arc(this.mouse.x, this.mouse.y, this.config.maxDistance, 0, Math.PI * 2); 
+            c.beginPath();
+            c.arc(this.mouse.x, this.mouse.y, this.config.maxDistance, 0, Math.PI * 2);
             c.fill();
         }
 
         renderCursorGlow() {
             const c = this.ctx, col = this.getColors();
             const subtlety = this.config.subtlety;
-            
+
             // Refined cursor glow
             const speed = Math.hypot(this.mouse.vx, this.mouse.vy);
             const glowSize = 20 + Math.min(speed * 1.5, 10);
             const g = c.createRadialGradient(
-                this.mouse.x, this.mouse.y, 0, 
+                this.mouse.x, this.mouse.y, 0,
                 this.mouse.x, this.mouse.y, glowSize
             );
-            
+
             g.addColorStop(0, col.primary_rgba(0.8 * subtlety));
             g.addColorStop(0.4, col.primary_rgba(0.4 * subtlety));
             g.addColorStop(1, 'rgba(0,0,0,0)');
-            
+
             c.fillStyle = g;
-            c.beginPath(); 
-            c.arc(this.mouse.x, this.mouse.y, glowSize, 0, Math.PI * 2); 
+            c.beginPath();
+            c.arc(this.mouse.x, this.mouse.y, glowSize, 0, Math.PI * 2);
             c.fill();
 
             // Subtle velocity streak for fast movement
@@ -842,8 +842,8 @@
                 );
                 g2.addColorStop(0, col.primary_rgba(intensity));
                 g2.addColorStop(1, 'rgba(0,0,0,0)');
-                
-                c.strokeStyle = g2; 
+
+                c.strokeStyle = g2;
                 c.lineWidth = 2;
                 c.beginPath();
                 c.moveTo(this.mouse.x, this.mouse.y);
@@ -871,9 +871,9 @@
                     b: parseInt(v.slice(4, 6), 16)
                 };
             };
-            
-            const rgba = (hex, a) => { 
-                const { r, g, b } = hexToRgb(hex); 
+
+            const rgba = (hex, a) => {
+                const { r, g, b } = hexToRgb(hex);
                 return `rgba(${r},${g},${b},${Math.max(0, Math.min(1, a))})`;
             };
 
@@ -891,17 +891,17 @@
                 this.initParticles();
                 const style = this.shadowRoot.querySelector('style');
                 if (style) style.textContent = this.getComponentStyles();
-            } catch (e) { 
-                console.warn('Reinit error:', e); 
+            } catch (e) {
+                console.warn('Reinit error:', e);
             }
         }
 
         cleanup() {
-            if (this.animationId) { 
-                cancelAnimationFrame(this.animationId); 
-                this.animationId = 0; 
+            if (this.animationId) {
+                cancelAnimationFrame(this.animationId);
+                this.animationId = 0;
             }
-            
+
             // Clean up timers
             [this._moTimer, this._scrollTimer, this._resizeTimer].forEach(timer => {
                 if (timer) clearTimeout(timer);
@@ -913,7 +913,7 @@
             document.removeEventListener('click', this._onClick);
             window.removeEventListener('resize', this._onResize);
             window.removeEventListener('scroll', this._onScroll);
-            
+
             if (this.mutationObserver) {
                 this.mutationObserver.disconnect();
             }
@@ -923,7 +923,7 @@
                 const el = it.element;
                 if (el?.style) {
                     el.style.transform = it.originalTransform || '';
-                    el.style.boxShadow = ''; 
+                    el.style.boxShadow = '';
                     el.style.filter = '';
                     el.classList.remove('luminomorphism-magnetic-active');
                 }
@@ -935,12 +935,12 @@
         setMode(m) { if (['attract', 'repel', 'orbit', 'quantum'].includes(m)) this.setAttribute('mode', m); }
         setColorScheme(s) { if (['electric', 'plasma', 'aurora', 'quantum', 'subtle'].includes(s)) this.setAttribute('color-scheme', s); }
         setSubtlety(v) { this.setAttribute('subtlety', Math.max(0.1, Math.min(1, v))); }
-        
+
         toggleParticles() {
             const cur = this.getAttribute('show-particles') !== 'false';
             this.setAttribute('show-particles', cur ? 'false' : 'true');
         }
-        
+
         toggleField() {
             const cur = this.getAttribute('show-field') === 'true';
             this.setAttribute('show-field', cur ? 'false' : 'true');
@@ -950,7 +950,7 @@
     if (!customElements.get('l-magnetic-cursor')) {
         customElements.define('l-magnetic-cursor', LMagneticCursor);
     }
-    
+
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = LMagneticCursor;
     }
